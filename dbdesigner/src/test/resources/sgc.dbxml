@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+	<table name="uf" schema="public" tags="icr" order="2">
+		<column name="uf_id" pk="true" type="int" order="1" />
+		<column name="sigla"  type="varchar" length="2" nullable="false" order="2" />
+	</table>
+	<table name="cidade">
+		<column name="cidade_id" pk="true" type="int" order="1"/>
+		<column name="nome" type="varchar" length="30" nullable="false" />
+		<column name="capital" type="boolean" nullable="false" default="false" />
+		<association otherTable="uf" columns_here="uf_id" columns_there="uf_id" />
+		<index name="ix_name" columns="nome" unique="true" />
+		<restriction type="unique" columns="uf_id,nome" /> 
+	</table>
+</database>
