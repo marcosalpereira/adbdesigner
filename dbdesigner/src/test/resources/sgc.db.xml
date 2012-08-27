@@ -1,0 +1,2181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+<table name="concurso" schema="public">
+<column name="concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<restriction type="unique" columns="UQ_concurso_nome" />
+<column name="numero_projeto" type="VARCHAR" length="15" nullable="false" />
+<restriction type="unique" columns="UQ_concurso_numero" />
+<column name="numero_edital" type="INT4" nullable="false" />
+<column name="ano_edital" type="INT4" nullable="false" />
+<column name="sigla_edital" type="VARCHAR" length="15" nullable="false" />
+<column name="data_inicio_inscricao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_final_inscricao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_final_pagamento" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_final_isencao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_cadastramento" type="TIMESTAMP WITH TIME ZONE" default="current_timestamp"  nullable="false" />
+<column name="abrangencia" type="VARCHAR" length="15" nullable="false" />
+<column name="data_publicacao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="motivo_reativacao" type="TEXT" />
+<column name="status" type="VARCHAR" length="15" nullable="false" />
+<column name="status_anterior_suspensao" type="VARCHAR" length="15" />
+<column name="formulario_inscricao_id" type="INT8" />
+<column name="sequencial_exportacao" type="BIGINT" default="0"  />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_concurso_data_inicio_inscricao" table="public.concurso" columns="data_inicio_inscricao" />
+<index name="IX_concurso_data_final_inscricao" table="public.concurso" columns="data_final_inscricao" />
+
+<table name="uf" schema="public">
+<column name="uf_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="sigla" type="VARCHAR" length="2" nullable="false" />
+<column name="nome" type="VARCHAR" length="25" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="orgao_contratante" schema="public">
+<column name="orgao_contratante_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<column name="sigla" type="VARCHAR" length="10" nullable="false" />
+<column name="texto_estrutura" type="VARCHAR" length="50" />
+<column name="tipo_estrutura" type="VARCHAR" length="15" nullable="false" />
+<column name="habilitado" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="disciplina" schema="public">
+<column name="disciplina_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<restriction type="unique" columns="UQ_disciplina_1" />
+<column name="idioma" type="BOOL" nullable="false" />
+<column name="desativada" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="conteudo_prova" schema="public">
+<column name="conteudo_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="prova_id" type="BIGINT" />
+<column name="tipo_prova" type="VARCHAR" length="20" nullable="false" />
+<column name="titulos_nota_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="titulos_nota_maxima" type="NUMERIC" length="19" decimals="2" />
+<column name="questoes_nota_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="questoes_nota_maxima" type="NUMERIC" length="19" decimals="2" />
+<column name="objetiva_quantidade_gabaritos" type="INTEGER" />
+<column name="objetiva_pontuacao_correcao" type="VARCHAR" length="20" />
+<column name="objetiva_nota_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="objetiva_numero_aplicacao_prova" type="VARCHAR" length="15" />
+<column name="peso" type="NUMERIC" length="2" decimals="1" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_conteudo_prova_prova_id" table="public.conteudo_prova" columns="prova_id" />
+
+<table name="area_formacao" schema="public">
+<column name="area_formacao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="descricao" type="VARCHAR" length="30" nullable="false" />
+<restriction type="unique" columns="UQ_area_formacao" />
+<column name="desativado" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="nivel_escolaridade" schema="public">
+<column name="nivel_escolaridade_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="descricao" type="VARCHAR" length="70" nullable="false" />
+<restriction type="unique" columns="uq_nivel_escolaridade" />
+<column name="desativado" type="BOOLEAN" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="tratamento_diferenciado" schema="public">
+<column name="tratamento_diferenciado_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="descricao" type="VARCHAR" length="50" nullable="false" />
+<column name="texto_da_carta" type="VARCHAR" length="150" nullable="false" />
+<column name="desativado" type="BOOL" default="FALSE"  nullable="false" />
+<column name="tipo_tratamento" type="VARCHAR" length="20" nullable="false" />
+<column name="permite_alteracao_gabarito" type="BOOL" nullable="false" />
+<column name="exige_acessibilidade" type="BOOL" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="monitoramento_candidato" schema="public">
+<column name="monitoramento_candidato_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="cpf" type="VARCHAR"(11) nullable="false" />
+<restriction type="unique" columns="UQ_monitoramento_candidato_1" />
+<column name="nome" type="VARCHAR"(40) nullable="false" />
+<column name="texto_candidato" type="VARCHAR"(250) />
+<column name="motivo" type="VARCHAR"(15) nullable="false" />
+<column name="fato_ocorrido" type="VARCHAR"(250) />
+<column name="desativado" type="BOOL" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="motivo_indeferimento" schema="public">
+<column name="motivo_indeferimento_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="codigo" type="INTEGER" nullable="false" />
+<restriction type="unique" columns="UQ_motivo_indeferimento_codigo" />
+<column name="descricao" type="VARCHAR" length="50" nullable="false" />
+<restriction type="unique" columns="UQ_motivo_indeferimento_descricao" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="idioma" schema="public">
+<column name="idioma_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="20" nullable="false" />
+<restriction type="unique" columns="uq_idioma_nome" />
+<column name="desativado" type="BOOL" default="false"  nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="assunto" schema="public">
+<column name="assunto_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR"(100) nullable="false" />
+<restriction type="unique" columns="UQ_assunto_nome" />
+<column name="desabilitado" type="BOOLEAN" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="arquivo_anexo" schema="public">
+<column name="arquivo_anexo_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome_arquivo" type="VARCHAR"(100) nullable="false" />
+<column name="tipo_mime_arquivo" type="VARCHAR"(30) />
+<column name="identificacao_arquivo" type="VARCHAR"(36) nullable="false" />
+<restriction type="unique" columns="UQ_arquivo_anexo_identificacao_arquivo" />
+<column name="data_gravacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="conteudo_arquivo_fake" type="BYTEA" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_anexo (identificacao_arquivo);
+
+<table name="registro_revisao_auditoria" schema="auditoria">
+<column name="registro_revisao_auditoria_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="timestamp" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="cpf_responsavel" type="VARCHAR" length="11" nullable="false" />
+<column name="nome_responsavel" type="VARCHAR" length="100" nullable="false" />
+<column name="funcionalidade" type="VARCHAR" length="50" nullable="false" />
+<column name="operacao" type="VARCHAR" length="50" />
+
+</table>
+
+<table name="cargo" schema="public">
+<column name="cargo_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<restriction type="unique" columns="uq_cargo_nome" />
+<column name="desabilitado" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="campo_atuacao" schema="public">
+<column name="campo_atuacao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="70" nullable="false" />
+<column name="cargo_id" type="INT8" nullable="false" />
+<column name="desabilitado" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="uq_campo_nome_cargo" UNIQUE (cargo_id, nome) />
+</table>
+<index name="IX_campo_atuacao_cargo_id" table="public.campo_atuacao" columns="cargo_id" />
+
+<table name="campo_orgao" schema="public">
+<column name="campo_orgao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="orgao_contratante_id" type="INT8" nullable="false" />
+<column name="campo_atuacao_id" type="INT8" />
+<column name="habilitado" type="BOOL" nullable="false" />
+<column name="cargo_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_campo_orgao" UNIQUE (orgao_contratante_id, campo_atuacao_id, cargo_id) />
+</table>
+
+<table name="cidade" schema="public">
+<column name="cidade_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<column name="uf_id" type="INT8" nullable="false" />
+<column name="desabilitada" type="BOOL" nullable="false" />
+<column name="capital" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_cidade_1" UNIQUE (uf_id, nome) />
+</table>
+<index name="uf_idx" table="public.cidade" columns="uf_id" />
+
+<table name="estrutura" schema="public">
+<column name="estrutura_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="50" nullable="false" />
+<column name="orgao_contratante_id" type="INT8" nullable="false" />
+<column name="desabilitada" type="BOOL" default="false"  />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_estrutura_org_contratante_id" table="public.estrutura" columns="orgao_contratante_id" />
+
+<table name="local_prova" schema="public">
+<column name="local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="70" nullable="false" />
+<column name="logradouro" type="VARCHAR" length="100" nullable="false" />
+<column name="numero" type="VARCHAR" length="10" nullable="false" />
+<column name="complemento" type="VARCHAR" length="100" />
+<column name="cidade_id" type="INT8" nullable="false" />
+<column name="uf_id" type="INT8" nullable="false" />
+<column name="bairro" type="VARCHAR"(60) nullable="false" />
+<column name="cep" type="VARCHAR" length="8" nullable="false" />
+<column name="telefone" type="VARCHAR" length="10" nullable="false" />
+<column name="acessibilidade" type="BOOL" default="false"  nullable="false" />
+<column name="desabilitado" type="BOOL" default="false"  nullable="false" />
+<column name="escola_publica" type="BOOL" default="false"  nullable="false" />
+<column name="motivo" type="TEXT" />
+<column name="numero_sequencial" type="INT4" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_local_prova_nome_cidade" UNIQUE (nome, cidade_id) />
+</table>
+<index name="cidade_idx" table="public.local_prova" columns="cidade_id" />
+
+<table name="uf_estrutura" schema="public">
+<column name="uf_estrutura_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="uf_id" type="INT8" nullable="false" />
+<column name="estrutura_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_uf_estrutura_estrutura_id" table="public.uf_estrutura" columns="estrutura_id" />
+
+<table name="usuario" schema="public">
+<column name="usuario_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="cpf" type="VARCHAR" length="11" nullable="false" />
+<restriction type="unique" columns="UQ_usuario_cpf" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<column name="perfil" type="VARCHAR" length="30" nullable="false" />
+<column name="data_expiracao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="email" type="VARCHAR" length="100" />
+<column name="fone_res" type="VARCHAR" length="20" />
+<column name="fone_com" type="VARCHAR" length="20" />
+<column name="fone_cel" type="VARCHAR" length="20" />
+<column name="fax" type="VARCHAR" length="20" />
+<column name="bloqueado" type="BOOL" nullable="false" />
+<column name="uf_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="vaga" schema="public">
+<column name="vaga_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="cadastro_reserva" type="BOOL" />
+<column name="vagas_portador_deficiencia" type="INT4" />
+<column name="vagas_ampla_concorrencia" type="INT4" />
+<column name="uf_id" type="INT8" />
+<column name="estrutura_id" type="INT8" />
+<column name="oferta_cargo_concurso_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_vaga_oferta_cargo_conc_id" table="public.vaga" columns="oferta_cargo_concurso_id" />
+
+<table name="etapa" schema="public">
+<column name="etapa_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR"(50) nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_etapa_nome" UNIQUE (nome, concurso_id) />
+</table>
+<index name="IX_etapa_concurso_id" table="public.etapa" columns="concurso_id" />
+
+<table name="oferta_cargo_concurso" schema="public">
+<column name="oferta_cargo_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="valor_inscricao" type="NUMERIC" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="campo_orgao_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="uq_oferta_cargo_concurso" UNIQUE (concurso_id, campo_orgao_id) />
+</table>
+<index name="IX_oferta_cargo_concurso_concurso_id" table="public.oferta_cargo_concurso" columns="concurso_id" />
+<index name="IX_oferta_cargo_concurso_campo_orgao_id" table="public.oferta_cargo_concurso" columns="campo_orgao_id" />
+
+<table name="vistoria_local_prova" schema="public">
+<column name="vistoria_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="local_prova_id" type="INT8" nullable="false" />
+<column name="etapa_id" type="INT8" nullable="false" />
+<column name="responsavel" type="VARCHAR" length="50" nullable="false" />
+<column name="status" type="VARCHAR" length="12" nullable="false" />
+<column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_visita" type="TIMESTAMP WITH TIME ZONE" />
+<column name="nome_contato" type="VARCHAR" length="50" />
+<column name="telefone_contato" type="VARCHAR"(10) />
+<column name="outras_informacoes" type="VARCHAR" length="200" />
+<column name="confere_vistoria" type="BOOL" default="false"  nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_vistoria_local_prova_local_etapa_id" table="public.vistoria_local_prova" columns="local_prova_id, etapa_id" />
+
+<table name="aplicacao_prova" schema="public">
+<column name="aplicacao_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="50" nullable="false" />
+<column name="data_aplicacao_prova" type="DATE" nullable="false" />
+<column name="hora_fechamento_portao" type="TIME" nullable="false" />
+<column name="duracao_prova" type="TIME" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_aplicacao_prova_1" UNIQUE (concurso_id, nome) />
+</table>
+<index name="IX_aplicacao_prova_concurso_id" table="public.aplicacao_prova" columns="concurso_id" />
+<index name="IX_aplicacao_prova_nome_concurso_id" table="public.aplicacao_prova" columns="nome, concurso_id" />
+
+<table name="subprova" schema="public">
+<column name="subprova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR" length="60" nullable="false" />
+<column name="status" type="VARCHAR" length="15" />
+<column name="classificatoria" type="BOOL" />
+<column name="eliminatoria" type="BOOL" />
+<column name="nota_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="correcao" type="VARCHAR" length="20" />
+<column name="peso" type="NUMERIC" length="2" decimals="1" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_subprova_nome_concurso" UNIQUE (nome, concurso_id) />
+</table>
+<index name="IX_subprova_concurso_id" table="public.subprova" columns="concurso_id" />
+
+<table name="questao_prova_subjetiva" schema="public">
+<column name="questao_prova_subjetiva_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="numero" type="INTEGER" nullable="false" />
+<column name="pontuacao_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao_maxima" type="NUMERIC" length="19" decimals="2" />
+<column name="peso" type="NUMERIC" length="19" decimals="2" />
+<column name="conteudo" type="BOOL" />
+<column name="idioma" type="BOOL" />
+<column name="pontuacao_maxima_conteudo" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao_maxima_idioma" type="NUMERIC" length="19" decimals="2" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_questao_prova_subjetiva_cont_prova_id" table="public.questao_prova_subjetiva" columns="conteudo_prova_id" />
+
+<table name="titulo_prova_titulos" schema="public">
+<column name="titulo_prova_titulos_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="nome" type="TEXT" nullable="false" />
+<column name="obrigatorio" type="BOOLEAN" nullable="false" />
+<column name="valor_maximo" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="valor_unitario" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_titulo_prova_titulos_conteudo_prova_id" table="public.titulo_prova_titulos" columns="conteudo_prova_id" />
+
+<table name="prorrogacao_prazos_concurso" schema="public">
+<column name="prorrogacao_prazos_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="data_hora_reabertura_inscricao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_final_inscricao_prorrogada" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_final_pagamento_prorrogada" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_final_isencao_prorrogada" type="TIMESTAMP WITH TIME ZONE" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_prorrogacao_prazos_concurso_conc_id" table="public.prorrogacao_prazos_concurso" columns="concurso_id" />
+<index name="IX_prorrogacao_prazos_concurso_data_inicio" table="public.prorrogacao_prazos_concurso" columns="data_hora_reabertura_inscricao" />
+<index name="IX_prorrogacao_prazos_concurso_data_final" table="public.prorrogacao_prazos_concurso" columns="data_final_inscricao_prorrogada" />
+
+<table name="candidato" schema="public">
+<column name="candidato_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="cpf" type="VARCHAR" length="11" nullable="false" />
+<restriction type="unique" columns="UQ_candidato_cpf" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<column name="nome_mae" type="VARCHAR" length="100" nullable="false" />
+<column name="data_nascimento" type="TIMESTAMP" nullable="false" />
+<column name="genero" type="VARCHAR" length="9" nullable="false" />
+<column name="numero_identidade" type="VARCHAR" length="20" nullable="false" />
+<column name="orgao_expedidor_identidade" type="VARCHAR" length="6" nullable="false" />
+<column name="data_emissao_identidade" type="TIMESTAMP" nullable="false" />
+<column name="cep" type="VARCHAR" length="8" nullable="false" />
+<column name="logradouro" type="VARCHAR" length="100" nullable="false" />
+<column name="numero" type="VARCHAR" length="5" nullable="false" />
+<column name="complemento" type="VARCHAR" length="100" />
+<column name="bairro" type="VARCHAR" length="60" />
+<column name="telefone_fixo" type="VARCHAR" length="10" />
+<column name="telefone_celular" type="VARCHAR" length="10" />
+<column name="email" type="VARCHAR" length="60" />
+<column name="uf_identidade_id" type="INT8" nullable="false" />
+<column name="cidade" type="VARCHAR" length="60" nullable="false" />
+<column name="uf_endereco_id" type="INT8" nullable="false" />
+<column name="senha" type="VARCHAR" length="64" nullable="false" />
+<column name="email_privado" type="VARCHAR"(64) nullable="false" />
+<column name="senha_gerada" type="BOOLEAN" default="false"  nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+<column name="pergunta_secreta" type="VARCHAR"(100) nullable="false" />
+<column name="resposta_secreta" type="VARCHAR"(15) nullable="false" />
+
+</table>
+CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
+<index name="IX_candidato_nome" table="public.candidato" columns="nome" />
+
+<table name="prova" schema="public">
+<column name="prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="aplicacao_prova_id" type="INT8" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="tipo_correcao_prova" type="VARCHAR" length="20" nullable="false" />
+<column name="nome" type="VARCHAR" length="50" nullable="false" />
+<column name="eliminatoria" type="BOOL" nullable="false" />
+<column name="classificatoria" type="BOOL" nullable="false" />
+<column name="status_prova" type="VARCHAR" length="15" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_prova_nome_concurso" UNIQUE (concurso_id, nome) />
+</table>
+<index name="IX_prova_concurso_id" table="public.prova" columns="concurso_id" />
+<index name="IX_prova_aplicacao_prova_id" table="public.prova" columns="aplicacao_prova_id" />
+<index name="IX_prova_conteudo_prova_id" table="public.prova" columns="conteudo_prova_id" />
+
+<table name="formulario_inscricao" schema="public">
+<column name="formulario_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="cabecalho" type="TEXT" nullable="false" />
+<column name="rodape" type="TEXT" />
+<column name="texto_opcao_deficiencia" type="TEXT" />
+<column name="texto_envio_sedex_deficiencia" type="TEXT" />
+<column name="texto_identificacao_deficiencia" type="TEXT" />
+<column name="texto_opcao_tratamento_diferenciado" type="TEXT" />
+<column name="texto_tipo_tratamento_diferenciado" type="TEXT" />
+<column name="texto_termo_compromisso" type="TEXT" />
+<column name="texto_opcao_termo_compromisso" type="TEXT" />
+<column name="status" type="VARCHAR" length="30" nullable="false" />
+<column name="texto_termo_isencao" type="TEXT" />
+<column name="texto_opcao_termo_isencao" type="TEXT" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="fase" schema="public">
+<column name="fase_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR"(50) nullable="false" />
+<column name="etapa_id" type="INT8" nullable="false" />
+<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_fase_nome" UNIQUE (nome, etapa_id) />
+</table>
+<index name="IX_fase_etapa_id" table="public.fase" columns="etapa_id" />
+
+<table name="inscricao" schema="public">
+<column name="inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="status" type="VARCHAR" length="33" nullable="false" />
+<column name="numero_inscricao" type="VARCHAR" length="7" nullable="false" />
+<column name="candidato_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" />
+<column name="area_formacao_id" type="INT8" />
+<column name="nivel_escolaridade_id" type="INT8" />
+<column name="descricao_deficiencia" type="VARCHAR" length="70" />
+<column name="descricao_tratamento_diferenciado" type="VARCHAR" length="70" />
+<column name="cidade_prova_id" type="INT8" nullable="false" />
+<column name="numero_nis" type="INT8" />
+<column name="numero_identidade_nis" type="VARCHAR" length="20" />
+<column name="orgao_expeditor_identidade_nis" type="VARCHAR" length="6" />
+<column name="data_emissao_identidade_nis" type="TIMESTAMP" />
+<column name="uf_identidade_nis_id" type="INT8" />
+<column name="numero_sedex_laudo" type="VARCHAR" length="20" />
+<column name="tipo_isencao_solicitada" type="VARCHAR" length="10" />
+<column name="tipo_isencao_concedida" type="VARCHAR" length="10" />
+<column name="cargo_ocupa" type="VARCHAR" length="70" />
+<column name="cargo_comissionado" type="VARCHAR" length="70" />
+<column name="email_chefia_imediata" type="VARCHAR" length="100" />
+<column name="email_funcional" type="VARCHAR" length="100" />
+<column name="matricula_siape" type="VARCHAR" length="12" />
+<column name="orgao_exercicio" type="VARCHAR" length="70" />
+<column name="orgao_lotacao" type="VARCHAR" length="70" />
+<column name="telefone_funcional" type="VARCHAR" length="20" />
+<column name="tempo_servico_ano" type="INTEGER" />
+<column name="tempo_servico_mes" type="INTEGER" />
+<column name="tempo_servico_dia" type="INTEGER" />
+<column name="tempo_servico_cargo_ano" type="INTEGER" />
+<column name="tempo_servico_cargo_mes" type="INTEGER" />
+<column name="tempo_servico_cargo_dia" type="INTEGER" />
+<column name="vaga_portador_deficiencia" type="BOOL" nullable="false" />
+<column name="tratamento_diferenciado" type="BOOL" nullable="false" />
+<column name="vaga_id" type="INT8" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="data_inscricao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_confirmacao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_cancelamento" type="TIMESTAMP WITH TIME ZONE" />
+<column name="motivo_cancelamento" type="VARCHAR" length="400" />
+<column name="motivo_indeferimento_id" type="INT8" />
+<column name="motivo_alteracao_status" type="VARCHAR"(400) />
+<column name="motivo_alteracao_status_visivel" type="BOOLEAN" />
+<column name="motivo_reativacao" type="VARCHAR"(400) />
+<column name="justificativa_solicitacao_isencao" type="VARCHAR"(400) />
+<column name="justificativa_analise_isencao" type="VARCHAR"(400) />
+<column name="justificativa_alteracao_vaga" type="VARCHAR"(400) />
+<column name="version" type="INT4" nullable="false" />
+<column name="justificativa_analise_isencao_visivel" type="BOOLEAN" />
+
+<column name="CONSTRAINT" type="UQ_inscricao_numero_inscricao" UNIQUE (concurso_id, numero_inscricao) />
+</table>
+<index name="IX_inscricao_candidato_id" table="public.inscricao" columns="candidato_id" />
+CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_inscricao, concurso_id);
+<index name="IX_inscricao_concurso_id" table="public.inscricao" columns="concurso_id" />
+<index name="IX_inscricao_vaga_id" table="public.inscricao" columns="vaga_id" />
+
+<table name="vinculo_fase" schema="public">
+<column name="vinculo_fase_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="habilitar_proxima_fase" type="VARCHAR"(32) />
+<column name="tipo_correcao" type="VARCHAR"(20) />
+<column name="pontuacao_minima" type="NUMERIC" />
+<column name="min_prova_correcao" type="BOOL" />
+<column name="reverter_vaga_deficiente_ampla_concorrencia" type="BOOL" />
+<column name="permitir_reavaliacao" type="BOOL" />
+<column name="fase_predecessora_id" type="INT8" />
+<column name="fase_id" type="INT8" nullable="false" />
+<column name="oferta_cargo_concurso_id" type="INT8" nullable="false" />
+<column name="fator_numero_vagas_proxima_fase" type="INT4" />
+<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="opcao_criterio_desempate" type="BOOL" default="false"  nullable="false" />
+<column name="habilitar_empatados_ultimo" type="BOOL" default="true"  nullable="false" />
+<column name="peso" type="NUMERIC" length="2" decimals="1" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_fase_oferta" UNIQUE (fase_id, oferta_cargo_concurso_id) />
+</table>
+<index name="IX_vinculo_fase_fase_id" table="public.vinculo_fase" columns="fase_id" />
+<index name="IX_vinculo_fase_oferta_cargo_concurso_id" table="public.vinculo_fase" columns="oferta_cargo_concurso_id" />
+
+<table name="arquivo_pagamento" schema="public">
+       arquivo_pagamento_id BIGSERIAL nullable="false"
+<column name="nome_arquivo" type="VARCHAR" length="100" nullable="false" />
+<column name="data_processamento" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="quantidade_registros" type="INTEGER" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="bloco_local_prova" schema="public">
+<column name="bloco_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="local_prova_id" type="INT8" nullable="false" />
+<column name="nome" type="VARCHAR" length="20" nullable="false" />
+<column name="formato_corredor" type="VARCHAR" length="10" nullable="false" />
+<column name="acesso_facilitado" type="BOOL" default="false"  nullable="false" />
+<column name="tipo_acesso_facilitado" type="VARCHAR" length="10" />
+<column name="desativado" type="BOOL" default="false"  nullable="false" />
+<column name="motivo_desativado" type="VARCHAR" length="100" />
+<column name="numero_sequencial" type="INT4" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_bloco_local_prova_nome" UNIQUE (local_prova_id, nome) />
+</table>
+<index name="IX_bloco_local_prova_local_prova_id" table="public.bloco_local_prova" columns="local_prova_id" />
+
+<table name="criterio_desempate" schema="public">
+<column name="criterio_desempate_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="ordem" type="INT4" nullable="false" />
+<column name="idade" type="INT4" />
+<column name="vinculo_fase_id" type="INT8" nullable="false" />
+<column name="tipo_criterio" type="VARCHAR"(30) nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_criterio_desempate_vinculo_fase_id" table="public.criterio_desempate" columns="vinculo_fase_id" />
+
+<table name="andar_local_prova" schema="public">
+<column name="andar_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="bloco_local_prova_id" type="INT8" nullable="false" />
+<column name="nome" type="VARCHAR" length="20" nullable="false" />
+<column name="nu_ban_masc_normal" type="INT4" default="0"  nullable="false" />
+<column name="nu_ban_masc_adaptado" type="INT4" default="0"  nullable="false" />
+<column name="nu_ban_fem_normal" type="INT4" default="0"  nullable="false" />
+<column name="nu_ban_fem_adaptado" type="INT4" default="0"  nullable="false" />
+<column name="nu_ban_misto_normal" type="INT4" default="0"  nullable="false" />
+<column name="nu_ban_misto_adaptado" type="INT4" default="0"  nullable="false" />
+<column name="ban_misto_normal_adaptado" type="BOOL" default="false"  nullable="false" />
+<column name="ban_masc_normal_adaptado" type="BOOL" default="false"  nullable="false" />
+<column name="ban_fem_normal_adaptado" type="BOOL" default="false"  nullable="false" />
+<column name="desativado" type="BOOL" default="false"  nullable="false" />
+<column name="motivo_desativado" type="VARCHAR" length="100" />
+<column name="acesso_facilitado" type="BOOL" default="false"  nullable="false" />
+<column name="numero_sequencial" type="INT4" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_andar_local_prova_nome" UNIQUE (bloco_local_prova_id, nome) />
+</table>
+<index name="IX_andar_local_prova_bloco_id" table="public.andar_local_prova" columns="bloco_local_prova_id" />
+
+<table name="sala_local_prova" schema="public">
+<column name="sala_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="andar_local_prova_id" type="INT8" nullable="false" />
+<column name="numero" type="VARCHAR" length="20" nullable="false" />
+<column name="acesso_facilitado" type="BOOL" default="false"  nullable="false" />
+<column name="desativada" type="BOOL" default="false"  nullable="false" />
+<column name="motivo_desativada" type="VARCHAR" length="100" />
+<column name="capacidade_total" type="INT" nullable="false" />
+<column name="capacidade_alocacao" type="INT" nullable="false" />
+<column name="numero_sequencial" type="INT4" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_sala_local_prova_numero" UNIQUE (andar_local_prova_id, numero) />
+</table>
+<index name="IX_sala_local_prova_andar_id" table="public.sala_local_prova" columns="andar_local_prova_id" />
+
+<table name="reserva_local_prova" schema="public">
+<column name="reserva_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="quantidades_execucoes" type="INT4" nullable="false" />
+<column name="sequencial_local_prova" type="INT4" />
+<column name="local_prova_id" type="INT8" nullable="false" />
+<column name="etapa_id" type="INT8" nullable="false" />
+<column name="status" type="VARCHAR" length="30" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="uq_local_prova_etapa" UNIQUE (local_prova_id, etapa_id) />
+</table>
+<index name="IX_reserva_local_prova_local_prova_id" table="public.reserva_local_prova" columns="local_prova_id" />
+<index name="IX_reserva_local_prova_etapa_id" table="public.reserva_local_prova" columns="etapa_id" />
+
+<table name="local_execucao" schema="public">
+<column name="local_execucao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="numero_execucao" type="INT4" />
+<column name="numero_sala_inicial" type="INT4" />
+<column name="numero_sala_final" type="INT4" />
+<column name="reserva_local_prova_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="uq_reserva_local_prova_num_execucao" UNIQUE (reserva_local_prova_id, numero_execucao) />
+</table>
+<index name="IX_local_execucao_reserva_local_prova_id" table="public.local_execucao" columns="reserva_local_prova_id" />
+
+<table name="reserva_sala" schema="public">
+<column name="reserva_sala_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="sala_extra" type="BOOL" nullable="false" />
+<column name="oferta_sala_extra_id" type="INT8" />
+<column name="idioma_extra_id" type="INT8" />
+<column name="acesso_facilitado" type="BOOL" nullable="false" />
+<column name="oferta_acesso_id" type="INT8" />
+<column name="idioma_acesso_id" type="INT8" />
+<column name="alocacao_extra" type="BOOL" nullable="false" />
+<column name="sequencial_sala" type="INT4" />
+<column name="reserva_local_prova_id" type="INT8" nullable="false" />
+<column name="sala_local_prova_id" type="INT8" nullable="false" />
+<column name="local_execucao_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_sala_reserva_local_prova" UNIQUE (reserva_local_prova_id, sala_local_prova_id) />
+</table>
+<index name="reserva_local_prova_idx" table="public.reserva_sala" columns="reserva_local_prova_id" />
+
+<table name="localidade_prova_alocacao" schema="public">
+<column name="localidade_prova_alocacao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="etapa_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" nullable="false" />
+<column name="status_alocacao" type="VARCHAR" length="30" nullable="false" />
+<column name="data_pre_validacao_locais_prova" type="TIMESTAMP WITH TIME ZONE" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_localidade_prova_alocacao_etapa_cidade" UNIQUE (etapa_id, cidade_id) />
+</table>
+
+<table name="reserva_sala_aplicacao" schema="public">
+<column name="reserva_sala_aplic_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="reserva_sala_id" type="INT8" />
+<column name="aplicacao_prova_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="reserva_sala_idx" table="public.reserva_sala_aplicacao" columns="reserva_sala_id" />
+
+<table name="arquivo_mds" schema="public">
+<column name="arquivo_mds_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome_arquivo" type="VARCHAR" length="60" nullable="false" />
+<column name="data_importacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="total_registros_sucesso" type="INTEGER" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_arquivo_mds_concurso_id" table="public.arquivo_mds" columns="concurso_id" />
+
+<table name="resultado_prova_manual" schema="public">
+<column name="resultado_prova_manual_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="versao" type="VARCHAR"(20) />
+<column name="status" type="VARCHAR"(20) />
+<column name="prova_id" type="INT8" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" />
+<column name="candidato_faltoso" type="BOOLEAN" />
+<column name="invalido" type="BOOLEAN" default="false"  nullable="false" />
+<column name="tipo_resultado" type="VARCHAR"(30) />
+<column name="titulos_nota_total" type="NUMERIC" length="19" decimals="2" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_resultado_prova_manual_prova_id" table="public.resultado_prova_manual" columns="prova_id" />
+<index name="IX_resultado_prova_manual_inscricao_id" table="public.resultado_prova_manual" columns="inscricao_id" />
+<index name="IX_resultado_prova_manual_prova_inscricao" table="public.resultado_prova_manual" columns="prova_id, inscricao_id" />
+
+<table name="cartao_resposta" schema="public">
+<column name="cartao_resposta_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="gabarito" type="VARCHAR"(2) nullable="false" />
+<column name="numero_caixa" type="INT" />
+<column name="posicao_caixa" type="INT" />
+<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="invalido" type="BOOL" nullable="false" />
+<column name="invalidado_fecha_localidade" type="BOOL" default="false"  nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="localidade_id" type="INT8" nullable="false" />
+<column name="prova_id" type="INT8" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" />
+<column name="idioma_id" type="INT8" />
+<column name="sequencial_cartao_concurso" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_cartao_resposta_inscricao_id" table="public.cartao_resposta" columns="inscricao_id" />
+<index name="IX_cartao_resposta_prova_id" table="public.cartao_resposta" columns="prova_id" />
+<index name="IX_cartao_resposta_inscricao_prova" table="public.cartao_resposta" columns="inscricao_id, prova_id" />
+
+<table name="fechamento_aplicacao_concurso" schema="public">
+<column name="fec_aplicacao_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="aplicacao_prova_id" type="INT8" nullable="false" />
+<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_fechamento_aplicacao_concurso_aplic_prova_id" table="public.fechamento_aplicacao_concurso" columns="aplicacao_prova_id" />
+
+<table name="alocacao_inscricao" schema="public">
+<column name="alocacao_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="reserva_sala_id" type="INT8" nullable="false" />
+<column name="cartao_lista_exportados_impressao" type="BOOL" default="false"  nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_alocacao_inscricao" UNIQUE (inscricao_id, reserva_sala_id) />
+</table>
+<index name="IX_alocacao_inscricao_inscricao_id" table="public.alocacao_inscricao" columns="inscricao_id" />
+<index name="IX_alocacao_inscricao_reserva_sala_id" table="public.alocacao_inscricao" columns="reserva_sala_id" />
+
+<table name="diverg_fec_concurso" schema="public">
+<column name="diverg_fec_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="fec_aplicacao_concurso_id" type="INT8" nullable="false" />
+<column name="tipo_divergencia" type="VARCHAR"(15) nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="tipo_gabarito_alocacao" type="VARCHAR"(2) />
+<column name="tipo_gabarito_cartao_resposta" type="VARCHAR"(2) />
+<column name="idioma_cartao_id" type="INT8" />
+<column name="idioma_inscricao_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_diverg_fec_concurso_fec_aplic" table="public.diverg_fec_concurso" columns="fec_aplicacao_concurso_id" />
+<index name="IX_diverg_fec_concurso_insc" table="public.diverg_fec_concurso" columns="inscricao_id" />
+
+<table name="fechamento_aplicacao_localidade" schema="public">
+<column name="fec_aplicacao_localidade_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="aplicacao_prova_id" type="INT8" nullable="false" />
+<column name="localidade_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_fechamento_apli_loc_apli_loc" table="public.fechamento_aplicacao_localidade" columns="aplicacao_prova_id, localidade_id" />
+
+<table name="diverg_fec_localidade" schema="public">
+<column name="diverg_fec_localidade_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="prova_id" type="INT8" />
+<column name="tipo" type="VARCHAR"(90) nullable="false" />
+<column name="fec_aplicacao_localidade_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_diverg_fec_localidade_ins" table="public.diverg_fec_localidade" columns="inscricao_id" />
+<index name="IX_diverg_fec_localidade_prova_id" table="public.diverg_fec_localidade" columns="prova_id" />
+<index name="IX_diverg_fec_localidade_fec_apl_loc" table="public.diverg_fec_localidade" columns="fec_aplicacao_localidade_id" />
+<index name="IX_diverg_fec_localidade_tipo" table="public.diverg_fec_localidade" columns="tipo" />
+
+<table name="lista_presenca" schema="public">
+<column name="lista_presenca_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="aplicacao_prova_id" type="INT8" nullable="false" />
+<column name="localidade_id" type="INT8" nullable="false" />
+<column name="reserva_sala_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_lista_presenca_local_aplic" table="public.lista_presenca" columns="localidade_id, aplicacao_prova_id" />
+<index name="IX_lista_presenca_reserva_sala" table="public.lista_presenca" columns="reserva_sala_id" />
+CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lista_presenca (aplicacao_prova_id, localidade_id, reserva_sala_id);
+
+<table name="gabarito_prova" schema="public">
+       gabarito_prova_id BIGSERIAL nullable="false"
+<column name="prova_id" type="INT8" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
+<column name="versao_gabarito" type="VARCHAR" length="15" nullable="false" />
+<column name="status_gabarito" type="VARCHAR" length="15" nullable="false" />
+<column name="data_cadastro" type="DATE" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_prova_tipo_versao" UNIQUE (prova_id, tipo_gabarito, versao_gabarito) />
+</table>
+<index name="IX_gabarito_prova_prova_id" table="public.gabarito_prova" columns="prova_id" />
+
+<table name="resultado_fase" schema="public">
+<column name="resultado_fase_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="versao_resultado" type="VARCHAR"(20) nullable="false" />
+<column name="status_resultado" type="VARCHAR"(20) nullable="false" />
+<column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="fase_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_fase_id" table="public.resultado_fase" columns="fase_id" />
+
+<table name="presenca_inscricao" schema="public">
+<column name="presenca_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="lista_presenca_id" type="INT8" nullable="false" />
+<column name="situacao" type="VARCHAR" length="8" nullable="false" />
+<column name="tipo_inclusao" type="VARCHAR" length="10" nullable="false" />
+<column name="imagem_lista_presenca" type="INTEGER" />
+<column name="invalido" type="BOOL" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_presenca_inscricao_insc_lista" UNIQUE (inscricao_id, lista_presenca_id) />
+</table>
+<index name="IX_presenca_inscricao_lista_pre" table="public.presenca_inscricao" columns="lista_presenca_id" />
+<index name="IX_presenca_inscricao_insc_id" table="public.presenca_inscricao" columns="inscricao_id" />
+
+<table name="resultado_vaga" schema="public">
+<column name="resultado_vaga_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="resultado_fase_id" type="INT8" nullable="false" />
+<column name="vaga_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_resultado_fase_id" table="public.resultado_vaga" columns="resultado_fase_id" />
+<index name="IX_vaga_id" table="public.resultado_vaga" columns="vaga_id" />
+
+<table name="classificacao_inscricao" schema="public">
+<column name="classificacao_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="pontuacao_acumulada" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="classificacao" type="INTEGER" />
+<column name="habilitado" type="BOOLEAN" nullable="false" />
+<column name="eliminado" type="BOOLEAN" nullable="false" />
+<column name="resultado_vaga_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_resultado_vaga_id" table="public.classificacao_inscricao" columns="resultado_vaga_id" />
+<index name="IX_inscricao_id" table="public.classificacao_inscricao" columns="inscricao_id" />
+<index name="IX_classificacao_inscricao_incricao_id_resultado_vaga_id" table="public.classificacao_inscricao" columns="inscricao_id, resultado_vaga_id" />
+
+<table name="pontuacao_prova_objetiva" schema="public">
+<column name="pontuacao_prova_objetiva_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="eliminavel" type="BOOLEAN" nullable="false" />
+<column name="classificacao_inscricao_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_pontuacao_prova_objetiva_cont_prova_id" table="public.pontuacao_prova_objetiva" columns="conteudo_prova_id" />
+<index name="IX_pontuacao_prova_objetiva_class_ins_id" table="public.pontuacao_prova_objetiva" columns="classificacao_inscricao_id" />
+
+<table name="gabarito_chave" schema="public">
+<column name="gabarito_chave_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
+<column name="prova_id" type="INT8" nullable="false" />
+<restriction type="unique" columns="uq_prova_id" />
+<column name="manter_correlacao_idiomas" type="BOOL" default="false"  />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="gabarito_correlato" schema="public">
+<column name="gabarito_correlato_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
+<column name="gabarito_chave_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="uq_tipo_gabarito_correlato" UNIQUE (tipo_gabarito, gabarito_chave_id) />
+</table>
+<index name="IX_gabarito_correlato_gab_chave_id" table="public.gabarito_correlato" columns="gabarito_chave_id" />
+
+<table name="banca_examinadora" schema="public">
+<column name="banca_examinadora_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="cpf" type="VARCHAR" length="11" nullable="false" />
+<restriction type="unique" columns="UQ_banca_examinadora_cpf" />
+<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<column name="descricao_titulacao" type="VARCHAR" length="240" nullable="false" />
+<column name="data_expiracao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="email_principal" type="VARCHAR" length="50" />
+<column name="email_secundario" type="VARCHAR" length="50" />
+<column name="cep" type="VARCHAR" length="10" nullable="false" />
+<column name="logradouro" type="VARCHAR" length="240" nullable="false" />
+<column name="numero" type="VARCHAR" length="5" nullable="false" />
+<column name="complemento" type="VARCHAR" length="240" />
+<column name="bairro" type="VARCHAR" length="60" />
+<column name="telefone_residencial" type="VARCHAR" length="20" />
+<column name="telefone_funcional" type="VARCHAR" length="20" />
+<column name="telefone_celular" type="VARCHAR" length="20" />
+<column name="motivoBloqueio" type="VARCHAR" length="240" />
+<column name="fax" type="VARCHAR" length="20" />
+<column name="status" type="VARCHAR" length="12" />
+<column name="senha" type="VARCHAR" length="64" nullable="false" />
+<column name="senha_gerada" type="BOOLEAN" default="FALSE"  nullable="false" />
+<column name="uf_endereco_id" type="INT8" nullable="false" />
+<column name="cidade" type="VARCHAR" length="100" nullable="false" />
+<column name="email_privado" type="VARCHAR"(64) nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_banca_exam_uf_end_id" table="public.banca_examinadora" columns="uf_endereco_id" />
+
+<table name="vinculo_banca_disciplina" schema="public">
+<column name="vinculo_banca_disciplina_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="prazo_maximo_devolucao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_vinc_banc_disc_cont_prova_id" table="public.vinculo_banca_disciplina" columns="conteudo_prova_id" />
+<index name="IX_disciplina_idioma_id" table="public.vinculo_banca_disciplina" columns="disciplina_id, idioma_id" />
+
+<table name="questao_correlata" schema="public">
+<column name="questao_correlata_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="numero_questao_chave" type="INT" nullable="false" />
+<column name="numero_questao_correlata" type="INT" nullable="false" />
+<column name="gabarito_correlato_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_questao_correlata" UNIQUE (numero_questao_chave, numero_questao_correlata, gabarito_correlato_id) />
+</table>
+<index name="IX_questao_correlata_gab_correlato_id" table="public.questao_correlata" columns="gabarito_correlato_id" />
+
+<table name="banca_questoes" schema="public">
+<column name="banca_questoes_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="banca_examinadora_id" type="INT8" nullable="false" />
+<column name="vinculo_banca_disciplina_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_banca_vinculo" UNIQUE (banca_examinadora_id, vinculo_banca_disciplina_id) />
+</table>
+<index name="IX_banca_questoes_banca_exam_id" table="public.banca_questoes" columns="banca_examinadora_id" />
+<index name="IX_banca_questoes_vinc_banca_disc_id" table="public.banca_questoes" columns="vinculo_banca_disciplina_id" />
+
+<table name="questao_banca" schema="public">
+<column name="questao_banca_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="numero_questao" type="INT" nullable="false" />
+<column name="banca_questoes_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_questao_banca_numero" UNIQUE (numero_questao, banca_questoes_id) />
+</table>
+<index name="IX_questao_banca_banca_disc_id" table="public.questao_banca" columns="banca_questoes_id" />
+
+<table name="area" schema="public">
+<column name="area_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="nome" type="VARCHAR"(100) nullable="false" />
+<column name="assunto_id" type="INT8" nullable="false" />
+<column name="desabilitada" type="BOOLEAN" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_area_mesmo_nome_e_assunto" UNIQUE (nome, assunto_id) />
+</table>
+<index name="IX_area_assunto_id" table="public.area" columns="assunto_id" />
+
+<table name="registro_importacao_cartao" schema="public">
+<column name="reg_importacao_cartao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="data_importacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="total_cartoes_processados_ok" type="INT" nullable="false" />
+<column name="total_cartoes_processados_erro" type="INT" nullable="false" />
+<column name="cpf_responsavel" type="VARCHAR"(11) nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="parecer" schema="public">
+<column name="parecer_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="texto_parecer" type="TEXT" />
+<column name="julgamento" type="VARCHAR"(20) />
+<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="exportado" type="BOOLEAN" nullable="false" />
+<column name="questao_banca_id" type="INT8" nullable="false" />
+<column name="texto_parecer_revisado" type="TEXT" />
+<column name="motivo_retorno" type="TEXT" />
+<column name="prazo_maximo_devolucao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_ultima_modificacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="data_liberacao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_envio" type="TIMESTAMP WITH TIME ZONE" />
+<column name="revisado" type="BOOLEAN" default="false"  nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_parecer_questao_banca_id" table="public.parecer" columns="questao_banca_id" />
+<index name="IX_parecer_conteudo_prova_id" table="public.parecer" columns="conteudo_prova_id" />
+
+<table name="cartao_importacao_processado" schema="public">
+<column name="cartao_imp_processado_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" />
+<column name="cidade_id" type="INT8" />
+<column name="conteudo_prova_id" type="INT8" />
+<column name="gabarito" type="VARCHAR"(2) />
+<column name="numero_caixa" type="INT" />
+<column name="posicao_caixa" type="INT" />
+<column name="status" type="VARCHAR"(20) nullable="false" />
+<column name="em_branco" type="BOOLEAN" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" />
+<column name="idioma_id" type="INT8" />
+<column name="sequencial_cartao_concurso" type="INT8" />
+<column name="sequencial_cartao_incluido" type="INT8" />
+<column name="cartao_res_import_id" type="INT8" nullable="false" />
+<column name="reg_importacao_cartao_id" type="INT8" nullable="false" />
+<column name="data_exclusao" type="TIMESTAMP WITH TIME ZONE" />
+<column name="cpf_responsavel_exclusao" type="VARCHAR"(11) />
+<column name="nome_responsavel_exclusao" type="VARCHAR"(100) />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="orgao_concurso" schema="public">
+<column name="orgao_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="orgao_contratante_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_orgao_concurso_concurso_id" table="public.orgao_concurso" columns="concurso_id" />
+
+<table name="disciplina_prova_objetiva" schema="public">
+<column name="disciplina_prova_objetiva_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="quantidade_questoes" type="INTEGER" nullable="false" />
+<column name="peso" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="pontuacao_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_disciplina_prova_objetiva_disc_id" table="public.disciplina_prova_objetiva" columns="disciplina_id" />
+<index name="IX_disciplina_prova_objetiva_cont_prova_id" table="public.disciplina_prova_objetiva" columns="conteudo_prova_id" />
+
+<table name="idioma_oferta_cargo_concurso" schema="public">
+<column name="idioma_oferta_cargo_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="oferta_cargo_concurso_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="subprova_prova_objetiva" schema="public">
+<column name="subprova_prova_objetiva_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="subprova_id" type="INT8" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_subprova_conteudo_prova_objetiva_1" UNIQUE (subprova_id, conteudo_prova_id) />
+</table>
+<index name="IX_subprova_prova_objetiva_cont_prova_id" table="public.subprova_prova_objetiva" columns="conteudo_prova_id" />
+
+<table name="disciplina_subprova" schema="public">
+<column name="disciplina_subprova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="subprova_id" type="INT8" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="quantidade_questoes" type="INTEGER" />
+<column name="peso" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_disciplina_subprova_1" UNIQUE (subprova_id, disciplina_id) />
+</table>
+<index name="IX_disciplina_subprova_subprova_id" table="public.disciplina_subprova" columns="subprova_id" />
+
+<table name="ofertas_cargos_prorrogacao_concurso" schema="public">
+<column name="ofertas_cargos_prorrogacao_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="prorrogacao_prazos_concurso_id" type="INT8" nullable="false" />
+<column name="oferta_cargo_concurso_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_ofertas_cargos_prorrogacao_concurso_pror_praz_id" table="public.ofertas_cargos_prorrogacao_concurso" columns="prorrogacao_prazos_concurso_id" />
+
+<table name="uf_estrutura_cidade" schema="public">
+       uf_estrutura_cidade_id SERIAL nullable="false"
+<column name="uf_estrutura_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_uf_estrutura_cidade_uf_estr_id" table="public.uf_estrutura_cidade" columns="uf_estrutura_id" />
+
+<table name="campo_formulario_inscricao" schema="public">
+<column name="campo_formulario_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="formulario_inscricao_id" type="INT8" nullable="false" />
+<column name="nome" type="VARCHAR"(50) nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_formulario_inscricao_nome" UNIQUE (formulario_inscricao_id, nome) />
+</table>
+<index name="IX_campo_formulario_inscricao_form_insc_id" table="public.campo_formulario_inscricao" columns="formulario_inscricao_id" />
+
+<table name="isencao" schema="public">
+<column name="isencao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="tipo_isencao" type="VARCHAR" length="10" nullable="false" />
+<column name="observacao" type="VARCHAR" length="200" />
+<column name="percentual" type="INTEGER" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="inscricao_tratamento_diferenciado" schema="public">
+<column name="insc_trat_dif_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="tratamento_diferenciado_id" type="INT8" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="texto_da_carta" type="VARCHAR"(150) />
+<column name="etapa_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_insc_trat_diferenciado" UNIQUE (tratamento_diferenciado_id, inscricao_id, etapa_id) />
+</table>
+<index name="IX_inscricao_tratamento_diferenciado_insc_id" table="public.inscricao_tratamento_diferenciado" columns="inscricao_id" />
+
+<table name="inscricao_historico_localidade" schema="public">
+<column name="insc_hist_local_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" nullable="false" />
+<column name="data_alteracao" type="TIMESTAMP" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_inscricao_historico_localidade_insc_id" table="public.inscricao_historico_localidade" columns="inscricao_id" />
+
+<table name="anexo_local_prova" schema="public">
+<column name="anexo_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="tipo_arquivo" type="VARCHAR"(6) nullable="false" />
+<column name="local_prova_id" type="INT8" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_anexo_local_prova_local_prova_id" table="public.anexo_local_prova" columns="local_prova_id" />
+
+<table name="criterio_desempate_maior_nota_disc" schema="public">
+<column name="criterio_desempate_maior_nota_disc_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="criterio_desempate_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="criterio_desempate_maior_nota_provas" schema="public">
+<column name="criterio_desempate_maior_nota_provas_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="criterio_desempate_id" type="INT8" nullable="false" />
+<column name="prova_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="vinculo_fase_prova" schema="public">
+<column name="vinculo_fase_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="vinculo_fase_id" type="INT8" nullable="false" />
+<column name="prova_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_vinculo_fase_prova_vinculo_fase_id" table="public.vinculo_fase_prova" columns="vinculo_fase_id" />
+<index name="IX_vinculo_fase_prova_prova_id" table="public.vinculo_fase_prova" columns="prova_id" />
+
+<table name="erro_arquivo_pagamento" schema="public">
+       erro_arquivo_pagamento_id BIGSERIAL nullable="false"
+<column name="numero_linha" type="INTEGER" nullable="false" />
+<column name="mensagem_erro" type="TEXT" nullable="false" />
+<column name="arquivo_pagamento_id" type="BIGINT" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="reserva_lugares_sala" schema="public">
+<column name="reserva_lugares_sala_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="lugares_reservados" type="INT4" nullable="false" />
+<column name="oferta_cargo_concurso_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" />
+<column name="reserva_sala_aplic_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_reserva_lugares_aplicacao" UNIQUE (oferta_cargo_concurso_id, idioma_id, reserva_sala_aplic_id) />
+</table>
+<index name="reserva_sala_aplicacao_idx" table="public.reserva_lugares_sala" columns="reserva_sala_aplic_id" />
+
+<table name="historico_status_alocacao" schema="public">
+<column name="historico_status_alocacao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="status_alocacao" type="VARCHAR" length="30" nullable="false" />
+<column name="data_mudanca_status" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="localidade_prova_alocacao_id" type="INT8" nullable="false" />
+<column name="usuario_responsavel_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_status_alocacao (localidade_prova_alocacao_id);
+
+<table name="vistoria_local_prova_item" schema="public">
+<column name="vistoria_local_prova_item_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="vistoria_local_prova_id" type="INT8" nullable="false" />
+<column name="valor" type="BOOL" nullable="false" />
+<column name="observacao" type="VARCHAR" length="100" />
+<column name="tipo_item" type="VARCHAR" length="50" nullable="false" />
+<column name="qtd_salas_especiais" type="INTEGER" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_vistoria_local_prova_item_vist_local_prova_id" table="public.vistoria_local_prova_item" columns="vistoria_local_prova_id" />
+
+<table name="criterio_desempate_maior_nota_subprovas" schema="public">
+<column name="crit_des_maior_nota_sub_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="criterio_desempate_id" type="INT8" nullable="false" />
+<column name="subprova_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="arquivo_mds_inscricao" schema="public">
+<column name="arq_mds_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="arquivo_mds_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_arquivo_mds_inscricao_insc_id" table="public.arquivo_mds_inscricao" columns="inscricao_id" />
+<index name="IX_arquivo_mds_inscricao_arq_mds_id" table="public.arquivo_mds_inscricao" columns="arquivo_mds_id" />
+
+<table name="gabarito_prova_inscricao" schema="public">
+<column name="gabarito_prova_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="alocacao_inscricao_id" type="INT8" />
+<column name="prova_id" type="INT8" nullable="false" />
+<column name="gabarito" type="VARCHAR" length="5" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_gabarito_prova_inscricao_prova_id_inscricao_id" UNIQUE (inscricao_id, prova_id) />
+</table>
+<index name="IX_gabarito_prova_inscricao_inscricao_id" table="public.gabarito_prova_inscricao" columns="inscricao_id" />
+CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.gabarito_prova_inscricao (inscricao_id, prova_id);
+
+<table name="inscricoes_arquivo_pagamento" schema="public">
+<column name="inscricoes_arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="arquivo_pagamento_id" type="BIGINT" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_inscricoes_arquivo_pagamento_arq_pag_id" table="public.inscricoes_arquivo_pagamento" columns="arquivo_pagamento_id" />
+<index name="IX_inscricoes_arquivo_pagamento_insc_id" table="public.inscricoes_arquivo_pagamento" columns="inscricao_id" />
+
+<table name="nota_titulo" schema="public">
+<column name="nota_titulo_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="apresentou_titulo" type="BOOL" nullable="false" />
+<column name="valor" type="NUMERIC" length="19" decimals="2" />
+<column name="titulo_prova_titulos_id" type="INT8" nullable="false" />
+<column name="resultado_prova_manual_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_nota_titulo_titulo_prova_titulos_id" table="public.nota_titulo" columns="titulo_prova_titulos_id" />
+<index name="IX_resultado_prova_manual_id" table="public.nota_titulo" columns="resultado_prova_manual_id" />
+
+<table name="nota_questao" schema="public">
+<column name="nota_questao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo" type="NUMERIC" length="19" decimals="2" />
+<column name="idioma" type="NUMERIC" length="19" decimals="2" />
+<column name="questao_prova_subjetiva_id" type="INT8" nullable="false" />
+<column name="resultado_prova_manual_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_nota_questao_questao_prova_id" table="public.nota_questao" columns="questao_prova_subjetiva_id" />
+<index name="IX_nota_questao_resultado_prova_manual_id" table="public.nota_questao" columns="resultado_prova_manual_id" />
+
+<table name="nota_habilitacao" schema="public">
+<column name="nota_habilitacao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="apto" type="BOOL" />
+<column name="motivacao" type="TEXT" />
+<column name="resultado_prova_manual_id" type="INT8" nullable="false" />
+<restriction type="unique" columns="UQ_RESULTADO_PROVA_HABILITACAO" />
+
+</table>
+<index name="IX_nota_habilitacao_res_pro_man" table="public.nota_habilitacao" columns="resultado_prova_manual_id" />
+
+<table name="divergencia_cartao_repetido" schema="public">
+<column name="divergencia_cartao_repetido_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="cartao_resposta_id" type="INT8" nullable="false" />
+<column name="diverg_fec_concurso_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="divergencia_resultado_repetido" schema="public">
+<column name="divergencia_resultado_repetido" type="SERIAL8" pk="true" nullable="false" />
+<column name="diverg_fec_concurso_id" type="INT8" nullable="false" />
+<column name="resultado_prova_manual_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_divergencia_res_rep_fec_conc" table="public.divergencia_resultado_repetido" columns="diverg_fec_concurso_id" />
+<index name="IX_divergencia_res_rep_res_pr_man" table="public.divergencia_resultado_repetido" columns="resultado_prova_manual_id" />
+
+<table name="questao_gabarito" schema="public">
+       questao_gabarito_id BIGSERIAL nullable="false"
+<column name="gabarito_prova_id" type="BIGINT" nullable="false" />
+<column name="idioma_id" type="INT8" />
+<column name="numero_questao" type="INT" nullable="false" />
+<column name="resposta_questao" type="VARCHAR" length="4" />
+<column name="anulada" type="BOOLEAN" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_questao_gabarito_gab_prova_id" table="public.questao_gabarito" columns="gabarito_prova_id" />
+
+<table name="ordenacao_disciplina_gabarito" schema="public">
+       ordenacao_disciplina_gabarito_id BIGSERIAL nullable="false"
+<column name="gabarito_prova_id" type="BIGINT" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="ordem_disciplina" type="INT" nullable="false" />
+
+</table>
+<index name="IX_ordenacao_disciplina_gabarito_gab_prova_id" table="public.ordenacao_disciplina_gabarito" columns="gabarito_prova_id" />
+
+<table name="ocorrencia" schema="public">
+<column name="ocorrencia_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="data" type="TIMESTAMP" nullable="false" />
+<column name="descricao" type="VARCHAR"(500) nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="historico_presenca_inscricao" schema="public">
+<column name="historico_presenca_inscr_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="presenca_inscricao_id" type="INT8" nullable="false" />
+<column name="situacao_anterior" type="VARCHAR" length="8" nullable="false" />
+<column name="data_alteracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_historico_presenca_inscricao_pres_ins" table="public.historico_presenca_inscricao" columns="presenca_inscricao_id" />
+
+<table name="idioma_concurso" schema="public">
+<column name="idioma_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_idioma_concurso_concurso_id" table="public.idioma_concurso" columns="concurso_id" />
+
+<table name="permissao_usuario_concurso" schema="public">
+       perm_usuario_conc_id SERIAL8
+<column name="usuario_id" type="INT8" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="tipo_permissao" type="VARCHAR" length="20" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_permissao_usuario_concurso_1" UNIQUE (usuario_id, concurso_id, tipo_permissao) />
+</table>
+<index name="idx_perm_usuario_conc_usuario_id" table="public.permissao_usuario_concurso" columns="usuario_id" />
+
+<table name="pontuacao_subprova" schema="public">
+<column name="pontuacao_subprova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="eliminavel" type="BOOLEAN" nullable="false" />
+<column name="subprova_id" type="INT8" nullable="false" />
+<column name="pontuacao_prova_objetiva_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_pontuacao_subprova_subprova_id" table="public.pontuacao_subprova" columns="subprova_id" />
+<index name="IX_pontuacao_subprova_pont_prova_obj_id" table="public.pontuacao_subprova" columns="pontuacao_prova_objetiva_id" />
+
+<table name="pontuacao_disciplina" schema="public">
+<column name="pontuacao_disciplina_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="pontuacao" type="NUMERIC" length="19" decimals="2" />
+<column name="eliminavel" type="BOOLEAN" nullable="false" />
+<column name="pontuacao_prova_objetiva_id" type="INT8" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_pontuacao_prova_objetiva_id" table="public.pontuacao_disciplina" columns="pontuacao_prova_objetiva_id" />
+<index name="IX_disciplina_id" table="public.pontuacao_disciplina" columns="disciplina_id" />
+
+<table name="pontuacao_prova_questoes" schema="public">
+<column name="pontuacao_prova_questoes_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="eliminavel" type="BOOLEAN" nullable="false" />
+<column name="classificacao_inscricao_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_pontuacao_prova_conteudo_prova_id" table="public.pontuacao_prova_questoes" columns="conteudo_prova_id" />
+<index name="IX_pontuacao_prova_questoes_class_ins_id" table="public.pontuacao_prova_questoes" columns="classificacao_inscricao_id" />
+
+<table name="pontuacao_prova_titulos" schema="public">
+<column name="pontuacao_prova_titulos_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="pontuacao" type="NUMERIC" length="19" decimals="2" />
+<column name="eliminavel" type="BOOLEAN" nullable="false" />
+<column name="classificacao_inscricao_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_pontuacao_prova_titulos_cont_prova_id" table="public.pontuacao_prova_titulos" columns="conteudo_prova_id" />
+<index name="IX_pontuacao_prova_titulos_class_ins_id" table="public.pontuacao_prova_titulos" columns="classificacao_inscricao_id" />
+
+<table name="pontuacao_prova_habilitacao" schema="public">
+<column name="pontuacao_prova_habilitacao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="apto" type="BOOLEAN" nullable="false" />
+<column name="classificacao_inscricao_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_pont_prova_hab_cont_prova_id" table="public.pontuacao_prova_habilitacao" columns="conteudo_prova_id" />
+<index name="IX_classificacao_inscricao_id" table="public.pontuacao_prova_habilitacao" columns="classificacao_inscricao_id" />
+
+<table name="idiomas_gabarito_prova" schema="public">
+<column name="idiomas_gabarito_prova_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="gabarito_prova_id" type="BIGINT" nullable="false" />
+<column name="idioma_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_idiomas_gabarito_prova_gab_prova_id" table="public.idiomas_gabarito_prova" columns="gabarito_prova_id" />
+
+<table name="questao_cartao_resposta" schema="public">
+<column name="questao_cartao_resposta_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="numero_questao" type="INT" nullable="false" />
+<column name="resposta_questao" type="VARCHAR" length="8" nullable="false" />
+<column name="cartao_resposta_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_questao_cartao_resposta_cartao_resposta_id" table="public.questao_cartao_resposta" columns="cartao_resposta_id" />
+
+<table name="historico_motivo_bloqueio" schema="public">
+<column name="historico_motivo_bloqueio_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="motivo" type="VARCHAR" length="240" nullable="false" />
+<column name="data_bloqueio" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="banca_examinadora_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_historico_motivo_bloqueio_banca_exam_id" table="public.historico_motivo_bloqueio" columns="banca_examinadora_id" />
+
+<table name="arquivo_banca" schema="public">
+<column name="arquivo_banca_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="banca_questoes_id" type="INT8" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_arquivo_banca_banca_disc_id" table="public.arquivo_banca" columns="banca_questoes_id" />
+
+<table name="recurso" schema="public">
+<column name="recurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
+<column name="numero_questao" type="INT" nullable="false" />
+<column name="numero_questao_chave" type="INT" nullable="false" />
+<column name="numero_sequencial" type="INT" />
+<column name="fundamentacao" type="TEXT" nullable="false" />
+<column name="fonte_argumentacao" type="TEXT" nullable="false" />
+<column name="data_hora_envio" type="TIMESTAMP" />
+<column name="status" type="VARCHAR" length="8" nullable="false" />
+<column name="bloqueado" type="BOOL" nullable="false" />
+<column name="disciplina_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_questao_prova_inscricao" UNIQUE (inscricao_id, conteudo_prova_id, numero_questao_chave) />
+<column name="CONSTRAINT" type="UQ_prova_questao_sequencial" UNIQUE (conteudo_prova_id, numero_questao_chave, numero_sequencial) />
+</table>
+<index name="IX_recurso_inscricao_id" table="public.recurso" columns="inscricao_id" />
+<index name="IX_recurso_conteudo_prova_id" table="public.recurso" columns="conteudo_prova_id" />
+
+<table name="area_banca_examinadora" schema="public">
+<column name="area_banca_examinadora_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="prioridade" type="INTEGER" nullable="false" />
+<column name="banca_examinadora_id" type="INT8" nullable="false" />
+<column name="area_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_area_banca_examinadora_id" table="public.area_banca_examinadora" columns="banca_examinadora_id" />
+<index name="IX_area_banca_examinadora_area_id" table="public.area_banca_examinadora" columns="area_id" />
+
+<table name="orientacao_recurso" schema="public">
+<column name="orientacao_recurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="texto_orientacao" type="VARCHAR" length="2000" nullable="false" />
+<column name="fase_id" type="INT8" nullable="false" />
+<restriction type="unique" columns="UQ_orientacao_recurso_fase_id" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="visao_candidato" schema="public">
+<column name="visao_candidato_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="prova_id" type="INT8" />
+<column name="etapa_id" type="INT8" />
+<column name="data_inicial" type="TIMESTAMP WITH TIME ZONE" />
+<column name="data_final" type="TIMESTAMP WITH TIME ZONE" />
+<column name="tipo_funcionalidade" type="VARCHAR"(20) nullable="false" />
+<column name="ativa" type="BOOL" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="localidade_prova_inscricao" schema="public">
+<column name="localidade_prova_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="etapa_id" type="INT8" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_localidade_prova_inscricao" UNIQUE (etapa_id, inscricao_id) />
+</table>
+
+<table name="historico_questao_banca" schema="public">
+<column name="historico_questao_banca_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="data_vinculacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="questao_banca_id" type="INT8" />
+<column name="banca_examinadora_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="qtd_min_provas_corrigidas" schema="public">
+<column name="qtd_min_provas_corrigidas_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="quantidade_minima_provas_corrigidas_ampla" type="INT" />
+<column name="quantidade_minima_provas_corrigidas_deficiencia" type="INT" />
+<column name="vinculo_fase_id" type="INT8" nullable="false" />
+<column name="vaga_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+<index name="IX_qtd_min_provas_corrigidas_1" table="public.qtd_min_provas_corrigidas" columns="vinculo_fase_id, vaga_id" />
+
+<table name="inscricao_historico_status" schema="public">
+<column name="insc_hist_status_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="status" type="VARCHAR"(33) nullable="false" />
+<column name="motivo_alteracao_status" type="VARCHAR"(400) nullable="false" />
+<column name="data_alteracao" type="TIMESTAMP" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="anexo_vistoria" schema="public">
+<column name="anexo_vistoria_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="vistoria_local_prova_id" type="INT8" nullable="false" />
+<column name="tipo_arquivo" type="VARCHAR" length="20" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="parecer_historico_tramite" schema="public">
+<column name="parecer_tramite_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="parecer_id" type="INT8" nullable="false" />
+<column name="data" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
+<column name="operacao" type="VARCHAR"(30) nullable="false" />
+<column name="nome_responsavel" type="VARCHAR"(100) nullable="false" />
+<column name="cpf_responsavel" type="VARCHAR"(11) nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="alternativa_questao_correlata" schema="public">
+<column name="alternativa_questao_corr_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="questao_correlata_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" />
+<column name="item_a" type="VARCHAR" length="1" nullable="false" />
+<column name="item_b" type="VARCHAR" length="1" nullable="false" />
+<column name="item_c" type="VARCHAR" length="1" nullable="false" />
+<column name="item_d" type="VARCHAR" length="1" nullable="false" />
+<column name="item_e" type="VARCHAR" length="1" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_alternativa_questao_correlata_questao_idioma" UNIQUE (questao_correlata_id, idioma_id) />
+</table>
+<index name="IX_alternativa_questao_correlata_ques_id" table="public.alternativa_questao_correlata" columns="questao_correlata_id" />
+<index name="IX_alternativa_questao_correlata_idioma" table="public.alternativa_questao_correlata" columns="idioma_id" />
+
+<table name="diverg_fec_localidade_inscricao" schema="public">
+       diverg_fec_localidade_inscricao_id BIGSERIAL nullable="false"
+<column name="diverg_fec_localidade_id" type="INT8" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_diverg_fec_localidade_inscricao" UNIQUE (diverg_fec_localidade_id, inscricao_id) />
+</table>
+<index name="IX_diverg_fec_localidade_inscricao_insc_id" table="public.diverg_fec_localidade_inscricao" columns="inscricao_id" />
+<index name="IX_diverg_fec_localidade_inscricao_diver_id" table="public.diverg_fec_localidade_inscricao" columns="diverg_fec_localidade_id" />
+
+<table name="diverg_fec_concurso_inscricao" schema="public">
+       diverg_fec_concurso_ins_id BIGSERIAL nullable="false"
+<column name="diverg_fec_concurso_id" type="INT8" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+
+<column name="CONSTRAINT" type="UQ_diverg_fec_concurso_inscricao_div" UNIQUE (diverg_fec_concurso_id, inscricao_id) />
+</table>
+<index name="IX_diverg_fec_concurso_inscricao_ins" table="public.diverg_fec_concurso_inscricao" columns="inscricao_id" />
+<index name="IX_diverg_fec_concurso_inscricao_div" table="public.diverg_fec_concurso_inscricao" columns="diverg_fec_concurso_id" />
+
+<table name="imagem_parecer" schema="public">
+<column name="imagem_parecer_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="parecer_id" type="INT8" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="imagem_folha" schema="public">
+<column name="imagem_folha_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="arquivo_anexo_id" type="INT8" nullable="false" />
+<column name="lista_presenca_id" type="INT8" nullable="false" />
+
+</table>
+
+<table name="cartao_incluido" schema="public">
+<column name="cartao_incluido_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="gabarito" type="VARCHAR"(2) nullable="false" />
+<column name="sequencial_cartao_incluido" type="INT8" nullable="false" />
+<column name="inscricao_id" type="INT8" nullable="false" />
+<column name="conteudo_prova_id" type="INT8" nullable="false" />
+<column name="idioma_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="erro_arquivo_mds" schema="public">
+<column name="erro_arquivo_mds_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="arquivo_mds_id" type="INT8" nullable="false" />
+<column name="numero_linha" type="INTEGER" nullable="false" />
+<column name="mensagem_erro" type="TEXT" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="erro_importacao_cartao" schema="public">
+<column name="erro_importacao_cartao_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="erro_ocorrido" type="VARCHAR"(60) nullable="false" />
+<column name="cartao_imp_processado_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="questao_cartao_processado" schema="public">
+<column name="questao_cartao_processado_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="numero_questao" type="INT" nullable="false" />
+<column name="resposta_questao" type="VARCHAR" length="8" nullable="false" />
+<column name="cartao_imp_processado_id" type="INT8" nullable="false" />
+<column name="version" type="INT4" nullable="false" />
+
+</table>
+
+<table name="cidades_concurso" schema="public">
+<column name="cidades_concurso_id" type="SERIAL8" pk="true" nullable="false" />
+<column name="concurso_id" type="INT8" nullable="false" />
+<column name="cidade_id" type="INT8" nullable="false" />
+
+</table>
+<index name="IX_cidades_concurso_concurso_id" table="public.cidades_concurso" columns="concurso_id" />
+
+<association table="public.campo_atuacao" other_table="public.cargo" columns_here="cargo_id" columns_there="cargo_id" />
+
+<association table="public.campo_orgao" other_table="public.orgao_contratante" columns_here="orgao_contratante_id" columns_there="orgao_contratante_id" />
+
+<association table="public.campo_orgao" other_table="public.campo_atuacao" columns_here="campo_atuacao_id" columns_there="campo_atuacao_id" />
+
+<association table="public.campo_orgao" other_table="public.cargo" columns_here="cargo_id" columns_there="cargo_id" />
+
+<association table="public.cidade" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+
+<association table="public.estrutura" other_table="public.orgao_contratante" columns_here="orgao_contratante_id" columns_there="orgao_contratante_id" />
+
+<association table="public.local_prova" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.local_prova" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+
+<association table="public.uf_estrutura" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+
+<association table="public.uf_estrutura" other_table="public.estrutura" columns_here="estrutura_id" columns_there="estrutura_id" />
+
+<association table="public.usuario" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+
+<association table="public.vaga" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+
+<association table="public.vaga" other_table="public.estrutura" columns_here="estrutura_id" columns_there="estrutura_id" />
+
+<association table="public.vaga" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.vaga" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.etapa" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.oferta_cargo_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.oferta_cargo_concurso" other_table="public.campo_orgao" columns_here="campo_orgao_id" columns_there="campo_orgao_id" />
+
+<association table="public.vistoria_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+
+<association table="public.vistoria_local_prova" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.aplicacao_prova" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.subprova" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.questao_prova_subjetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.titulo_prova_titulos" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.prorrogacao_prazos_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.candidato" other_table="public.uf" columns_here="uf_identidade_id" columns_there="uf_id" />
+
+<association table="public.candidato" other_table="public.uf" columns_here="uf_identidade_id" columns_there="uf_id" />
+
+<association table="public.candidato" other_table="public.uf" columns_here="uf_endereco_id" columns_there="uf_id" />
+
+<association table="public.prova" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+
+<association table="public.prova" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.prova" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.formulario_inscricao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.fase" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.inscricao" other_table="public.candidato" columns_here="candidato_id" columns_there="candidato_id" />
+
+<association table="public.inscricao" other_table="public.area_formacao" columns_here="area_formacao_id" columns_there="area_formacao_id" />
+
+<association table="public.inscricao" other_table="public.nivel_escolaridade" columns_here="nivel_escolaridade_id" columns_there="nivel_escolaridade_id" />
+
+<association table="public.inscricao" other_table="public.cidade" columns_here="cidade_prova_id" columns_there="cidade_id" />
+
+<association table="public.inscricao" other_table="public.vaga" columns_here="vaga_id" columns_there="vaga_id" />
+
+<association table="public.inscricao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.inscricao" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.inscricao" other_table="public.uf" columns_here="uf_identidade_nis_id" columns_there="uf_id" />
+
+<association table="public.inscricao" other_table="public.motivo_indeferimento" columns_here="motivo_indeferimento_id" columns_there="motivo_indeferimento_id" />
+
+<association table="public.vinculo_fase" other_table="public.fase" columns_here="fase_predecessora_id" columns_there="fase_id" />
+
+<association table="public.vinculo_fase" other_table="public.fase" columns_here="fase_id" columns_there="fase_id" />
+
+<association table="public.vinculo_fase" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.arquivo_pagamento" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.bloco_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+
+<association table="public.criterio_desempate" other_table="public.vinculo_fase" columns_here="vinculo_fase_id" columns_there="vinculo_fase_id" />
+
+<association table="public.andar_local_prova" other_table="public.bloco_local_prova" columns_here="bloco_local_prova_id" columns_there="bloco_local_prova_id" />
+
+<association table="public.sala_local_prova" other_table="public.andar_local_prova" columns_here="andar_local_prova_id" columns_there="andar_local_prova_id" />
+
+<association table="public.reserva_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+
+<association table="public.reserva_local_prova" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.local_execucao" other_table="public.reserva_local_prova" columns_here="reserva_local_prova_id" columns_there="reserva_local_prova_id" />
+
+<association table="public.reserva_sala" other_table="public.reserva_local_prova" columns_here="reserva_local_prova_id" columns_there="reserva_local_prova_id" />
+
+<association table="public.reserva_sala" other_table="public.sala_local_prova" columns_here="sala_local_prova_id" columns_there="sala_local_prova_id" />
+
+<association table="public.reserva_sala" other_table="public.local_execucao" columns_here="local_execucao_id" columns_there="local_execucao_id" />
+
+<association table="public.reserva_sala" other_table="public.oferta_cargo_concurso" columns_here="oferta_sala_extra_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.reserva_sala" other_table="public.oferta_cargo_concurso" columns_here="oferta_sala_extra_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.reserva_sala" other_table="public.idioma" columns_here="idioma_extra_id" columns_there="idioma_id" />
+
+<association table="public.reserva_sala" other_table="public.idioma" columns_here="idioma_acesso_id" columns_there="idioma_id" />
+
+<association table="public.localidade_prova_alocacao" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.localidade_prova_alocacao" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.reserva_sala_aplicacao" other_table="public.reserva_sala" columns_here="reserva_sala_id" columns_there="reserva_sala_id" />
+
+<association table="public.arquivo_mds" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.arquivo_mds" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.resultado_prova_manual" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.resultado_prova_manual" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.resultado_prova_manual" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.cartao_resposta" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.cartao_resposta" other_table="public.cidade" columns_here="localidade_id" columns_there="cidade_id" />
+
+<association table="public.cartao_resposta" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.cartao_resposta" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.cartao_resposta" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.fechamento_aplicacao_concurso" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+
+<association table="public.alocacao_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.alocacao_inscricao" other_table="public.reserva_sala" columns_here="reserva_sala_id" columns_there="reserva_sala_id" />
+
+<association table="public.diverg_fec_concurso" other_table="public.fechamento_aplicacao_concurso" columns_here="fec_aplicacao_concurso_id" columns_there="fec_aplicacao_concurso_id" />
+
+<association table="public.diverg_fec_concurso" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.diverg_fec_concurso" other_table="public.idioma" columns_here="idioma_cartao_id" columns_there="idioma_id" />
+
+<association table="public.diverg_fec_concurso" other_table="public.idioma" columns_here="idioma_inscricao_id" columns_there="idioma_id" />
+
+<association table="public.fechamento_aplicacao_localidade" other_table="public.cidade" columns_here="localidade_id" columns_there="cidade_id" />
+
+<association table="public.fechamento_aplicacao_localidade" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+
+<association table="public.diverg_fec_localidade" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.diverg_fec_localidade" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.diverg_fec_localidade" other_table="public.fechamento_aplicacao_localidade" columns_here="fec_aplicacao_localidade_id" columns_there="fec_aplicacao_localidade_id" />
+
+<association table="public.lista_presenca" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+
+<association table="public.lista_presenca" other_table="public.cidade" columns_here="localidade_id" columns_there="cidade_id" />
+
+<association table="public.gabarito_prova" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.resultado_fase" other_table="public.fase" columns_here="fase_id" columns_there="fase_id" />
+
+<association table="public.presenca_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.presenca_inscricao" other_table="public.lista_presenca" columns_here="lista_presenca_id" columns_there="lista_presenca_id" />
+
+<association table="public.presenca_inscricao" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.resultado_vaga" other_table="public.resultado_fase" columns_here="resultado_fase_id" columns_there="resultado_fase_id" />
+
+<association table="public.resultado_vaga" other_table="public.vaga" columns_here="vaga_id" columns_there="vaga_id" />
+
+<association table="public.classificacao_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.classificacao_inscricao" other_table="public.resultado_vaga" columns_here="resultado_vaga_id" columns_there="resultado_vaga_id" />
+
+<association table="public.pontuacao_prova_objetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.pontuacao_prova_objetiva" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+
+<association table="public.gabarito_chave" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.gabarito_correlato" other_table="public.gabarito_chave" columns_here="gabarito_chave_id" columns_there="gabarito_chave_id" />
+
+<association table="public.banca_examinadora" other_table="public.uf" columns_here="uf_endereco_id" columns_there="uf_id" />
+
+<association table="public.vinculo_banca_disciplina" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.vinculo_banca_disciplina" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.vinculo_banca_disciplina" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.questao_correlata" other_table="public.gabarito_correlato" columns_here="gabarito_correlato_id" columns_there="gabarito_correlato_id" />
+
+<association table="public.banca_questoes" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+
+<association table="public.banca_questoes" other_table="public.vinculo_banca_disciplina" columns_here="vinculo_banca_disciplina_id" columns_there="vinculo_banca_disciplina_id" />
+
+<association table="public.questao_banca" other_table="public.banca_questoes" columns_here="banca_questoes_id" columns_there="banca_questoes_id" />
+
+<association table="public.area" other_table="public.assunto" columns_here="assunto_id" columns_there="assunto_id" />
+
+<association table="public.registro_importacao_cartao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.parecer" other_table="public.questao_banca" columns_here="questao_banca_id" columns_there="questao_banca_id" />
+
+<association table="public.parecer" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.cartao_importacao_processado" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.cartao_importacao_processado" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.cartao_importacao_processado" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.cartao_importacao_processado" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.cartao_importacao_processado" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.cartao_importacao_processado" other_table="public.registro_importacao_cartao" columns_here="reg_importacao_cartao_id" columns_there="reg_importacao_cartao_id" />
+
+<association table="public.orgao_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.orgao_concurso" other_table="public.orgao_contratante" columns_here="orgao_contratante_id" columns_there="orgao_contratante_id" />
+
+<association table="public.disciplina_prova_objetiva" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.disciplina_prova_objetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.idioma_oferta_cargo_concurso" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.idioma_oferta_cargo_concurso" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.subprova_prova_objetiva" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+
+<association table="public.subprova_prova_objetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.disciplina_subprova" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+
+<association table="public.disciplina_subprova" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.ofertas_cargos_prorrogacao_concurso" other_table="public.prorrogacao_prazos_concurso" columns_here="prorrogacao_prazos_concurso_id" columns_there="prorrogacao_prazos_concurso_id" />
+
+<association table="public.ofertas_cargos_prorrogacao_concurso" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.uf_estrutura_cidade" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.uf_estrutura_cidade" other_table="public.uf_estrutura" columns_here="uf_estrutura_id" columns_there="uf_estrutura_id" />
+
+<association table="public.campo_formulario_inscricao" other_table="public.formulario_inscricao" columns_here="formulario_inscricao_id" columns_there="formulario_inscricao_id" />
+
+<association table="public.isencao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.inscricao_tratamento_diferenciado" other_table="public.tratamento_diferenciado" columns_here="tratamento_diferenciado_id" columns_there="tratamento_diferenciado_id" />
+
+<association table="public.inscricao_tratamento_diferenciado" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.inscricao_tratamento_diferenciado" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.inscricao_historico_localidade" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.inscricao_historico_localidade" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.anexo_local_prova" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.anexo_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+
+<association table="public.criterio_desempate_maior_nota_disc" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.criterio_desempate_maior_nota_disc" other_table="public.criterio_desempate" columns_here="criterio_desempate_id" columns_there="criterio_desempate_id" />
+
+<association table="public.criterio_desempate_maior_nota_provas" other_table="public.criterio_desempate" columns_here="criterio_desempate_id" columns_there="criterio_desempate_id" />
+
+<association table="public.criterio_desempate_maior_nota_provas" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.vinculo_fase_prova" other_table="public.vinculo_fase" columns_here="vinculo_fase_id" columns_there="vinculo_fase_id" />
+
+<association table="public.vinculo_fase_prova" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.erro_arquivo_pagamento" other_table="public.arquivo_pagamento" columns_here="arquivo_pagamento_id" columns_there="arquivo_pagamento_id" />
+
+<association table="public.reserva_lugares_sala" other_table="public.reserva_sala_aplicacao" columns_here="reserva_sala_aplic_id" columns_there="reserva_sala_aplic_id" />
+
+<association table="public.reserva_lugares_sala" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+
+<association table="public.reserva_lugares_sala" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.historico_status_alocacao" other_table="public.localidade_prova_alocacao" columns_here="localidade_prova_alocacao_id" columns_there="localidade_prova_alocacao_id" />
+
+<association table="public.historico_status_alocacao" other_table="public.usuario" columns_here="usuario_responsavel_id" columns_there="usuario_id" />
+
+<association table="public.vistoria_local_prova_item" other_table="public.vistoria_local_prova" columns_here="vistoria_local_prova_id" columns_there="vistoria_local_prova_id" />
+
+<association table="public.criterio_desempate_maior_nota_subprovas" other_table="public.criterio_desempate" columns_here="criterio_desempate_id" columns_there="criterio_desempate_id" />
+
+<association table="public.criterio_desempate_maior_nota_subprovas" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+
+<association table="public.arquivo_mds_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.arquivo_mds_inscricao" other_table="public.arquivo_mds" columns_here="arquivo_mds_id" columns_there="arquivo_mds_id" />
+
+<association table="public.gabarito_prova_inscricao" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.gabarito_prova_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+ALTER TABLE public.gabarito_prova_inscricao  ADD CONSTRAINT FK_gabarito_prova_inscricao_alocacao_inscricao      FOREIGN KEY (alocacao_inscricao_id)      REFERENCES public.alocacao_inscricao (alocacao_inscricao_id)
+   ON DELETE CASCADE;
+
+<association table="public.inscricoes_arquivo_pagamento" other_table="public.arquivo_pagamento" columns_here="arquivo_pagamento_id" columns_there="arquivo_pagamento_id" />
+
+<association table="public.inscricoes_arquivo_pagamento" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.nota_titulo" other_table="public.titulo_prova_titulos" columns_here="titulo_prova_titulos_id" columns_there="titulo_prova_titulos_id" />
+
+<association table="public.nota_titulo" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+
+<association table="public.nota_questao" other_table="public.questao_prova_subjetiva" columns_here="questao_prova_subjetiva_id" columns_there="questao_prova_subjetiva_id" />
+
+<association table="public.nota_questao" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+
+<association table="public.nota_habilitacao" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+
+<association table="public.divergencia_cartao_repetido" other_table="public.cartao_resposta" columns_here="cartao_resposta_id" columns_there="cartao_resposta_id" />
+
+<association table="public.divergencia_cartao_repetido" other_table="public.diverg_fec_concurso" columns_here="diverg_fec_concurso_id" columns_there="diverg_fec_concurso_id" />
+
+<association table="public.divergencia_resultado_repetido" other_table="public.diverg_fec_concurso" columns_here="diverg_fec_concurso_id" columns_there="diverg_fec_concurso_id" />
+
+<association table="public.divergencia_resultado_repetido" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+
+<association table="public.questao_gabarito" other_table="public.gabarito_prova" columns_here="gabarito_prova_id" columns_there="gabarito_prova_id" />
+
+<association table="public.questao_gabarito" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.ordenacao_disciplina_gabarito" other_table="public.gabarito_prova" columns_here="gabarito_prova_id" columns_there="gabarito_prova_id" />
+
+<association table="public.ordenacao_disciplina_gabarito" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.ocorrencia" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.historico_presenca_inscricao" other_table="public.presenca_inscricao" columns_here="presenca_inscricao_id" columns_there="presenca_inscricao_id" />
+
+<association table="public.idioma_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.idioma_concurso" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.permissao_usuario_concurso" other_table="public.usuario" columns_here="usuario_id" columns_there="usuario_id" />
+
+<association table="public.permissao_usuario_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.pontuacao_subprova" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+
+<association table="public.pontuacao_subprova" other_table="public.pontuacao_prova_objetiva" columns_here="pontuacao_prova_objetiva_id" columns_there="pontuacao_prova_objetiva_id" />
+
+<association table="public.pontuacao_disciplina" other_table="public.pontuacao_prova_objetiva" columns_here="pontuacao_prova_objetiva_id" columns_there="pontuacao_prova_objetiva_id" />
+
+<association table="public.pontuacao_disciplina" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.pontuacao_prova_questoes" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.pontuacao_prova_questoes" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+
+<association table="public.pontuacao_prova_titulos" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.pontuacao_prova_titulos" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+
+<association table="public.pontuacao_prova_habilitacao" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.pontuacao_prova_habilitacao" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+
+<association table="public.idiomas_gabarito_prova" other_table="public.gabarito_prova" columns_here="gabarito_prova_id" columns_there="gabarito_prova_id" />
+
+<association table="public.idiomas_gabarito_prova" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.questao_cartao_resposta" other_table="public.cartao_resposta" columns_here="cartao_resposta_id" columns_there="cartao_resposta_id" />
+
+<association table="public.historico_motivo_bloqueio" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+
+<association table="public.arquivo_banca" other_table="public.banca_questoes" columns_here="banca_questoes_id" columns_there="banca_questoes_id" />
+
+<association table="public.arquivo_banca" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.recurso" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.recurso" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.recurso" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+
+<association table="public.recurso" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.area_banca_examinadora" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+
+<association table="public.area_banca_examinadora" other_table="public.area" columns_here="area_id" columns_there="area_id" />
+
+<association table="public.orientacao_recurso" other_table="public.fase" columns_here="fase_id" columns_there="fase_id" />
+
+<association table="public.visao_candidato" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+
+<association table="public.visao_candidato" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.visao_candidato" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.localidade_prova_inscricao" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+
+<association table="public.localidade_prova_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.localidade_prova_inscricao" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.historico_questao_banca" other_table="public.questao_banca" columns_here="questao_banca_id" columns_there="questao_banca_id" />
+
+<association table="public.historico_questao_banca" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+
+<association table="public.qtd_min_provas_corrigidas" other_table="public.vinculo_fase" columns_here="vinculo_fase_id" columns_there="vinculo_fase_id" />
+
+<association table="public.qtd_min_provas_corrigidas" other_table="public.vaga" columns_here="vaga_id" columns_there="vaga_id" />
+
+<association table="public.inscricao_historico_status" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.anexo_vistoria" other_table="public.vistoria_local_prova" columns_here="vistoria_local_prova_id" columns_there="vistoria_local_prova_id" />
+
+<association table="public.anexo_vistoria" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.parecer_historico_tramite" other_table="public.parecer" columns_here="parecer_id" columns_there="parecer_id" />
+
+<association table="public.alternativa_questao_correlata" other_table="public.questao_correlata" columns_here="questao_correlata_id" columns_there="questao_correlata_id" />
+
+<association table="public.alternativa_questao_correlata" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.diverg_fec_localidade_inscricao" other_table="public.diverg_fec_localidade" columns_here="diverg_fec_localidade_id" columns_there="diverg_fec_localidade_id" />
+
+<association table="public.diverg_fec_localidade_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.diverg_fec_concurso_inscricao" other_table="public.diverg_fec_concurso" columns_here="diverg_fec_concurso_id" columns_there="diverg_fec_concurso_id" />
+
+<association table="public.diverg_fec_concurso_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.imagem_parecer" other_table="public.parecer" columns_here="parecer_id" columns_there="parecer_id" />
+
+<association table="public.imagem_parecer" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.imagem_folha" other_table="public.lista_presenca" columns_here="lista_presenca_id" columns_there="lista_presenca_id" />
+
+<association table="public.imagem_folha" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+
+<association table="public.cartao_incluido" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+
+<association table="public.cartao_incluido" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+
+<association table="public.cartao_incluido" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+<association table="public.cartao_incluido" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+
+<association table="public.erro_arquivo_mds" other_table="public.arquivo_mds" columns_here="arquivo_mds_id" columns_there="arquivo_mds_id" />
+
+<association table="public.erro_importacao_cartao" other_table="public.cartao_importacao_processado" columns_here="cartao_imp_processado_id" columns_there="cartao_imp_processado_id" />
+
+<association table="public.questao_cartao_processado" other_table="public.cartao_importacao_processado" columns_here="cartao_imp_processado_id" columns_there="cartao_imp_processado_id" />
+
+<association table="public.cidades_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+
+<association table="public.cidades_concurso" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+
+
+</database>

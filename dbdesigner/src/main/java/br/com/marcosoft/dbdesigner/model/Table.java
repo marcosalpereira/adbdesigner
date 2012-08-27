@@ -108,4 +108,22 @@ public class Table {
 		return schema + "." + name;
 	}
 
+	/**
+	 * Retornar a chave primaria da tabela.
+	 * @return as colunas da chave primaria separadas por virgula
+	 */
+	public String getPrimaryKeys() {
+		String pks = null;
+		for (final Column column : columns) {
+	        if (column.isPk()) {
+	        	if (pks == null) {
+	        		pks = column.getName();
+	        	} else {
+	        		pks += "," + column.getName();
+	        	}
+	        }
+        }
+	    return pks;
+    }
+
 }

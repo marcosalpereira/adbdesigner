@@ -9,6 +9,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import br.com.marcosoft.dbdesigner.model.Association;
@@ -25,20 +26,20 @@ public class ParseDatabase {
 
 	public Database parse(File file) {
 		// get a factory
-		SAXParserFactory spf = SAXParserFactory.newInstance();
+		final SAXParserFactory spf = SAXParserFactory.newInstance();
 		try {
 
 			// get a new instance of parser
-			SAXParser sp = spf.newSAXParser();
+			final SAXParser sp = spf.newSAXParser();
 
 			// parse the file and also register this class for call backs
 			sp.parse(file, new Parser());
 
-		} catch (SAXException se) {
+		} catch (final SAXException se) {
 			se.printStackTrace();
-		} catch (ParserConfigurationException pce) {
+		} catch (final ParserConfigurationException pce) {
 			pce.printStackTrace();
-		} catch (IOException ie) {
+		} catch (final IOException ie) {
 			ie.printStackTrace();
 		}
 		return database;
@@ -49,6 +50,12 @@ public class ParseDatabase {
 		private Restriction restriction;
 		private Index index;
 		private Association association;
+
+		@Override
+		public void fatalError(SAXParseException e) throws SAXException {
+		    System.out.println(e.getMessage());
+		    System.out.println(e.getLineNumber() + "," + e.getColumnNumber());
+		}
 
 		@Override
 		public void startElement(String uri, String localName, String qName,
@@ -76,54 +83,64 @@ public class ParseDatabase {
 
 		private void parseRestrictionElement(Attributes attributes) {
 			restriction = new Restriction();
-			table.getRestrictions().add(restriction);
-			
+			Table tableOwner = table;
+
 			for (int i = 0; i < attributes.getLength(); i++) {
-				String attributeName = attributes.getQName(i);
-				String attributeValue = attributes.getValue(i);
+				final String attributeName = attributes.getQName(i);
+				final String attributeValue = attributes.getValue(i);
 
 				if ("type".equals(attributeName)) {
-					restriction.setType(attributeName);
+					restriction.setType(attributeValue);
 
 				} else if ("columns".equals(attributeName)) {
 					restriction.setColumns(attributeValue);
+
+				} else if ("table".equals(attributeName)) {
+					tableOwner = database.findTable(attributeValue);
+
 				}
 			}
+			tableOwner.getRestrictions().add(restriction);
 
 		}
 
 		private void parseIndexElement(Attributes attributes) {
 			index = new Index();
-			table.getIndexes().add(index);
-			
+			Table tableOwner = table;
+
 			for (int i = 0; i < attributes.getLength(); i++) {
-				String attributeName = attributes.getQName(i);
-				String attributeValue = attributes.getValue(i);
+				final String attributeName = attributes.getQName(i);
+				final String attributeValue = attributes.getValue(i);
 
 				if ("name".equals(attributeName)) {
 					index.setName(attributeValue);
 
 				} else if ("columns".equals(attributeName)) {
 					index.setColumns(attributeValue);
+
+				} else if ("table".equals(attributeName)) {
+					tableOwner = database.findTable(attributeValue);
 				}
 			}
+
+			tableOwner.getIndexes().add(index);
 		}
 
 		private void parseAssociationElement(Attributes attributes) {
 			association = new Association();
 			table.getAssociations().add(association);
-			
-			for (int i = 0; i < attributes.getLength(); i++) {
-				String attributeName = attributes.getQName(i);
-				String attributeValue = attributes.getValue(i);
 
-				if ("otherTable".equals(attributeName)) {
+			for (int i = 0; i < attributes.getLength(); i++) {
+				final String attributeName = attributes.getQName(i);
+				final String attributeValue = attributes.getValue(i);
+
+				if ("other_table".equals(attributeName)) {
 					association.setOtherTable(database.findTable(attributeValue));
 
-				} else if ("columnsHere".equals(attributeName)) {
+				} else if ("columns_here".equals(attributeName)) {
 					association.setColumnsHere(attributeValue);
 
-				} else if ("columnsThere".equals(attributeName)) {
+				} else if ("columns_there".equals(attributeName)) {
 					association.setColumnsThere(attributeValue);
 				}
 			}
@@ -134,8 +151,8 @@ public class ParseDatabase {
 			table.getColumns().add(column);
 
 			for (int i = 0; i < attributes.getLength(); i++) {
-				String attributeName = attributes.getQName(i);
-				String attributeValue = attributes.getValue(i);
+				final String attributeName = attributes.getQName(i);
+				final String attributeValue = attributes.getValue(i);
 
 				if ("name".equals(attributeName)) {
 					column.setName(attributeValue);
@@ -148,7 +165,7 @@ public class ParseDatabase {
 
 				} else if ("nullable".equals(attributeName)) {
 					column.setNullable(parseBoolean(attributeValue, true));
-					
+
 				} else if ("pk".equals(attributeName)) {
 					column.setPk(parseBoolean(attributeValue, false));
 
@@ -160,6 +177,15 @@ public class ParseDatabase {
 
 				} else if ("decimals".equals(attributeName)) {
 					column.setDecimals(parseInt(attributeValue, null));
+
+				} else if ("unique_restriction".equals(attributeName)) {
+					final Restriction r = new Restriction();
+					r.setType("unique");
+					r.setColumns(attributeValue);
+					table.getRestrictions().add(r);
+
+				} else if ("restriction_type".equals(attributeName)) {
+					column.setDecimals(parseInt(attributeValue, null));
 				}
 
 			}
@@ -169,7 +195,7 @@ public class ParseDatabase {
 		private boolean parseBoolean(String attributeValue, boolean errorValue) {
 			try {
 				return Boolean.parseBoolean(attributeValue);
-			} catch (NumberFormatException e) {
+			} catch (final NumberFormatException e) {
 				return errorValue;
 			}
 		}
@@ -178,8 +204,8 @@ public class ParseDatabase {
 			table = new Table();
 
 			for (int i = 0; i < attributes.getLength(); i++) {
-				String attributeName = attributes.getQName(i);
-				String attributeValue = attributes.getValue(i);
+				final String attributeName = attributes.getQName(i);
+				final String attributeValue = attributes.getValue(i);
 
 				if ("name".equals(attributeName)) {
 					table.setName(attributeValue);
@@ -192,13 +218,13 @@ public class ParseDatabase {
 
 				} else if ("order".equals(attributeName)) {
 					table.setOrder(parseInt(attributeValue, 0));
-					
+
 				} else if ("x".equals(attributeName)) {
 					table.setX(parseInt(attributeValue, 0));
 
 				} else if ("y".equals(attributeName)) {
 					table.setY(parseInt(attributeValue, 0));
-					
+
 				}
 
 			}
@@ -209,7 +235,7 @@ public class ParseDatabase {
 		private int parseInt(String value, Integer errorValue) {
 			try {
 				return Integer.parseInt(value);
-			} catch (NumberFormatException e) {
+			} catch (final NumberFormatException e) {
 				return errorValue;
 			}
 		}

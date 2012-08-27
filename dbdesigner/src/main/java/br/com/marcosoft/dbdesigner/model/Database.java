@@ -12,8 +12,8 @@ public class Database {
 	static {
 		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
 	}
-	
-	private Map<String, Table> tables = new HashMap<String, Table>();
+
+	private final Map<String, Table> tables = new HashMap<String, Table>();
 
 	public Collection<Table> getTables() {
 		return Collections.unmodifiableCollection(tables.values());
@@ -23,13 +23,13 @@ public class Database {
 	public String toString() {
 		return tables.toString();
 	}
-	
+
 	public void addTable(Table table) {
-		tables.put(table.getName(), table);
+		tables.put(table.getFullName(), table);
 	}
-	
+
 	public Table findTable(String name) {
 		return tables.get(name);
 	}
-	
+
 }

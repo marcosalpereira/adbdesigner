@@ -32,7 +32,7 @@ import br.com.marcosoft.dbdesigner.view.Graph;
 public class DBDesigner {
 
 	public static void main(String[] args) {
-		args = new String[] { DBDesigner.class.getResource("/sgc.dbxml").getFile() };
+		args = new String[] { DBDesigner.class.getResource("/teste.dbxml").getFile() };
 		checkArgs(args);
 		new DBDesigner().design(args[0]);
 	}
@@ -52,7 +52,7 @@ public class DBDesigner {
 	}
 
 	public void design(String fileName) {
-		Database database = new ParseDatabase().parse(new File(fileName));
+		final Database database = new ParseDatabase().parse(new File(fileName));
 
 		final Graph graph = new Graph(database);
 

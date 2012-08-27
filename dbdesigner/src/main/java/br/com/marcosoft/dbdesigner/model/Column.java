@@ -1,5 +1,8 @@
 package br.com.marcosoft.dbdesigner.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Column {
 	private String name;
@@ -10,15 +13,24 @@ public class Column {
 	private String type = "varchar";
 	private Integer length;
 	private Integer decimals;
+	private List<Restriction> restrictions = new ArrayList<Restriction>();
+
+	public List<Restriction> getRestrictions() {
+	    return restrictions;
+    }
+
+	public void setRestrictions(List<Restriction> restrictions) {
+	    this.restrictions = restrictions;
+    }
 
 	public void setPk(boolean pk) {
 		this.pk = pk;
 	}
-	
+
 	public boolean isPk() {
 		return pk;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -79,4 +91,8 @@ public class Column {
 	public String toString() {
 		return name;
 	}
+
+	public boolean isStringType() {
+	    return type.toLowerCase().contains("char");
+    }
 }

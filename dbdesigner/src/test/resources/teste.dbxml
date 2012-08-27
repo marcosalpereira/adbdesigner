@@ -8,8 +8,9 @@
 		<column name="cidade_id" pk="true" type="int" order="1"/>
 		<column name="nome" type="varchar" length="30" nullable="false" />
 		<column name="capital" type="boolean" nullable="false" default="false" />
-		<association otherTable="uf" columns_here="uf_id" columns_there="uf_id" />
+		<association other_table="uf" columns_here="uf_id" columns_there="uf_id" />
 		<index name="ix_name" columns="nome" unique="true" />
-		<restriction type="unique" columns="uf_id,nome" /> 
 	</table>
+	<restriction table="cidade" type="unique" columns="uf_id,nome" /> 
+    <index name="ix_sigla" columns="sigla" table="uf" />
 </database>
