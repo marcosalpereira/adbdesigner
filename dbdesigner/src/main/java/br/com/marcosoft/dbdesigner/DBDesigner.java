@@ -32,7 +32,7 @@ import br.com.marcosoft.dbdesigner.view.Graph;
 public class DBDesigner {
 
 	public static void main(String[] args) {
-		args = new String[] { DBDesigner.class.getResource("/teste.dbxml").getFile() };
+		args = new String[] { DBDesigner.class.getResource("/sgc.db.xml").getFile() };
 		checkArgs(args);
 		new DBDesigner().design(args[0]);
 	}

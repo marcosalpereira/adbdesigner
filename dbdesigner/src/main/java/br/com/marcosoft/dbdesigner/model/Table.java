@@ -3,6 +3,9 @@ package br.com.marcosoft.dbdesigner.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class Table {
 	private String name;
 	private String schema = "public";
@@ -124,6 +127,34 @@ public class Table {
 	        }
         }
 	    return pks;
+    }
+
+
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(Object obj) {
+	    if (this == obj) {
+		    return true;
+	    }
+	    if (obj instanceof Table) {
+		    final Table that = (Table) obj;
+		    return new EqualsBuilder()
+		    	.append(schema, that.schema)
+		    	.append(name, that.name)
+		    	.isEquals();
+	    }
+
+	    return false;
+    }
+
+    /**{@inheritDoc}*/
+    @Override
+    public int hashCode() {
+	    return new HashCodeBuilder(1, 3)
+	    	.append(this.schema)
+	    	.append(this.name)
+	    	.toHashCode();
     }
 
 }

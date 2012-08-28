@@ -131,7 +131,7 @@ public class ParseDatabase {
 
 		private void parseAssociationElement(Attributes attributes) {
 			association = new Association();
-			table.getAssociations().add(association);
+			Table tableOwner = table;
 
 			for (int i = 0; i < attributes.getLength(); i++) {
 				final String attributeName = attributes.getQName(i);
@@ -140,6 +140,9 @@ public class ParseDatabase {
 				if ("other_table".equals(attributeName)) {
 					association.setOtherTable(database.findTable(attributeValue));
 
+				} else if ("table".equals(attributeName)) {
+					tableOwner = database.findTable(attributeValue);
+
 				} else if ("columns_here".equals(attributeName)) {
 					association.setColumnsHere(attributeValue);
 
@@ -147,6 +150,8 @@ public class ParseDatabase {
 					association.setColumnsThere(attributeValue);
 				}
 			}
+
+			tableOwner.getAssociations().add(association);
 		}
 
 		private void parseColumnElement(Attributes attributes) {
