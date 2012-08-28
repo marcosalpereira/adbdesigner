@@ -33,7 +33,7 @@ public class DDLGenerator {
 		final List<Association> associations = table.getAssociations();
 		int i=1;
 		for (final Association association : associations) {
-			out.append("\nALTER TABLE " + table.getFullName());
+			out.append("\n\nALTER TABLE " + table.getFullName());
 			final String constraintName = "FK_" + table.getName() + "_" + i++;
 			out.append("\n  ADD CONSTRAINT " + constraintName );
 			out.append("\n      FOREIGN KEY (" + association.getColumnsHere() + ")");
@@ -100,14 +100,14 @@ public class DDLGenerator {
 		out.append(" ");
 		out.append(column.getType());
 
-		if (column.getDecimals() != null) {
-			out.append("(" + column.getLength() + "," + column.getDecimals() + ")");
+		if (column.getScale() != null) {
+			out.append("(" + column.getPrecision() + "," + column.getScale() + ")");
 		} else {
 			if (column.isStringType()) {
-				out.append("(" + column.getLength() + ")");
+				out.append("(" + column.getPrecision() + ")");
 			} else {
-				if (column.getLength() != null) {
-					out.append(" " + column.getLength());
+				if (column.getPrecision() != null) {
+					out.append(" " + column.getPrecision());
 				}
 			}
 		}
@@ -122,8 +122,8 @@ public class DDLGenerator {
 		} else {
 			out.append(" NOT NULL");
 		}
-		
-		Restriction uniqueRestriction = column.getUniqueRestriction();
+
+		final Restriction uniqueRestriction = column.getUniqueRestriction();
 		if (uniqueRestriction != null) {
 			out.append(" CONSTRAINT " + uniqueRestriction.getName() + " UNIQUE");
 		}

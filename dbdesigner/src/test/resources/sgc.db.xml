@@ -2,23 +2,21 @@
 <database>
 <table name="concurso" schema="public">
 <column name="concurso_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<restriction type="unique" columns="UQ_concurso_nome" />
-<column name="numero_projeto" type="VARCHAR" length="15" nullable="false" />
-<restriction type="unique" columns="UQ_concurso_numero" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="UQ_concurso_nome" />
+<column name="numero_projeto" type="VARCHAR" precision="15" nullable="false" unique_restriction="UQ_concurso_numero" />
 <column name="numero_edital" type="INT4" nullable="false" />
 <column name="ano_edital" type="INT4" nullable="false" />
-<column name="sigla_edital" type="VARCHAR" length="15" nullable="false" />
+<column name="sigla_edital" type="VARCHAR" precision="15" nullable="false" />
 <column name="data_inicio_inscricao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="data_final_inscricao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="data_final_pagamento" type="TIMESTAMP WITH TIME ZONE" />
 <column name="data_final_isencao" type="TIMESTAMP WITH TIME ZONE" />
 <column name="data_cadastramento" type="TIMESTAMP WITH TIME ZONE" default="current_timestamp"  nullable="false" />
-<column name="abrangencia" type="VARCHAR" length="15" nullable="false" />
+<column name="abrangencia" type="VARCHAR" precision="15" nullable="false" />
 <column name="data_publicacao" type="TIMESTAMP WITH TIME ZONE" />
 <column name="motivo_reativacao" type="TEXT" />
-<column name="status" type="VARCHAR" length="15" nullable="false" />
-<column name="status_anterior_suspensao" type="VARCHAR" length="15" />
+<column name="status" type="VARCHAR" precision="15" nullable="false" />
+<column name="status_anterior_suspensao" type="VARCHAR" precision="15" />
 <column name="formulario_inscricao_id" type="INT8" />
 <column name="sequencial_exportacao" type="BIGINT" default="0"  />
 <column name="version" type="INT4" nullable="false" />
@@ -29,18 +27,18 @@
 
 <table name="uf" schema="public">
 <column name="uf_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="sigla" type="VARCHAR" length="2" nullable="false" />
-<column name="nome" type="VARCHAR" length="25" nullable="false" />
+<column name="sigla" type="VARCHAR" precision="2" nullable="false" />
+<column name="nome" type="VARCHAR" precision="25" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
 
 <table name="orgao_contratante" schema="public">
 <column name="orgao_contratante_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<column name="sigla" type="VARCHAR" length="10" nullable="false" />
-<column name="texto_estrutura" type="VARCHAR" length="50" />
-<column name="tipo_estrutura" type="VARCHAR" length="15" nullable="false" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" />
+<column name="sigla" type="VARCHAR" precision="10" nullable="false" />
+<column name="texto_estrutura" type="VARCHAR" precision="50" />
+<column name="tipo_estrutura" type="VARCHAR" precision="15" nullable="false" />
 <column name="habilitado" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -48,8 +46,7 @@
 
 <table name="disciplina" schema="public">
 <column name="disciplina_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<restriction type="unique" columns="UQ_disciplina_1" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="UQ_disciplina_1" />
 <column name="idioma" type="BOOL" nullable="false" />
 <column name="desativada" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -59,16 +56,16 @@
 <table name="conteudo_prova" schema="public">
 <column name="conteudo_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="prova_id" type="BIGINT" />
-<column name="tipo_prova" type="VARCHAR" length="20" nullable="false" />
-<column name="titulos_nota_minima" type="NUMERIC" length="19" decimals="2" />
-<column name="titulos_nota_maxima" type="NUMERIC" length="19" decimals="2" />
-<column name="questoes_nota_minima" type="NUMERIC" length="19" decimals="2" />
-<column name="questoes_nota_maxima" type="NUMERIC" length="19" decimals="2" />
+<column name="tipo_prova" type="VARCHAR" precision="20" nullable="false" />
+<column name="titulos_nota_minima" type="NUMERIC" precision="19" scale="2" />
+<column name="titulos_nota_maxima" type="NUMERIC" precision="19" scale="2" />
+<column name="questoes_nota_minima" type="NUMERIC" precision="19" scale="2" />
+<column name="questoes_nota_maxima" type="NUMERIC" precision="19" scale="2" />
 <column name="objetiva_quantidade_gabaritos" type="INTEGER" />
-<column name="objetiva_pontuacao_correcao" type="VARCHAR" length="20" />
-<column name="objetiva_nota_minima" type="NUMERIC" length="19" decimals="2" />
-<column name="objetiva_numero_aplicacao_prova" type="VARCHAR" length="15" />
-<column name="peso" type="NUMERIC" length="2" decimals="1" />
+<column name="objetiva_pontuacao_correcao" type="VARCHAR" precision="20" />
+<column name="objetiva_nota_minima" type="NUMERIC" precision="19" scale="2" />
+<column name="objetiva_numero_aplicacao_prova" type="VARCHAR" precision="15" />
+<column name="peso" type="NUMERIC" precision="2" scale="1" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -76,8 +73,7 @@
 
 <table name="area_formacao" schema="public">
 <column name="area_formacao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="descricao" type="VARCHAR" length="30" nullable="false" />
-<restriction type="unique" columns="UQ_area_formacao" />
+<column name="descricao" type="VARCHAR" precision="30" nullable="false" unique_restriction="UQ_area_formacao" />
 <column name="desativado" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -85,8 +81,7 @@
 
 <table name="nivel_escolaridade" schema="public">
 <column name="nivel_escolaridade_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="descricao" type="VARCHAR" length="70" nullable="false" />
-<restriction type="unique" columns="uq_nivel_escolaridade" />
+<column name="descricao" type="VARCHAR" precision="70" nullable="false" unique_restriction="uq_nivel_escolaridade" />
 <column name="desativado" type="BOOLEAN" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -94,10 +89,10 @@
 
 <table name="tratamento_diferenciado" schema="public">
 <column name="tratamento_diferenciado_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="descricao" type="VARCHAR" length="50" nullable="false" />
-<column name="texto_da_carta" type="VARCHAR" length="150" nullable="false" />
+<column name="descricao" type="VARCHAR" precision="50" nullable="false" />
+<column name="texto_da_carta" type="VARCHAR" precision="150" nullable="false" />
 <column name="desativado" type="BOOL" default="FALSE"  nullable="false" />
-<column name="tipo_tratamento" type="VARCHAR" length="20" nullable="false" />
+<column name="tipo_tratamento" type="VARCHAR" precision="20" nullable="false" />
 <column name="permite_alteracao_gabarito" type="BOOL" nullable="false" />
 <column name="exige_acessibilidade" type="BOOL" />
 <column name="version" type="INT4" nullable="false" />
@@ -106,12 +101,11 @@
 
 <table name="monitoramento_candidato" schema="public">
 <column name="monitoramento_candidato_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR"(11) nullable="false" />
-<restriction type="unique" columns="UQ_monitoramento_candidato_1" />
-<column name="nome" type="VARCHAR"(40) nullable="false" />
-<column name="texto_candidato" type="VARCHAR"(250) />
-<column name="motivo" type="VARCHAR"(15) nullable="false" />
-<column name="fato_ocorrido" type="VARCHAR"(250) />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_monitoramento_candidato_1" />
+<column name="nome" type="VARCHAR" precision="40" nullable="false" />
+<column name="texto_candidato" type="VARCHAR" precision="250" />
+<column name="motivo" type="VARCHAR" precision="15" nullable="false" />
+<column name="fato_ocorrido" type="VARCHAR" precision="250" />
 <column name="desativado" type="BOOL" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -119,18 +113,15 @@
 
 <table name="motivo_indeferimento" schema="public">
 <column name="motivo_indeferimento_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="codigo" type="INTEGER" nullable="false" />
-<restriction type="unique" columns="UQ_motivo_indeferimento_codigo" />
-<column name="descricao" type="VARCHAR" length="50" nullable="false" />
-<restriction type="unique" columns="UQ_motivo_indeferimento_descricao" />
+<column name="codigo" type="INTEGER" nullable="false" unique_restriction="UQ_motivo_indeferimento_codigo" />
+<column name="descricao" type="VARCHAR" precision="50" nullable="false" unique_restriction="UQ_motivo_indeferimento_descricao" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
 
 <table name="idioma" schema="public">
 <column name="idioma_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="20" nullable="false" />
-<restriction type="unique" columns="uq_idioma_nome" />
+<column name="nome" type="VARCHAR" precision="20" nullable="false" unique_restriction="uq_idioma_nome" />
 <column name="desativado" type="BOOL" default="false"  nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -138,8 +129,7 @@
 
 <table name="assunto" schema="public">
 <column name="assunto_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR"(100) nullable="false" />
-<restriction type="unique" columns="UQ_assunto_nome" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="UQ_assunto_nome" />
 <column name="desabilitado" type="BOOLEAN" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -147,10 +137,9 @@
 
 <table name="arquivo_anexo" schema="public">
 <column name="arquivo_anexo_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome_arquivo" type="VARCHAR"(100) nullable="false" />
-<column name="tipo_mime_arquivo" type="VARCHAR"(30) />
-<column name="identificacao_arquivo" type="VARCHAR"(36) nullable="false" />
-<restriction type="unique" columns="UQ_arquivo_anexo_identificacao_arquivo" />
+<column name="nome_arquivo" type="VARCHAR" precision="100" nullable="false" />
+<column name="tipo_mime_arquivo" type="VARCHAR" precision="30" />
+<column name="identificacao_arquivo" type="VARCHAR" precision="36" nullable="false" unique_restriction="UQ_arquivo_anexo_identificacao_arquivo" />
 <column name="data_gravacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="conteudo_arquivo_fake" type="BYTEA" />
 <column name="version" type="INT4" nullable="false" />
@@ -161,17 +150,16 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <table name="registro_revisao_auditoria" schema="auditoria">
 <column name="registro_revisao_auditoria_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="timestamp" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
-<column name="cpf_responsavel" type="VARCHAR" length="11" nullable="false" />
-<column name="nome_responsavel" type="VARCHAR" length="100" nullable="false" />
-<column name="funcionalidade" type="VARCHAR" length="50" nullable="false" />
-<column name="operacao" type="VARCHAR" length="50" />
+<column name="cpf_responsavel" type="VARCHAR" precision="11" nullable="false" />
+<column name="nome_responsavel" type="VARCHAR" precision="100" nullable="false" />
+<column name="funcionalidade" type="VARCHAR" precision="50" nullable="false" />
+<column name="operacao" type="VARCHAR" precision="50" />
 
 </table>
 
 <table name="cargo" schema="public">
 <column name="cargo_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<restriction type="unique" columns="uq_cargo_nome" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="uq_cargo_nome" />
 <column name="desabilitado" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -179,12 +167,13 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="campo_atuacao" schema="public">
 <column name="campo_atuacao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="70" nullable="false" />
+<column name="nome" type="VARCHAR" precision="70" nullable="false" />
 <column name="cargo_id" type="INT8" nullable="false" />
 <column name="desabilitado" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="uq_campo_nome_cargo" UNIQUE (cargo_id, nome) />
+
+<restriction type="unique" name="uq_campo_nome_cargo" columns="cargo_id, nome" />
 </table>
 <index name="IX_campo_atuacao_cargo_id" table="public.campo_atuacao" columns="cargo_id" />
 
@@ -196,24 +185,26 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="cargo_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_campo_orgao" UNIQUE (orgao_contratante_id, campo_atuacao_id, cargo_id) />
+
+<restriction type="unique" name="UQ_campo_orgao" columns="orgao_contratante_id, campo_atuacao_id, cargo_id" />
 </table>
 
 <table name="cidade" schema="public">
 <column name="cidade_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" />
 <column name="uf_id" type="INT8" nullable="false" />
 <column name="desabilitada" type="BOOL" nullable="false" />
 <column name="capital" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_cidade_1" UNIQUE (uf_id, nome) />
+
+<restriction type="unique" name="UQ_cidade_1" columns="uf_id, nome" />
 </table>
 <index name="uf_idx" table="public.cidade" columns="uf_id" />
 
 <table name="estrutura" schema="public">
 <column name="estrutura_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="50" nullable="false" />
+<column name="nome" type="VARCHAR" precision="50" nullable="false" />
 <column name="orgao_contratante_id" type="INT8" nullable="false" />
 <column name="desabilitada" type="BOOL" default="false"  />
 <column name="version" type="INT4" nullable="false" />
@@ -223,15 +214,15 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="local_prova" schema="public">
 <column name="local_prova_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="70" nullable="false" />
-<column name="logradouro" type="VARCHAR" length="100" nullable="false" />
-<column name="numero" type="VARCHAR" length="10" nullable="false" />
-<column name="complemento" type="VARCHAR" length="100" />
+<column name="nome" type="VARCHAR" precision="70" nullable="false" />
+<column name="logradouro" type="VARCHAR" precision="100" nullable="false" />
+<column name="numero" type="VARCHAR" precision="10" nullable="false" />
+<column name="complemento" type="VARCHAR" precision="100" />
 <column name="cidade_id" type="INT8" nullable="false" />
 <column name="uf_id" type="INT8" nullable="false" />
-<column name="bairro" type="VARCHAR"(60) nullable="false" />
-<column name="cep" type="VARCHAR" length="8" nullable="false" />
-<column name="telefone" type="VARCHAR" length="10" nullable="false" />
+<column name="bairro" type="VARCHAR" precision="60" nullable="false" />
+<column name="cep" type="VARCHAR" precision="8" nullable="false" />
+<column name="telefone" type="VARCHAR" precision="10" nullable="false" />
 <column name="acessibilidade" type="BOOL" default="false"  nullable="false" />
 <column name="desabilitado" type="BOOL" default="false"  nullable="false" />
 <column name="escola_publica" type="BOOL" default="false"  nullable="false" />
@@ -239,7 +230,8 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="numero_sequencial" type="INT4" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_local_prova_nome_cidade" UNIQUE (nome, cidade_id) />
+
+<restriction type="unique" name="UQ_local_prova_nome_cidade" columns="nome, cidade_id" />
 </table>
 <index name="cidade_idx" table="public.local_prova" columns="cidade_id" />
 
@@ -254,16 +246,15 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="usuario" schema="public">
 <column name="usuario_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" length="11" nullable="false" />
-<restriction type="unique" columns="UQ_usuario_cpf" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<column name="perfil" type="VARCHAR" length="30" nullable="false" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_usuario_cpf" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" />
+<column name="perfil" type="VARCHAR" precision="30" nullable="false" />
 <column name="data_expiracao" type="TIMESTAMP WITH TIME ZONE" />
-<column name="email" type="VARCHAR" length="100" />
-<column name="fone_res" type="VARCHAR" length="20" />
-<column name="fone_com" type="VARCHAR" length="20" />
-<column name="fone_cel" type="VARCHAR" length="20" />
-<column name="fax" type="VARCHAR" length="20" />
+<column name="email" type="VARCHAR" precision="100" />
+<column name="fone_res" type="VARCHAR" precision="20" />
+<column name="fone_com" type="VARCHAR" precision="20" />
+<column name="fone_cel" type="VARCHAR" precision="20" />
+<column name="fax" type="VARCHAR" precision="20" />
 <column name="bloqueado" type="BOOL" nullable="false" />
 <column name="uf_id" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
@@ -286,11 +277,12 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="etapa" schema="public">
 <column name="etapa_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR"(50) nullable="false" />
+<column name="nome" type="VARCHAR" precision="50" nullable="false" />
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_etapa_nome" UNIQUE (nome, concurso_id) />
+
+<restriction type="unique" name="UQ_etapa_nome" columns="nome, concurso_id" />
 </table>
 <index name="IX_etapa_concurso_id" table="public.etapa" columns="concurso_id" />
 
@@ -301,7 +293,8 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="campo_orgao_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="uq_oferta_cargo_concurso" UNIQUE (concurso_id, campo_orgao_id) />
+
+<restriction type="unique" name="uq_oferta_cargo_concurso" columns="concurso_id, campo_orgao_id" />
 </table>
 <index name="IX_oferta_cargo_concurso_concurso_id" table="public.oferta_cargo_concurso" columns="concurso_id" />
 <index name="IX_oferta_cargo_concurso_campo_orgao_id" table="public.oferta_cargo_concurso" columns="campo_orgao_id" />
@@ -310,13 +303,13 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="vistoria_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="local_prova_id" type="INT8" nullable="false" />
 <column name="etapa_id" type="INT8" nullable="false" />
-<column name="responsavel" type="VARCHAR" length="50" nullable="false" />
-<column name="status" type="VARCHAR" length="12" nullable="false" />
+<column name="responsavel" type="VARCHAR" precision="50" nullable="false" />
+<column name="status" type="VARCHAR" precision="12" nullable="false" />
 <column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="data_visita" type="TIMESTAMP WITH TIME ZONE" />
-<column name="nome_contato" type="VARCHAR" length="50" />
-<column name="telefone_contato" type="VARCHAR"(10) />
-<column name="outras_informacoes" type="VARCHAR" length="200" />
+<column name="nome_contato" type="VARCHAR" precision="50" />
+<column name="telefone_contato" type="VARCHAR" precision="10" />
+<column name="outras_informacoes" type="VARCHAR" precision="200" />
 <column name="confere_vistoria" type="BOOL" default="false"  nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -325,31 +318,33 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="aplicacao_prova" schema="public">
 <column name="aplicacao_prova_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="50" nullable="false" />
+<column name="nome" type="VARCHAR" precision="50" nullable="false" />
 <column name="data_aplicacao_prova" type="DATE" nullable="false" />
 <column name="hora_fechamento_portao" type="TIME" nullable="false" />
 <column name="duracao_prova" type="TIME" nullable="false" />
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_aplicacao_prova_1" UNIQUE (concurso_id, nome) />
+
+<restriction type="unique" name="UQ_aplicacao_prova_1" columns="concurso_id, nome" />
 </table>
 <index name="IX_aplicacao_prova_concurso_id" table="public.aplicacao_prova" columns="concurso_id" />
 <index name="IX_aplicacao_prova_nome_concurso_id" table="public.aplicacao_prova" columns="nome, concurso_id" />
 
 <table name="subprova" schema="public">
 <column name="subprova_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" length="60" nullable="false" />
-<column name="status" type="VARCHAR" length="15" />
+<column name="nome" type="VARCHAR" precision="60" nullable="false" />
+<column name="status" type="VARCHAR" precision="15" />
 <column name="classificatoria" type="BOOL" />
 <column name="eliminatoria" type="BOOL" />
-<column name="nota_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="nota_minima" type="NUMERIC" precision="19" scale="2" />
 <column name="concurso_id" type="INT8" nullable="false" />
-<column name="correcao" type="VARCHAR" length="20" />
-<column name="peso" type="NUMERIC" length="2" decimals="1" nullable="false" />
+<column name="correcao" type="VARCHAR" precision="20" />
+<column name="peso" type="NUMERIC" precision="2" scale="1" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_subprova_nome_concurso" UNIQUE (nome, concurso_id) />
+
+<restriction type="unique" name="UQ_subprova_nome_concurso" columns="nome, concurso_id" />
 </table>
 <index name="IX_subprova_concurso_id" table="public.subprova" columns="concurso_id" />
 
@@ -357,13 +352,13 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="questao_prova_subjetiva_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
 <column name="numero" type="INTEGER" nullable="false" />
-<column name="pontuacao_minima" type="NUMERIC" length="19" decimals="2" />
-<column name="pontuacao_maxima" type="NUMERIC" length="19" decimals="2" />
-<column name="peso" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao_minima" type="NUMERIC" precision="19" scale="2" />
+<column name="pontuacao_maxima" type="NUMERIC" precision="19" scale="2" />
+<column name="peso" type="NUMERIC" precision="19" scale="2" />
 <column name="conteudo" type="BOOL" />
 <column name="idioma" type="BOOL" />
-<column name="pontuacao_maxima_conteudo" type="NUMERIC" length="19" decimals="2" />
-<column name="pontuacao_maxima_idioma" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao_maxima_conteudo" type="NUMERIC" precision="19" scale="2" />
+<column name="pontuacao_maxima_idioma" type="NUMERIC" precision="19" scale="2" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -374,8 +369,8 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
 <column name="nome" type="TEXT" nullable="false" />
 <column name="obrigatorio" type="BOOLEAN" nullable="false" />
-<column name="valor_maximo" type="NUMERIC" length="19" decimals="2" nullable="false" />
-<column name="valor_unitario" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="valor_maximo" type="NUMERIC" precision="19" scale="2" nullable="false" />
+<column name="valor_unitario" type="NUMERIC" precision="19" scale="2" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -397,32 +392,31 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="candidato" schema="public">
 <column name="candidato_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" length="11" nullable="false" />
-<restriction type="unique" columns="UQ_candidato_cpf" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<column name="nome_mae" type="VARCHAR" length="100" nullable="false" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_candidato_cpf" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" />
+<column name="nome_mae" type="VARCHAR" precision="100" nullable="false" />
 <column name="data_nascimento" type="TIMESTAMP" nullable="false" />
-<column name="genero" type="VARCHAR" length="9" nullable="false" />
-<column name="numero_identidade" type="VARCHAR" length="20" nullable="false" />
-<column name="orgao_expedidor_identidade" type="VARCHAR" length="6" nullable="false" />
+<column name="genero" type="VARCHAR" precision="9" nullable="false" />
+<column name="numero_identidade" type="VARCHAR" precision="20" nullable="false" />
+<column name="orgao_expedidor_identidade" type="VARCHAR" precision="6" nullable="false" />
 <column name="data_emissao_identidade" type="TIMESTAMP" nullable="false" />
-<column name="cep" type="VARCHAR" length="8" nullable="false" />
-<column name="logradouro" type="VARCHAR" length="100" nullable="false" />
-<column name="numero" type="VARCHAR" length="5" nullable="false" />
-<column name="complemento" type="VARCHAR" length="100" />
-<column name="bairro" type="VARCHAR" length="60" />
-<column name="telefone_fixo" type="VARCHAR" length="10" />
-<column name="telefone_celular" type="VARCHAR" length="10" />
-<column name="email" type="VARCHAR" length="60" />
+<column name="cep" type="VARCHAR" precision="8" nullable="false" />
+<column name="logradouro" type="VARCHAR" precision="100" nullable="false" />
+<column name="numero" type="VARCHAR" precision="5" nullable="false" />
+<column name="complemento" type="VARCHAR" precision="100" />
+<column name="bairro" type="VARCHAR" precision="60" />
+<column name="telefone_fixo" type="VARCHAR" precision="10" />
+<column name="telefone_celular" type="VARCHAR" precision="10" />
+<column name="email" type="VARCHAR" precision="60" />
 <column name="uf_identidade_id" type="INT8" nullable="false" />
-<column name="cidade" type="VARCHAR" length="60" nullable="false" />
+<column name="cidade" type="VARCHAR" precision="60" nullable="false" />
 <column name="uf_endereco_id" type="INT8" nullable="false" />
-<column name="senha" type="VARCHAR" length="64" nullable="false" />
-<column name="email_privado" type="VARCHAR"(64) nullable="false" />
+<column name="senha" type="VARCHAR" precision="64" nullable="false" />
+<column name="email_privado" type="VARCHAR" precision="64" nullable="false" />
 <column name="senha_gerada" type="BOOLEAN" default="false"  nullable="false" />
 <column name="version" type="INT4" nullable="false" />
-<column name="pergunta_secreta" type="VARCHAR"(100) nullable="false" />
-<column name="resposta_secreta" type="VARCHAR"(15) nullable="false" />
+<column name="pergunta_secreta" type="VARCHAR" precision="100" nullable="false" />
+<column name="resposta_secreta" type="VARCHAR" precision="15" nullable="false" />
 
 </table>
 CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
@@ -433,14 +427,15 @@ CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="aplicacao_prova_id" type="INT8" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
-<column name="tipo_correcao_prova" type="VARCHAR" length="20" nullable="false" />
-<column name="nome" type="VARCHAR" length="50" nullable="false" />
+<column name="tipo_correcao_prova" type="VARCHAR" precision="20" nullable="false" />
+<column name="nome" type="VARCHAR" precision="50" nullable="false" />
 <column name="eliminatoria" type="BOOL" nullable="false" />
 <column name="classificatoria" type="BOOL" nullable="false" />
-<column name="status_prova" type="VARCHAR" length="15" nullable="false" />
+<column name="status_prova" type="VARCHAR" precision="15" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_prova_nome_concurso" UNIQUE (concurso_id, nome) />
+
+<restriction type="unique" name="UQ_prova_nome_concurso" columns="concurso_id, nome" />
 </table>
 <index name="IX_prova_concurso_id" table="public.prova" columns="concurso_id" />
 <index name="IX_prova_aplicacao_prova_id" table="public.prova" columns="aplicacao_prova_id" />
@@ -458,7 +453,7 @@ CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
 <column name="texto_tipo_tratamento_diferenciado" type="TEXT" />
 <column name="texto_termo_compromisso" type="TEXT" />
 <column name="texto_opcao_termo_compromisso" type="TEXT" />
-<column name="status" type="VARCHAR" length="30" nullable="false" />
+<column name="status" type="VARCHAR" precision="30" nullable="false" />
 <column name="texto_termo_isencao" type="TEXT" />
 <column name="texto_opcao_termo_isencao" type="TEXT" />
 <column name="version" type="INT4" nullable="false" />
@@ -467,42 +462,43 @@ CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
 
 <table name="fase" schema="public">
 <column name="fase_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR"(50) nullable="false" />
+<column name="nome" type="VARCHAR" precision="50" nullable="false" />
 <column name="etapa_id" type="INT8" nullable="false" />
-<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="status" type="VARCHAR" precision="10" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_fase_nome" UNIQUE (nome, etapa_id) />
+
+<restriction type="unique" name="UQ_fase_nome" columns="nome, etapa_id" />
 </table>
 <index name="IX_fase_etapa_id" table="public.fase" columns="etapa_id" />
 
 <table name="inscricao" schema="public">
 <column name="inscricao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="status" type="VARCHAR" length="33" nullable="false" />
-<column name="numero_inscricao" type="VARCHAR" length="7" nullable="false" />
+<column name="status" type="VARCHAR" precision="33" nullable="false" />
+<column name="numero_inscricao" type="VARCHAR" precision="7" nullable="false" />
 <column name="candidato_id" type="INT8" nullable="false" />
 <column name="idioma_id" type="INT8" />
 <column name="area_formacao_id" type="INT8" />
 <column name="nivel_escolaridade_id" type="INT8" />
-<column name="descricao_deficiencia" type="VARCHAR" length="70" />
-<column name="descricao_tratamento_diferenciado" type="VARCHAR" length="70" />
+<column name="descricao_deficiencia" type="VARCHAR" precision="70" />
+<column name="descricao_tratamento_diferenciado" type="VARCHAR" precision="70" />
 <column name="cidade_prova_id" type="INT8" nullable="false" />
 <column name="numero_nis" type="INT8" />
-<column name="numero_identidade_nis" type="VARCHAR" length="20" />
-<column name="orgao_expeditor_identidade_nis" type="VARCHAR" length="6" />
+<column name="numero_identidade_nis" type="VARCHAR" precision="20" />
+<column name="orgao_expeditor_identidade_nis" type="VARCHAR" precision="6" />
 <column name="data_emissao_identidade_nis" type="TIMESTAMP" />
 <column name="uf_identidade_nis_id" type="INT8" />
-<column name="numero_sedex_laudo" type="VARCHAR" length="20" />
-<column name="tipo_isencao_solicitada" type="VARCHAR" length="10" />
-<column name="tipo_isencao_concedida" type="VARCHAR" length="10" />
-<column name="cargo_ocupa" type="VARCHAR" length="70" />
-<column name="cargo_comissionado" type="VARCHAR" length="70" />
-<column name="email_chefia_imediata" type="VARCHAR" length="100" />
-<column name="email_funcional" type="VARCHAR" length="100" />
-<column name="matricula_siape" type="VARCHAR" length="12" />
-<column name="orgao_exercicio" type="VARCHAR" length="70" />
-<column name="orgao_lotacao" type="VARCHAR" length="70" />
-<column name="telefone_funcional" type="VARCHAR" length="20" />
+<column name="numero_sedex_laudo" type="VARCHAR" precision="20" />
+<column name="tipo_isencao_solicitada" type="VARCHAR" precision="10" />
+<column name="tipo_isencao_concedida" type="VARCHAR" precision="10" />
+<column name="cargo_ocupa" type="VARCHAR" precision="70" />
+<column name="cargo_comissionado" type="VARCHAR" precision="70" />
+<column name="email_chefia_imediata" type="VARCHAR" precision="100" />
+<column name="email_funcional" type="VARCHAR" precision="100" />
+<column name="matricula_siape" type="VARCHAR" precision="12" />
+<column name="orgao_exercicio" type="VARCHAR" precision="70" />
+<column name="orgao_lotacao" type="VARCHAR" precision="70" />
+<column name="telefone_funcional" type="VARCHAR" precision="20" />
 <column name="tempo_servico_ano" type="INTEGER" />
 <column name="tempo_servico_mes" type="INTEGER" />
 <column name="tempo_servico_dia" type="INTEGER" />
@@ -516,18 +512,19 @@ CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
 <column name="data_inscricao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="data_confirmacao" type="TIMESTAMP WITH TIME ZONE" />
 <column name="data_cancelamento" type="TIMESTAMP WITH TIME ZONE" />
-<column name="motivo_cancelamento" type="VARCHAR" length="400" />
+<column name="motivo_cancelamento" type="VARCHAR" precision="400" />
 <column name="motivo_indeferimento_id" type="INT8" />
-<column name="motivo_alteracao_status" type="VARCHAR"(400) />
+<column name="motivo_alteracao_status" type="VARCHAR" precision="400" />
 <column name="motivo_alteracao_status_visivel" type="BOOLEAN" />
-<column name="motivo_reativacao" type="VARCHAR"(400) />
-<column name="justificativa_solicitacao_isencao" type="VARCHAR"(400) />
-<column name="justificativa_analise_isencao" type="VARCHAR"(400) />
-<column name="justificativa_alteracao_vaga" type="VARCHAR"(400) />
+<column name="motivo_reativacao" type="VARCHAR" precision="400" />
+<column name="justificativa_solicitacao_isencao" type="VARCHAR" precision="400" />
+<column name="justificativa_analise_isencao" type="VARCHAR" precision="400" />
+<column name="justificativa_alteracao_vaga" type="VARCHAR" precision="400" />
 <column name="version" type="INT4" nullable="false" />
 <column name="justificativa_analise_isencao_visivel" type="BOOLEAN" />
 
-<column name="CONSTRAINT" type="UQ_inscricao_numero_inscricao" UNIQUE (concurso_id, numero_inscricao) />
+
+<restriction type="unique" name="UQ_inscricao_numero_inscricao" columns="concurso_id, numero_inscricao" />
 </table>
 <index name="IX_inscricao_candidato_id" table="public.inscricao" columns="candidato_id" />
 CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_inscricao, concurso_id);
@@ -536,8 +533,8 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 
 <table name="vinculo_fase" schema="public">
 <column name="vinculo_fase_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="habilitar_proxima_fase" type="VARCHAR"(32) />
-<column name="tipo_correcao" type="VARCHAR"(20) />
+<column name="habilitar_proxima_fase" type="VARCHAR" precision="32" />
+<column name="tipo_correcao" type="VARCHAR" precision="20" />
 <column name="pontuacao_minima" type="NUMERIC" />
 <column name="min_prova_correcao" type="BOOL" />
 <column name="reverter_vaga_deficiente_ampla_concorrencia" type="BOOL" />
@@ -546,20 +543,21 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="fase_id" type="INT8" nullable="false" />
 <column name="oferta_cargo_concurso_id" type="INT8" nullable="false" />
 <column name="fator_numero_vagas_proxima_fase" type="INT4" />
-<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="status" type="VARCHAR" precision="10" nullable="false" />
 <column name="opcao_criterio_desempate" type="BOOL" default="false"  nullable="false" />
 <column name="habilitar_empatados_ultimo" type="BOOL" default="true"  nullable="false" />
-<column name="peso" type="NUMERIC" length="2" decimals="1" nullable="false" />
+<column name="peso" type="NUMERIC" precision="2" scale="1" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_fase_oferta" UNIQUE (fase_id, oferta_cargo_concurso_id) />
+
+<restriction type="unique" name="UQ_fase_oferta" columns="fase_id, oferta_cargo_concurso_id" />
 </table>
 <index name="IX_vinculo_fase_fase_id" table="public.vinculo_fase" columns="fase_id" />
 <index name="IX_vinculo_fase_oferta_cargo_concurso_id" table="public.vinculo_fase" columns="oferta_cargo_concurso_id" />
 
 <table name="arquivo_pagamento" schema="public">
        arquivo_pagamento_id BIGSERIAL nullable="false"
-<column name="nome_arquivo" type="VARCHAR" length="100" nullable="false" />
+<column name="nome_arquivo" type="VARCHAR" precision="100" nullable="false" />
 <column name="data_processamento" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="quantidade_registros" type="INTEGER" nullable="false" />
 <column name="arquivo_anexo_id" type="INT8" nullable="false" />
@@ -570,16 +568,17 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <table name="bloco_local_prova" schema="public">
 <column name="bloco_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="local_prova_id" type="INT8" nullable="false" />
-<column name="nome" type="VARCHAR" length="20" nullable="false" />
-<column name="formato_corredor" type="VARCHAR" length="10" nullable="false" />
+<column name="nome" type="VARCHAR" precision="20" nullable="false" />
+<column name="formato_corredor" type="VARCHAR" precision="10" nullable="false" />
 <column name="acesso_facilitado" type="BOOL" default="false"  nullable="false" />
-<column name="tipo_acesso_facilitado" type="VARCHAR" length="10" />
+<column name="tipo_acesso_facilitado" type="VARCHAR" precision="10" />
 <column name="desativado" type="BOOL" default="false"  nullable="false" />
-<column name="motivo_desativado" type="VARCHAR" length="100" />
+<column name="motivo_desativado" type="VARCHAR" precision="100" />
 <column name="numero_sequencial" type="INT4" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_bloco_local_prova_nome" UNIQUE (local_prova_id, nome) />
+
+<restriction type="unique" name="UQ_bloco_local_prova_nome" columns="local_prova_id, nome" />
 </table>
 <index name="IX_bloco_local_prova_local_prova_id" table="public.bloco_local_prova" columns="local_prova_id" />
 
@@ -588,7 +587,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="ordem" type="INT4" nullable="false" />
 <column name="idade" type="INT4" />
 <column name="vinculo_fase_id" type="INT8" nullable="false" />
-<column name="tipo_criterio" type="VARCHAR"(30) nullable="false" />
+<column name="tipo_criterio" type="VARCHAR" precision="30" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -597,7 +596,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <table name="andar_local_prova" schema="public">
 <column name="andar_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="bloco_local_prova_id" type="INT8" nullable="false" />
-<column name="nome" type="VARCHAR" length="20" nullable="false" />
+<column name="nome" type="VARCHAR" precision="20" nullable="false" />
 <column name="nu_ban_masc_normal" type="INT4" default="0"  nullable="false" />
 <column name="nu_ban_masc_adaptado" type="INT4" default="0"  nullable="false" />
 <column name="nu_ban_fem_normal" type="INT4" default="0"  nullable="false" />
@@ -608,28 +607,30 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="ban_masc_normal_adaptado" type="BOOL" default="false"  nullable="false" />
 <column name="ban_fem_normal_adaptado" type="BOOL" default="false"  nullable="false" />
 <column name="desativado" type="BOOL" default="false"  nullable="false" />
-<column name="motivo_desativado" type="VARCHAR" length="100" />
+<column name="motivo_desativado" type="VARCHAR" precision="100" />
 <column name="acesso_facilitado" type="BOOL" default="false"  nullable="false" />
 <column name="numero_sequencial" type="INT4" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_andar_local_prova_nome" UNIQUE (bloco_local_prova_id, nome) />
+
+<restriction type="unique" name="UQ_andar_local_prova_nome" columns="bloco_local_prova_id, nome" />
 </table>
 <index name="IX_andar_local_prova_bloco_id" table="public.andar_local_prova" columns="bloco_local_prova_id" />
 
 <table name="sala_local_prova" schema="public">
 <column name="sala_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="andar_local_prova_id" type="INT8" nullable="false" />
-<column name="numero" type="VARCHAR" length="20" nullable="false" />
+<column name="numero" type="VARCHAR" precision="20" nullable="false" />
 <column name="acesso_facilitado" type="BOOL" default="false"  nullable="false" />
 <column name="desativada" type="BOOL" default="false"  nullable="false" />
-<column name="motivo_desativada" type="VARCHAR" length="100" />
+<column name="motivo_desativada" type="VARCHAR" precision="100" />
 <column name="capacidade_total" type="INT" nullable="false" />
 <column name="capacidade_alocacao" type="INT" nullable="false" />
 <column name="numero_sequencial" type="INT4" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_sala_local_prova_numero" UNIQUE (andar_local_prova_id, numero) />
+
+<restriction type="unique" name="UQ_sala_local_prova_numero" columns="andar_local_prova_id, numero" />
 </table>
 <index name="IX_sala_local_prova_andar_id" table="public.sala_local_prova" columns="andar_local_prova_id" />
 
@@ -639,10 +640,11 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="sequencial_local_prova" type="INT4" />
 <column name="local_prova_id" type="INT8" nullable="false" />
 <column name="etapa_id" type="INT8" nullable="false" />
-<column name="status" type="VARCHAR" length="30" nullable="false" />
+<column name="status" type="VARCHAR" precision="30" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="uq_local_prova_etapa" UNIQUE (local_prova_id, etapa_id) />
+
+<restriction type="unique" name="uq_local_prova_etapa" columns="local_prova_id, etapa_id" />
 </table>
 <index name="IX_reserva_local_prova_local_prova_id" table="public.reserva_local_prova" columns="local_prova_id" />
 <index name="IX_reserva_local_prova_etapa_id" table="public.reserva_local_prova" columns="etapa_id" />
@@ -655,7 +657,8 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="reserva_local_prova_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="uq_reserva_local_prova_num_execucao" UNIQUE (reserva_local_prova_id, numero_execucao) />
+
+<restriction type="unique" name="uq_reserva_local_prova_num_execucao" columns="reserva_local_prova_id, numero_execucao" />
 </table>
 <index name="IX_local_execucao_reserva_local_prova_id" table="public.local_execucao" columns="reserva_local_prova_id" />
 
@@ -674,7 +677,8 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="local_execucao_id" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_sala_reserva_local_prova" UNIQUE (reserva_local_prova_id, sala_local_prova_id) />
+
+<restriction type="unique" name="UQ_sala_reserva_local_prova" columns="reserva_local_prova_id, sala_local_prova_id" />
 </table>
 <index name="reserva_local_prova_idx" table="public.reserva_sala" columns="reserva_local_prova_id" />
 
@@ -682,11 +686,12 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="localidade_prova_alocacao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="etapa_id" type="INT8" nullable="false" />
 <column name="cidade_id" type="INT8" nullable="false" />
-<column name="status_alocacao" type="VARCHAR" length="30" nullable="false" />
+<column name="status_alocacao" type="VARCHAR" precision="30" nullable="false" />
 <column name="data_pre_validacao_locais_prova" type="TIMESTAMP WITH TIME ZONE" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_localidade_prova_alocacao_etapa_cidade" UNIQUE (etapa_id, cidade_id) />
+
+<restriction type="unique" name="UQ_localidade_prova_alocacao_etapa_cidade" columns="etapa_id, cidade_id" />
 </table>
 
 <table name="reserva_sala_aplicacao" schema="public">
@@ -700,7 +705,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 
 <table name="arquivo_mds" schema="public">
 <column name="arquivo_mds_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome_arquivo" type="VARCHAR" length="60" nullable="false" />
+<column name="nome_arquivo" type="VARCHAR" precision="60" nullable="false" />
 <column name="data_importacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="total_registros_sucesso" type="INTEGER" nullable="false" />
 <column name="arquivo_anexo_id" type="INT8" nullable="false" />
@@ -712,15 +717,15 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 
 <table name="resultado_prova_manual" schema="public">
 <column name="resultado_prova_manual_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="versao" type="VARCHAR"(20) />
-<column name="status" type="VARCHAR"(20) />
+<column name="versao" type="VARCHAR" precision="20" />
+<column name="status" type="VARCHAR" precision="20" />
 <column name="prova_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 <column name="cidade_id" type="INT8" />
 <column name="candidato_faltoso" type="BOOLEAN" />
 <column name="invalido" type="BOOLEAN" default="false"  nullable="false" />
-<column name="tipo_resultado" type="VARCHAR"(30) />
-<column name="titulos_nota_total" type="NUMERIC" length="19" decimals="2" />
+<column name="tipo_resultado" type="VARCHAR" precision="30" />
+<column name="titulos_nota_total" type="NUMERIC" precision="19" scale="2" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -730,10 +735,10 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 
 <table name="cartao_resposta" schema="public">
 <column name="cartao_resposta_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="gabarito" type="VARCHAR"(2) nullable="false" />
+<column name="gabarito" type="VARCHAR" precision="2" nullable="false" />
 <column name="numero_caixa" type="INT" />
 <column name="posicao_caixa" type="INT" />
-<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="status" type="VARCHAR" precision="10" nullable="false" />
 <column name="invalido" type="BOOL" nullable="false" />
 <column name="invalidado_fecha_localidade" type="BOOL" default="false"  nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
@@ -753,7 +758,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="fec_aplicacao_concurso_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="aplicacao_prova_id" type="INT8" nullable="false" />
-<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="status" type="VARCHAR" precision="10" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -766,7 +771,8 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="cartao_lista_exportados_impressao" type="BOOL" default="false"  nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_alocacao_inscricao" UNIQUE (inscricao_id, reserva_sala_id) />
+
+<restriction type="unique" name="UQ_alocacao_inscricao" columns="inscricao_id, reserva_sala_id" />
 </table>
 <index name="IX_alocacao_inscricao_inscricao_id" table="public.alocacao_inscricao" columns="inscricao_id" />
 <index name="IX_alocacao_inscricao_reserva_sala_id" table="public.alocacao_inscricao" columns="reserva_sala_id" />
@@ -774,10 +780,10 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <table name="diverg_fec_concurso" schema="public">
 <column name="diverg_fec_concurso_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="fec_aplicacao_concurso_id" type="INT8" nullable="false" />
-<column name="tipo_divergencia" type="VARCHAR"(15) nullable="false" />
+<column name="tipo_divergencia" type="VARCHAR" precision="15" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
-<column name="tipo_gabarito_alocacao" type="VARCHAR"(2) />
-<column name="tipo_gabarito_cartao_resposta" type="VARCHAR"(2) />
+<column name="tipo_gabarito_alocacao" type="VARCHAR" precision="2" />
+<column name="tipo_gabarito_cartao_resposta" type="VARCHAR" precision="2" />
 <column name="idioma_cartao_id" type="INT8" />
 <column name="idioma_inscricao_id" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
@@ -789,7 +795,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <table name="fechamento_aplicacao_localidade" schema="public">
 <column name="fec_aplicacao_localidade_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
-<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="status" type="VARCHAR" precision="10" nullable="false" />
 <column name="aplicacao_prova_id" type="INT8" nullable="false" />
 <column name="localidade_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -801,7 +807,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="diverg_fec_localidade_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 <column name="prova_id" type="INT8" />
-<column name="tipo" type="VARCHAR"(90) nullable="false" />
+<column name="tipo" type="VARCHAR" precision="90" nullable="false" />
 <column name="fec_aplicacao_localidade_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -826,20 +832,21 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <table name="gabarito_prova" schema="public">
        gabarito_prova_id BIGSERIAL nullable="false"
 <column name="prova_id" type="INT8" nullable="false" />
-<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
-<column name="versao_gabarito" type="VARCHAR" length="15" nullable="false" />
-<column name="status_gabarito" type="VARCHAR" length="15" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
+<column name="versao_gabarito" type="VARCHAR" precision="15" nullable="false" />
+<column name="status_gabarito" type="VARCHAR" precision="15" nullable="false" />
 <column name="data_cadastro" type="DATE" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_prova_tipo_versao" UNIQUE (prova_id, tipo_gabarito, versao_gabarito) />
+
+<restriction type="unique" name="UQ_prova_tipo_versao" columns="prova_id, tipo_gabarito, versao_gabarito" />
 </table>
 <index name="IX_gabarito_prova_prova_id" table="public.gabarito_prova" columns="prova_id" />
 
 <table name="resultado_fase" schema="public">
 <column name="resultado_fase_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="versao_resultado" type="VARCHAR"(20) nullable="false" />
-<column name="status_resultado" type="VARCHAR"(20) nullable="false" />
+<column name="versao_resultado" type="VARCHAR" precision="20" nullable="false" />
+<column name="status_resultado" type="VARCHAR" precision="20" nullable="false" />
 <column name="data_geracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="fase_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -851,14 +858,15 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="presenca_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 <column name="lista_presenca_id" type="INT8" nullable="false" />
-<column name="situacao" type="VARCHAR" length="8" nullable="false" />
-<column name="tipo_inclusao" type="VARCHAR" length="10" nullable="false" />
+<column name="situacao" type="VARCHAR" precision="8" nullable="false" />
+<column name="tipo_inclusao" type="VARCHAR" precision="10" nullable="false" />
 <column name="imagem_lista_presenca" type="INTEGER" />
 <column name="invalido" type="BOOL" nullable="false" />
 <column name="arquivo_anexo_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_presenca_inscricao_insc_lista" UNIQUE (inscricao_id, lista_presenca_id) />
+
+<restriction type="unique" name="UQ_presenca_inscricao_insc_lista" columns="inscricao_id, lista_presenca_id" />
 </table>
 <index name="IX_presenca_inscricao_lista_pre" table="public.presenca_inscricao" columns="lista_presenca_id" />
 <index name="IX_presenca_inscricao_insc_id" table="public.presenca_inscricao" columns="inscricao_id" />
@@ -876,8 +884,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <table name="classificacao_inscricao" schema="public">
 <column name="classificacao_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
-<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
-<column name="pontuacao_acumulada" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="pontuacao" type="NUMERIC" precision="19" scale="2" nullable="false" />
+<column name="pontuacao_acumulada" type="NUMERIC" precision="19" scale="2" nullable="false" />
 <column name="classificacao" type="INTEGER" />
 <column name="habilitado" type="BOOLEAN" nullable="false" />
 <column name="eliminado" type="BOOLEAN" nullable="false" />
@@ -892,7 +900,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <table name="pontuacao_prova_objetiva" schema="public">
 <column name="pontuacao_prova_objetiva_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
-<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="pontuacao" type="NUMERIC" precision="19" scale="2" nullable="false" />
 <column name="eliminavel" type="BOOLEAN" nullable="false" />
 <column name="classificacao_inscricao_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -903,9 +911,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 
 <table name="gabarito_chave" schema="public">
 <column name="gabarito_chave_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
-<column name="prova_id" type="INT8" nullable="false" />
-<restriction type="unique" columns="uq_prova_id" />
+<column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
+<column name="prova_id" type="INT8" nullable="false" unique_restriction="uq_prova_id" />
 <column name="manter_correlacao_idiomas" type="BOOL" default="false"  />
 <column name="version" type="INT4" nullable="false" />
 
@@ -913,39 +920,39 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 
 <table name="gabarito_correlato" schema="public">
 <column name="gabarito_correlato_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
 <column name="gabarito_chave_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="uq_tipo_gabarito_correlato" UNIQUE (tipo_gabarito, gabarito_chave_id) />
+
+<restriction type="unique" name="uq_tipo_gabarito_correlato" columns="tipo_gabarito, gabarito_chave_id" />
 </table>
 <index name="IX_gabarito_correlato_gab_chave_id" table="public.gabarito_correlato" columns="gabarito_chave_id" />
 
 <table name="banca_examinadora" schema="public">
 <column name="banca_examinadora_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" length="11" nullable="false" />
-<restriction type="unique" columns="UQ_banca_examinadora_cpf" />
-<column name="nome" type="VARCHAR" length="100" nullable="false" />
-<column name="descricao_titulacao" type="VARCHAR" length="240" nullable="false" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_banca_examinadora_cpf" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" />
+<column name="descricao_titulacao" type="VARCHAR" precision="240" nullable="false" />
 <column name="data_expiracao" type="TIMESTAMP WITH TIME ZONE" />
-<column name="email_principal" type="VARCHAR" length="50" />
-<column name="email_secundario" type="VARCHAR" length="50" />
-<column name="cep" type="VARCHAR" length="10" nullable="false" />
-<column name="logradouro" type="VARCHAR" length="240" nullable="false" />
-<column name="numero" type="VARCHAR" length="5" nullable="false" />
-<column name="complemento" type="VARCHAR" length="240" />
-<column name="bairro" type="VARCHAR" length="60" />
-<column name="telefone_residencial" type="VARCHAR" length="20" />
-<column name="telefone_funcional" type="VARCHAR" length="20" />
-<column name="telefone_celular" type="VARCHAR" length="20" />
-<column name="motivoBloqueio" type="VARCHAR" length="240" />
-<column name="fax" type="VARCHAR" length="20" />
-<column name="status" type="VARCHAR" length="12" />
-<column name="senha" type="VARCHAR" length="64" nullable="false" />
+<column name="email_principal" type="VARCHAR" precision="50" />
+<column name="email_secundario" type="VARCHAR" precision="50" />
+<column name="cep" type="VARCHAR" precision="10" nullable="false" />
+<column name="logradouro" type="VARCHAR" precision="240" nullable="false" />
+<column name="numero" type="VARCHAR" precision="5" nullable="false" />
+<column name="complemento" type="VARCHAR" precision="240" />
+<column name="bairro" type="VARCHAR" precision="60" />
+<column name="telefone_residencial" type="VARCHAR" precision="20" />
+<column name="telefone_funcional" type="VARCHAR" precision="20" />
+<column name="telefone_celular" type="VARCHAR" precision="20" />
+<column name="motivoBloqueio" type="VARCHAR" precision="240" />
+<column name="fax" type="VARCHAR" precision="20" />
+<column name="status" type="VARCHAR" precision="12" />
+<column name="senha" type="VARCHAR" precision="64" nullable="false" />
 <column name="senha_gerada" type="BOOLEAN" default="FALSE"  nullable="false" />
 <column name="uf_endereco_id" type="INT8" nullable="false" />
-<column name="cidade" type="VARCHAR" length="100" nullable="false" />
-<column name="email_privado" type="VARCHAR"(64) nullable="false" />
+<column name="cidade" type="VARCHAR" precision="100" nullable="false" />
+<column name="email_privado" type="VARCHAR" precision="64" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -970,7 +977,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="gabarito_correlato_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_questao_correlata" UNIQUE (numero_questao_chave, numero_questao_correlata, gabarito_correlato_id) />
+
+<restriction type="unique" name="UQ_questao_correlata" columns="numero_questao_chave, numero_questao_correlata, gabarito_correlato_id" />
 </table>
 <index name="IX_questao_correlata_gab_correlato_id" table="public.questao_correlata" columns="gabarito_correlato_id" />
 
@@ -980,7 +988,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="vinculo_banca_disciplina_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_banca_vinculo" UNIQUE (banca_examinadora_id, vinculo_banca_disciplina_id) />
+
+<restriction type="unique" name="UQ_banca_vinculo" columns="banca_examinadora_id, vinculo_banca_disciplina_id" />
 </table>
 <index name="IX_banca_questoes_banca_exam_id" table="public.banca_questoes" columns="banca_examinadora_id" />
 <index name="IX_banca_questoes_vinc_banca_disc_id" table="public.banca_questoes" columns="vinculo_banca_disciplina_id" />
@@ -991,18 +1000,20 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="banca_questoes_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_questao_banca_numero" UNIQUE (numero_questao, banca_questoes_id) />
+
+<restriction type="unique" name="UQ_questao_banca_numero" columns="numero_questao, banca_questoes_id" />
 </table>
 <index name="IX_questao_banca_banca_disc_id" table="public.questao_banca" columns="banca_questoes_id" />
 
 <table name="area" schema="public">
 <column name="area_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR"(100) nullable="false" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" />
 <column name="assunto_id" type="INT8" nullable="false" />
 <column name="desabilitada" type="BOOLEAN" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_area_mesmo_nome_e_assunto" UNIQUE (nome, assunto_id) />
+
+<restriction type="unique" name="UQ_area_mesmo_nome_e_assunto" columns="nome, assunto_id" />
 </table>
 <index name="IX_area_assunto_id" table="public.area" columns="assunto_id" />
 
@@ -1012,7 +1023,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="data_importacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="total_cartoes_processados_ok" type="INT" nullable="false" />
 <column name="total_cartoes_processados_erro" type="INT" nullable="false" />
-<column name="cpf_responsavel" type="VARCHAR"(11) nullable="false" />
+<column name="cpf_responsavel" type="VARCHAR" precision="11" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -1021,8 +1032,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="parecer_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
 <column name="texto_parecer" type="TEXT" />
-<column name="julgamento" type="VARCHAR"(20) />
-<column name="status" type="VARCHAR"(10) nullable="false" />
+<column name="julgamento" type="VARCHAR" precision="20" />
+<column name="status" type="VARCHAR" precision="10" nullable="false" />
 <column name="exportado" type="BOOLEAN" nullable="false" />
 <column name="questao_banca_id" type="INT8" nullable="false" />
 <column name="texto_parecer_revisado" type="TEXT" />
@@ -1043,10 +1054,10 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="inscricao_id" type="INT8" />
 <column name="cidade_id" type="INT8" />
 <column name="conteudo_prova_id" type="INT8" />
-<column name="gabarito" type="VARCHAR"(2) />
+<column name="gabarito" type="VARCHAR" precision="2" />
 <column name="numero_caixa" type="INT" />
 <column name="posicao_caixa" type="INT" />
-<column name="status" type="VARCHAR"(20) nullable="false" />
+<column name="status" type="VARCHAR" precision="20" nullable="false" />
 <column name="em_branco" type="BOOLEAN" nullable="false" />
 <column name="arquivo_anexo_id" type="INT8" />
 <column name="idioma_id" type="INT8" />
@@ -1055,8 +1066,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="cartao_res_import_id" type="INT8" nullable="false" />
 <column name="reg_importacao_cartao_id" type="INT8" nullable="false" />
 <column name="data_exclusao" type="TIMESTAMP WITH TIME ZONE" />
-<column name="cpf_responsavel_exclusao" type="VARCHAR"(11) />
-<column name="nome_responsavel_exclusao" type="VARCHAR"(100) />
+<column name="cpf_responsavel_exclusao" type="VARCHAR" precision="11" />
+<column name="nome_responsavel_exclusao" type="VARCHAR" precision="100" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -1074,8 +1085,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="disciplina_id" type="INT8" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
 <column name="quantidade_questoes" type="INTEGER" nullable="false" />
-<column name="peso" type="NUMERIC" length="19" decimals="2" nullable="false" />
-<column name="pontuacao_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="peso" type="NUMERIC" precision="19" scale="2" nullable="false" />
+<column name="pontuacao_minima" type="NUMERIC" precision="19" scale="2" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -1094,7 +1105,8 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="subprova_id" type="INT8" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_subprova_conteudo_prova_objetiva_1" UNIQUE (subprova_id, conteudo_prova_id) />
+
+<restriction type="unique" name="UQ_subprova_conteudo_prova_objetiva_1" columns="subprova_id, conteudo_prova_id" />
 </table>
 <index name="IX_subprova_prova_objetiva_cont_prova_id" table="public.subprova_prova_objetiva" columns="conteudo_prova_id" />
 
@@ -1103,11 +1115,12 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="subprova_id" type="INT8" nullable="false" />
 <column name="disciplina_id" type="INT8" nullable="false" />
 <column name="quantidade_questoes" type="INTEGER" />
-<column name="peso" type="NUMERIC" length="19" decimals="2" />
-<column name="pontuacao_minima" type="NUMERIC" length="19" decimals="2" />
+<column name="peso" type="NUMERIC" precision="19" scale="2" />
+<column name="pontuacao_minima" type="NUMERIC" precision="19" scale="2" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_disciplina_subprova_1" UNIQUE (subprova_id, disciplina_id) />
+
+<restriction type="unique" name="UQ_disciplina_subprova_1" columns="subprova_id, disciplina_id" />
 </table>
 <index name="IX_disciplina_subprova_subprova_id" table="public.disciplina_subprova" columns="subprova_id" />
 
@@ -1130,16 +1143,17 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <table name="campo_formulario_inscricao" schema="public">
 <column name="campo_formulario_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="formulario_inscricao_id" type="INT8" nullable="false" />
-<column name="nome" type="VARCHAR"(50) nullable="false" />
+<column name="nome" type="VARCHAR" precision="50" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_formulario_inscricao_nome" UNIQUE (formulario_inscricao_id, nome) />
+
+<restriction type="unique" name="UQ_formulario_inscricao_nome" columns="formulario_inscricao_id, nome" />
 </table>
 <index name="IX_campo_formulario_inscricao_form_insc_id" table="public.campo_formulario_inscricao" columns="formulario_inscricao_id" />
 
 <table name="isencao" schema="public">
 <column name="isencao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="tipo_isencao" type="VARCHAR" length="10" nullable="false" />
-<column name="observacao" type="VARCHAR" length="200" />
+<column name="tipo_isencao" type="VARCHAR" precision="10" nullable="false" />
+<column name="observacao" type="VARCHAR" precision="200" />
 <column name="percentual" type="INTEGER" />
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1150,11 +1164,12 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="insc_trat_dif_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="tratamento_diferenciado_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
-<column name="texto_da_carta" type="VARCHAR"(150) />
+<column name="texto_da_carta" type="VARCHAR" precision="150" />
 <column name="etapa_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_insc_trat_diferenciado" UNIQUE (tratamento_diferenciado_id, inscricao_id, etapa_id) />
+
+<restriction type="unique" name="UQ_insc_trat_diferenciado" columns="tratamento_diferenciado_id, inscricao_id, etapa_id" />
 </table>
 <index name="IX_inscricao_tratamento_diferenciado_insc_id" table="public.inscricao_tratamento_diferenciado" columns="inscricao_id" />
 
@@ -1170,7 +1185,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 
 <table name="anexo_local_prova" schema="public">
 <column name="anexo_local_prova_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="tipo_arquivo" type="VARCHAR"(6) nullable="false" />
+<column name="tipo_arquivo" type="VARCHAR" precision="6" nullable="false" />
 <column name="local_prova_id" type="INT8" nullable="false" />
 <column name="arquivo_anexo_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1218,13 +1233,14 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="reserva_sala_aplic_id" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_reserva_lugares_aplicacao" UNIQUE (oferta_cargo_concurso_id, idioma_id, reserva_sala_aplic_id) />
+
+<restriction type="unique" name="UQ_reserva_lugares_aplicacao" columns="oferta_cargo_concurso_id, idioma_id, reserva_sala_aplic_id" />
 </table>
 <index name="reserva_sala_aplicacao_idx" table="public.reserva_lugares_sala" columns="reserva_sala_aplic_id" />
 
 <table name="historico_status_alocacao" schema="public">
 <column name="historico_status_alocacao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="status_alocacao" type="VARCHAR" length="30" nullable="false" />
+<column name="status_alocacao" type="VARCHAR" precision="30" nullable="false" />
 <column name="data_mudanca_status" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="localidade_prova_alocacao_id" type="INT8" nullable="false" />
 <column name="usuario_responsavel_id" type="INT8" nullable="false" />
@@ -1237,8 +1253,8 @@ CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_sta
 <column name="vistoria_local_prova_item_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="vistoria_local_prova_id" type="INT8" nullable="false" />
 <column name="valor" type="BOOL" nullable="false" />
-<column name="observacao" type="VARCHAR" length="100" />
-<column name="tipo_item" type="VARCHAR" length="50" nullable="false" />
+<column name="observacao" type="VARCHAR" precision="100" />
+<column name="tipo_item" type="VARCHAR" precision="50" nullable="false" />
 <column name="qtd_salas_especiais" type="INTEGER" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1266,10 +1282,11 @@ CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_sta
 <column name="inscricao_id" type="INT8" nullable="false" />
 <column name="alocacao_inscricao_id" type="INT8" />
 <column name="prova_id" type="INT8" nullable="false" />
-<column name="gabarito" type="VARCHAR" length="5" nullable="false" />
+<column name="gabarito" type="VARCHAR" precision="5" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_gabarito_prova_inscricao_prova_id_inscricao_id" UNIQUE (inscricao_id, prova_id) />
+
+<restriction type="unique" name="UQ_gabarito_prova_inscricao_prova_id_inscricao_id" columns="inscricao_id, prova_id" />
 </table>
 <index name="IX_gabarito_prova_inscricao_inscricao_id" table="public.gabarito_prova_inscricao" columns="inscricao_id" />
 CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.gabarito_prova_inscricao (inscricao_id, prova_id);
@@ -1286,7 +1303,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="nota_titulo" schema="public">
 <column name="nota_titulo_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="apresentou_titulo" type="BOOL" nullable="false" />
-<column name="valor" type="NUMERIC" length="19" decimals="2" />
+<column name="valor" type="NUMERIC" precision="19" scale="2" />
 <column name="titulo_prova_titulos_id" type="INT8" nullable="false" />
 <column name="resultado_prova_manual_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1297,8 +1314,8 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <table name="nota_questao" schema="public">
 <column name="nota_questao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="conteudo" type="NUMERIC" length="19" decimals="2" />
-<column name="idioma" type="NUMERIC" length="19" decimals="2" />
+<column name="conteudo" type="NUMERIC" precision="19" scale="2" />
+<column name="idioma" type="NUMERIC" precision="19" scale="2" />
 <column name="questao_prova_subjetiva_id" type="INT8" nullable="false" />
 <column name="resultado_prova_manual_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1311,8 +1328,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="nota_habilitacao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="apto" type="BOOL" />
 <column name="motivacao" type="TEXT" />
-<column name="resultado_prova_manual_id" type="INT8" nullable="false" />
-<restriction type="unique" columns="UQ_RESULTADO_PROVA_HABILITACAO" />
+<column name="resultado_prova_manual_id" type="INT8" nullable="false" unique_restriction="UQ_RESULTADO_PROVA_HABILITACAO" />
 
 </table>
 <index name="IX_nota_habilitacao_res_pro_man" table="public.nota_habilitacao" columns="resultado_prova_manual_id" />
@@ -1338,7 +1354,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="gabarito_prova_id" type="BIGINT" nullable="false" />
 <column name="idioma_id" type="INT8" />
 <column name="numero_questao" type="INT" nullable="false" />
-<column name="resposta_questao" type="VARCHAR" length="4" />
+<column name="resposta_questao" type="VARCHAR" precision="4" />
 <column name="anulada" type="BOOLEAN" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1357,7 +1373,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="ocorrencia" schema="public">
 <column name="ocorrencia_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="data" type="TIMESTAMP" nullable="false" />
-<column name="descricao" type="VARCHAR"(500) nullable="false" />
+<column name="descricao" type="VARCHAR" precision="500" nullable="false" />
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1366,7 +1382,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="historico_presenca_inscricao" schema="public">
 <column name="historico_presenca_inscr_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="presenca_inscricao_id" type="INT8" nullable="false" />
-<column name="situacao_anterior" type="VARCHAR" length="8" nullable="false" />
+<column name="situacao_anterior" type="VARCHAR" precision="8" nullable="false" />
 <column name="data_alteracao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1385,16 +1401,17 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
        perm_usuario_conc_id SERIAL8
 <column name="usuario_id" type="INT8" nullable="false" />
 <column name="concurso_id" type="INT8" nullable="false" />
-<column name="tipo_permissao" type="VARCHAR" length="20" nullable="false" />
+<column name="tipo_permissao" type="VARCHAR" precision="20" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_permissao_usuario_concurso_1" UNIQUE (usuario_id, concurso_id, tipo_permissao) />
+
+<restriction type="unique" name="UQ_permissao_usuario_concurso_1" columns="usuario_id, concurso_id, tipo_permissao" />
 </table>
 <index name="idx_perm_usuario_conc_usuario_id" table="public.permissao_usuario_concurso" columns="usuario_id" />
 
 <table name="pontuacao_subprova" schema="public">
 <column name="pontuacao_subprova_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="pontuacao" type="NUMERIC" precision="19" scale="2" nullable="false" />
 <column name="eliminavel" type="BOOLEAN" nullable="false" />
 <column name="subprova_id" type="INT8" nullable="false" />
 <column name="pontuacao_prova_objetiva_id" type="INT8" nullable="false" />
@@ -1406,7 +1423,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <table name="pontuacao_disciplina" schema="public">
 <column name="pontuacao_disciplina_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="pontuacao" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao" type="NUMERIC" precision="19" scale="2" />
 <column name="eliminavel" type="BOOLEAN" nullable="false" />
 <column name="pontuacao_prova_objetiva_id" type="INT8" nullable="false" />
 <column name="disciplina_id" type="INT8" nullable="false" />
@@ -1419,7 +1436,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="pontuacao_prova_questoes" schema="public">
 <column name="pontuacao_prova_questoes_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
-<column name="pontuacao" type="NUMERIC" length="19" decimals="2" nullable="false" />
+<column name="pontuacao" type="NUMERIC" precision="19" scale="2" nullable="false" />
 <column name="eliminavel" type="BOOLEAN" nullable="false" />
 <column name="classificacao_inscricao_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1431,7 +1448,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="pontuacao_prova_titulos" schema="public">
 <column name="pontuacao_prova_titulos_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
-<column name="pontuacao" type="NUMERIC" length="19" decimals="2" />
+<column name="pontuacao" type="NUMERIC" precision="19" scale="2" />
 <column name="eliminavel" type="BOOLEAN" nullable="false" />
 <column name="classificacao_inscricao_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1462,7 +1479,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="questao_cartao_resposta" schema="public">
 <column name="questao_cartao_resposta_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="numero_questao" type="INT" nullable="false" />
-<column name="resposta_questao" type="VARCHAR" length="8" nullable="false" />
+<column name="resposta_questao" type="VARCHAR" precision="8" nullable="false" />
 <column name="cartao_resposta_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1471,7 +1488,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <table name="historico_motivo_bloqueio" schema="public">
 <column name="historico_motivo_bloqueio_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="motivo" type="VARCHAR" length="240" nullable="false" />
+<column name="motivo" type="VARCHAR" precision="240" nullable="false" />
 <column name="data_bloqueio" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="banca_examinadora_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -1492,21 +1509,23 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="recurso_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
-<column name="tipo_gabarito" type="VARCHAR" length="2" nullable="false" />
+<column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
 <column name="numero_questao" type="INT" nullable="false" />
 <column name="numero_questao_chave" type="INT" nullable="false" />
 <column name="numero_sequencial" type="INT" />
 <column name="fundamentacao" type="TEXT" nullable="false" />
 <column name="fonte_argumentacao" type="TEXT" nullable="false" />
 <column name="data_hora_envio" type="TIMESTAMP" />
-<column name="status" type="VARCHAR" length="8" nullable="false" />
+<column name="status" type="VARCHAR" precision="8" nullable="false" />
 <column name="bloqueado" type="BOOL" nullable="false" />
 <column name="disciplina_id" type="INT8" nullable="false" />
 <column name="idioma_id" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_questao_prova_inscricao" UNIQUE (inscricao_id, conteudo_prova_id, numero_questao_chave) />
-<column name="CONSTRAINT" type="UQ_prova_questao_sequencial" UNIQUE (conteudo_prova_id, numero_questao_chave, numero_sequencial) />
+
+<restriction type="unique" name="UQ_questao_prova_inscricao" columns="inscricao_id, conteudo_prova_id, numero_questao_chave" />
+
+<restriction type="unique" name="UQ_prova_questao_sequencial" columns="conteudo_prova_id, numero_questao_chave, numero_sequencial" />
 </table>
 <index name="IX_recurso_inscricao_id" table="public.recurso" columns="inscricao_id" />
 <index name="IX_recurso_conteudo_prova_id" table="public.recurso" columns="conteudo_prova_id" />
@@ -1524,9 +1543,8 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <table name="orientacao_recurso" schema="public">
 <column name="orientacao_recurso_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="texto_orientacao" type="VARCHAR" length="2000" nullable="false" />
-<column name="fase_id" type="INT8" nullable="false" />
-<restriction type="unique" columns="UQ_orientacao_recurso_fase_id" />
+<column name="texto_orientacao" type="VARCHAR" precision="2000" nullable="false" />
+<column name="fase_id" type="INT8" nullable="false" unique_restriction="UQ_orientacao_recurso_fase_id" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -1538,7 +1556,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="etapa_id" type="INT8" />
 <column name="data_inicial" type="TIMESTAMP WITH TIME ZONE" />
 <column name="data_final" type="TIMESTAMP WITH TIME ZONE" />
-<column name="tipo_funcionalidade" type="VARCHAR"(20) nullable="false" />
+<column name="tipo_funcionalidade" type="VARCHAR" precision="20" nullable="false" />
 <column name="ativa" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1551,7 +1569,8 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="cidade_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_localidade_prova_inscricao" UNIQUE (etapa_id, inscricao_id) />
+
+<restriction type="unique" name="UQ_localidade_prova_inscricao" columns="etapa_id, inscricao_id" />
 </table>
 
 <table name="historico_questao_banca" schema="public">
@@ -1577,8 +1596,8 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="inscricao_historico_status" schema="public">
 <column name="insc_hist_status_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
-<column name="status" type="VARCHAR"(33) nullable="false" />
-<column name="motivo_alteracao_status" type="VARCHAR"(400) nullable="false" />
+<column name="status" type="VARCHAR" precision="33" nullable="false" />
+<column name="motivo_alteracao_status" type="VARCHAR" precision="400" nullable="false" />
 <column name="data_alteracao" type="TIMESTAMP" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1587,7 +1606,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="anexo_vistoria" schema="public">
 <column name="anexo_vistoria_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="vistoria_local_prova_id" type="INT8" nullable="false" />
-<column name="tipo_arquivo" type="VARCHAR" length="20" nullable="false" />
+<column name="tipo_arquivo" type="VARCHAR" precision="20" nullable="false" />
 <column name="arquivo_anexo_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1597,9 +1616,9 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="parecer_tramite_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="parecer_id" type="INT8" nullable="false" />
 <column name="data" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
-<column name="operacao" type="VARCHAR"(30) nullable="false" />
-<column name="nome_responsavel" type="VARCHAR"(100) nullable="false" />
-<column name="cpf_responsavel" type="VARCHAR"(11) nullable="false" />
+<column name="operacao" type="VARCHAR" precision="30" nullable="false" />
+<column name="nome_responsavel" type="VARCHAR" precision="100" nullable="false" />
+<column name="cpf_responsavel" type="VARCHAR" precision="11" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -1608,14 +1627,15 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="alternativa_questao_corr_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="questao_correlata_id" type="INT8" nullable="false" />
 <column name="idioma_id" type="INT8" />
-<column name="item_a" type="VARCHAR" length="1" nullable="false" />
-<column name="item_b" type="VARCHAR" length="1" nullable="false" />
-<column name="item_c" type="VARCHAR" length="1" nullable="false" />
-<column name="item_d" type="VARCHAR" length="1" nullable="false" />
-<column name="item_e" type="VARCHAR" length="1" nullable="false" />
+<column name="item_a" type="VARCHAR" precision="1" nullable="false" />
+<column name="item_b" type="VARCHAR" precision="1" nullable="false" />
+<column name="item_c" type="VARCHAR" precision="1" nullable="false" />
+<column name="item_d" type="VARCHAR" precision="1" nullable="false" />
+<column name="item_e" type="VARCHAR" precision="1" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_alternativa_questao_correlata_questao_idioma" UNIQUE (questao_correlata_id, idioma_id) />
+
+<restriction type="unique" name="UQ_alternativa_questao_correlata_questao_idioma" columns="questao_correlata_id, idioma_id" />
 </table>
 <index name="IX_alternativa_questao_correlata_ques_id" table="public.alternativa_questao_correlata" columns="questao_correlata_id" />
 <index name="IX_alternativa_questao_correlata_idioma" table="public.alternativa_questao_correlata" columns="idioma_id" />
@@ -1625,7 +1645,8 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="diverg_fec_localidade_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_diverg_fec_localidade_inscricao" UNIQUE (diverg_fec_localidade_id, inscricao_id) />
+
+<restriction type="unique" name="UQ_diverg_fec_localidade_inscricao" columns="diverg_fec_localidade_id, inscricao_id" />
 </table>
 <index name="IX_diverg_fec_localidade_inscricao_insc_id" table="public.diverg_fec_localidade_inscricao" columns="inscricao_id" />
 <index name="IX_diverg_fec_localidade_inscricao_diver_id" table="public.diverg_fec_localidade_inscricao" columns="diverg_fec_localidade_id" />
@@ -1635,7 +1656,8 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="diverg_fec_concurso_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 
-<column name="CONSTRAINT" type="UQ_diverg_fec_concurso_inscricao_div" UNIQUE (diverg_fec_concurso_id, inscricao_id) />
+
+<restriction type="unique" name="UQ_diverg_fec_concurso_inscricao_div" columns="diverg_fec_concurso_id, inscricao_id" />
 </table>
 <index name="IX_diverg_fec_concurso_inscricao_ins" table="public.diverg_fec_concurso_inscricao" columns="inscricao_id" />
 <index name="IX_diverg_fec_concurso_inscricao_div" table="public.diverg_fec_concurso_inscricao" columns="diverg_fec_concurso_id" />
@@ -1656,7 +1678,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <table name="cartao_incluido" schema="public">
 <column name="cartao_incluido_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="gabarito" type="VARCHAR"(2) nullable="false" />
+<column name="gabarito" type="VARCHAR" precision="2" nullable="false" />
 <column name="sequencial_cartao_incluido" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 <column name="conteudo_prova_id" type="INT8" nullable="false" />
@@ -1677,7 +1699,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <table name="erro_importacao_cartao" schema="public">
 <column name="erro_importacao_cartao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="erro_ocorrido" type="VARCHAR"(60) nullable="false" />
+<column name="erro_ocorrido" type="VARCHAR" precision="60" nullable="false" />
 <column name="cartao_imp_processado_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -1686,7 +1708,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="questao_cartao_processado" schema="public">
 <column name="questao_cartao_processado_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="numero_questao" type="INT" nullable="false" />
-<column name="resposta_questao" type="VARCHAR" length="8" nullable="false" />
+<column name="resposta_questao" type="VARCHAR" precision="8" nullable="false" />
 <column name="cartao_imp_processado_id" type="INT8" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -2177,5 +2199,35 @@ ALTER TABLE public.gabarito_prova_inscricao  ADD CONSTRAINT FK_gabarito_prova_in
 
 <association table="public.cidades_concurso" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
 
+ALTER TABLE presenca_inscricao ALTER imagem_lista_presenca TYPE oid;
+CREATE SEQUENCE impressao_lista_pres_remote_cmp_seq;
 
+
+insert into uf (sigla, nome, version) values ('RS', 'RIO GRANDE DO SUL', 0);
+insert into uf (sigla, nome, version) values ('DF', 'DISTRITO FEDERAL', 0);
+insert into uf (sigla, nome, version) values ('GO', 'GOIAS', 0);
+insert into uf (sigla, nome, version) values ('MT', 'MATO GROSSO', 0);
+insert into uf (sigla, nome, version) values ('MS', 'MATO GROSSO DO SUL', 0);
+insert into uf (sigla, nome, version) values ('TO', 'TOCANTINS', 0);
+insert into uf (sigla, nome, version) values ('PA', 'PARA', 0);
+insert into uf (sigla, nome, version) values ('AM', 'AMAZONAS', 0);
+insert into uf (sigla, nome, version) values ('AC', 'ACRE', 0);
+insert into uf (sigla, nome, version) values ('AP', 'AMAPA', 0);
+insert into uf (sigla, nome, version) values ('RO', 'RONDONIA', 0);
+insert into uf (sigla, nome, version) values ('RR', 'RORAIMA', 0);
+insert into uf (sigla, nome, version) values ('CE', 'CEARA', 0);
+insert into uf (sigla, nome, version) values ('MA', 'MARANHAO', 0);
+insert into uf (sigla, nome, version) values ('PI', 'PIAUI', 0);
+insert into uf (sigla, nome, version) values ('PE', 'PERNAMBUCO', 0);
+insert into uf (sigla, nome, version) values ('RN', 'RIO GRANDE DO NORTE', 0);
+insert into uf (sigla, nome, version) values ('PB', 'PARAIBA', 0);
+insert into uf (sigla, nome, version) values ('AL', 'ALAGOAS', 0);
+insert into uf (sigla, nome, version) values ('BA', 'BAHIA', 0);
+insert into uf (sigla, nome, version) values ('SE', 'SERGIPE', 0);
+insert into uf (sigla, nome, version) values ('MG', 'MINAS GERAIS', 0);
+insert into uf (sigla, nome, version) values ('RJ', 'RIO DE JANEIRO', 0);
+insert into uf (sigla, nome, version) values ('ES', 'ESPIRITO SANTO', 0);
+insert into uf (sigla, nome, version) values ('SP', 'SAO PAULO', 0);
+insert into uf (sigla, nome, version) values ('PR', 'PARANA', 0);
+insert into uf (sigla, nome, version) values ('SC', 'SANTA CATARINA', 0);
 </database>

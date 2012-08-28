@@ -97,7 +97,7 @@ public class ParseDatabase {
 
 				} else if ("name".equals(attributeName)) {
 					restriction.setName(attributeValue);
-					
+
 				} else if ("table".equals(attributeName)) {
 					tableOwner = database.findTable(attributeValue);
 
@@ -175,11 +175,11 @@ public class ParseDatabase {
 				} else if ("type".equals(attributeName)) {
 					column.setType(attributeValue);
 
-				} else if ("length".equals(attributeName)) {
-					column.setLength(parseInt(attributeValue, null));
+				} else if ("precision".equals(attributeName)) {
+					column.setPrecision(parseInt(attributeValue, null));
 
-				} else if ("decimals".equals(attributeName)) {
-					column.setDecimals(parseInt(attributeValue, null));
+				} else if ("scale".equals(attributeName)) {
+					column.setScale(parseInt(attributeValue, null));
 
 				} else if ("unique_restriction".equals(attributeName)) {
 					final Restriction r = new Restriction();

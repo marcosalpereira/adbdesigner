@@ -9,8 +9,8 @@ public class Column {
 	private boolean nullable = true;
 	private boolean pk = false;
 	private String type = "varchar";
-	private Integer length;
-	private Integer decimals;
+	private Integer precision;
+	private Integer scale;
 	private Restriction uniqueRestriction;
 
 	public Restriction getUniqueRestriction() {
@@ -68,20 +68,20 @@ public class Column {
 		this.type = type;
 	}
 
-	public Integer getLength() {
-		return length;
+	public Integer getPrecision() {
+		return precision;
 	}
 
-	public void setLength(Integer length) {
-		this.length = length;
+	public void setPrecision(Integer precision) {
+		this.precision = precision;
 	}
 
-	public Integer getDecimals() {
-		return decimals;
+	public Integer getScale() {
+		return scale;
 	}
 
-	public void setDecimals(Integer decimals) {
-		this.decimals = decimals;
+	public void setScale(Integer scale) {
+		this.scale = scale;
 	}
 
 	@Override
