@@ -55,11 +55,9 @@ public class DDLGenerator {
 	}
 
 	private void generateRestrictions(Table table) {
-		int i = 1;
 	    for (final Restriction restriction : table.getRestrictions()) {
 	    	if ("unique".equals(restriction.getType())) {
-	    		final String constraintName = "UQ_" + table.getName() + "_" + i++;
-				out.append("\n\t, CONSTRAINT " + constraintName
+				out.append("\n\t, CONSTRAINT " + restriction.getName()
 						+ " UNIQUE (" + restriction.getColumns() + ")");
 	    	}
 	    }
@@ -123,6 +121,11 @@ public class DDLGenerator {
 			out.append(" NULL");
 		} else {
 			out.append(" NOT NULL");
+		}
+		
+		Restriction uniqueRestriction = column.getUniqueRestriction();
+		if (uniqueRestriction != null) {
+			out.append(" CONSTRAINT " + uniqueRestriction.getName() + " UNIQUE");
 		}
 
 	}

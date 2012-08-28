@@ -1,7 +1,5 @@
 package br.com.marcosoft.dbdesigner.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Column {
@@ -13,16 +11,15 @@ public class Column {
 	private String type = "varchar";
 	private Integer length;
 	private Integer decimals;
-	private List<Restriction> restrictions = new ArrayList<Restriction>();
+	private Restriction uniqueRestriction;
 
-	public List<Restriction> getRestrictions() {
-	    return restrictions;
-    }
-
-	public void setRestrictions(List<Restriction> restrictions) {
-	    this.restrictions = restrictions;
-    }
-
+	public Restriction getUniqueRestriction() {
+		return uniqueRestriction;
+	}
+	
+	public void setUniqueRestriction(Restriction restriction) {
+		this.uniqueRestriction = restriction;
+	}
 	public void setPk(boolean pk) {
 		this.pk = pk;
 	}

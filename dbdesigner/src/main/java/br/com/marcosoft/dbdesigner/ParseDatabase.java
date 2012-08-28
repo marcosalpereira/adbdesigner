@@ -95,6 +95,9 @@ public class ParseDatabase {
 				} else if ("columns".equals(attributeName)) {
 					restriction.setColumns(attributeValue);
 
+				} else if ("name".equals(attributeName)) {
+					restriction.setName(attributeValue);
+					
 				} else if ("table".equals(attributeName)) {
 					tableOwner = database.findTable(attributeValue);
 
@@ -181,11 +184,8 @@ public class ParseDatabase {
 				} else if ("unique_restriction".equals(attributeName)) {
 					final Restriction r = new Restriction();
 					r.setType("unique");
-					r.setColumns(attributeValue);
-					table.getRestrictions().add(r);
-
-				} else if ("restriction_type".equals(attributeName)) {
-					column.setDecimals(parseInt(attributeValue, null));
+					r.setName(attributeValue);
+					column.setUniqueRestriction(r);
 				}
 
 			}
