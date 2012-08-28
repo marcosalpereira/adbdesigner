@@ -21,6 +21,7 @@ public class Graph extends mxGraphComponent {
 
 	public Graph(final Database database) {
 		super(new mxGraph());
+		setConnectable(false);
 		layout = new mxHierarchicalLayout(graph);
 		populateGraph(database);
 		layoutGraph();
