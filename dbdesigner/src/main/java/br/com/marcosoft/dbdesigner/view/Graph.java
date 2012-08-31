@@ -1,5 +1,7 @@
 package br.com.marcosoft.dbdesigner.view;
 
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +24,26 @@ public class Graph extends mxGraphComponent {
 	public Graph(final Database database) {
 		super(new mxGraph());
 		setConnectable(false);
+		//getConnectionHandler().setCreateTarget(false);
+
+		installZoomListener();
+
 		layout = new mxHierarchicalLayout(graph);
 		populateGraph(database);
 		layoutGraph();
 	}
+
+	private void installZoomListener() {
+	    this.addMouseWheelListener(new MouseWheelListener() {
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				if (e.getWheelRotation() < 0) {
+					zoomIn();
+				} else {
+					zoomOut();
+				}
+			}
+		});
+    }
 
 	private void layoutGraph() {
 		final Object cell = graph.getDefaultParent();
