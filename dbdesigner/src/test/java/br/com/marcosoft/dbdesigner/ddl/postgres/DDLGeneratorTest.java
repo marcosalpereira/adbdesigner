@@ -14,7 +14,7 @@ public class DDLGeneratorTest {
 	public void testGenerate() throws IOException {
 		final Database db = loadDatabase();
 		final StringBuilder out = new StringBuilder();
-		new DDLGenerator(out).generate(db.getTables());
+		new DDLGenerator(out).generate(db);
 		System.out.println(out.toString());
 	}
 

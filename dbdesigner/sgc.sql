@@ -726,6 +726,7 @@ CREATE TABLE public.cartao_resposta (
      , arquivo_anexo_id INT8
      , idioma_id INT8
      , sequencial_cartao_concurso INT8
+     , sequencial_cartao_incluido INT8
      , version INT4 NOT NULL
      , PRIMARY KEY (cartao_resposta_id)
 );
@@ -1213,7 +1214,7 @@ CREATE TABLE public.historico_status_alocacao (
      , version INT4 NOT NULL
      , PRIMARY KEY (historico_status_alocacao_id)
 );
-CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_status_alocacao (localidade_prova_alocacao_id);
+CREATE INDEX IX_historico_status_alocacao_loc_prova_id ON public.historico_status_alocacao (localidade_prova_alocacao_id);
 
 CREATE TABLE public.vistoria_local_prova_item (
        vistoria_local_prova_item_id SERIAL8 NOT NULL
@@ -1363,7 +1364,7 @@ CREATE TABLE public.idioma_concurso (
 CREATE INDEX IX_idioma_concurso_concurso_id ON public.idioma_concurso (concurso_id);
 
 CREATE TABLE public.permissao_usuario_concurso (
-       perm_usuario_conc_id SERIAL8
+       perm_usuario_conc_id SERIAL8 NOT NULL
      , usuario_id INT8 NOT NULL
      , concurso_id INT8 NOT NULL
      , tipo_permissao CHARACTER VARYING(20) NOT NULL
@@ -2483,8 +2484,7 @@ ALTER TABLE public.gabarito_prova_inscricao
 ALTER TABLE public.gabarito_prova_inscricao
   ADD CONSTRAINT FK_gabarito_prova_inscricao_alocacao_inscricao
       FOREIGN KEY (alocacao_inscricao_id)
-      REFERENCES public.alocacao_inscricao (alocacao_inscricao_id)
-   ON DELETE CASCADE;
+      REFERENCES public.alocacao_inscricao (alocacao_inscricao_id);
 
 ALTER TABLE public.inscricoes_arquivo_pagamento
   ADD CONSTRAINT FK_inscricoes_arquivo_pagamento_1
@@ -2873,7 +2873,7 @@ ALTER TABLE public.cidades_concurso
 
 ALTER TABLE presenca_inscricao ALTER imagem_lista_presenca TYPE oid;
 CREATE SEQUENCE impressao_lista_pres_remote_cmp_seq;
-
+CREATE SEQUENCE sequencial_cartao_incluido_seq;
 
 insert into uf (sigla, nome, version) values ('RS', 'RIO GRANDE DO SUL', 0);
 insert into uf (sigla, nome, version) values ('DF', 'DISTRITO FEDERAL', 0);

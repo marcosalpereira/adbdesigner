@@ -145,7 +145,7 @@
 <column name="version" type="INT4" nullable="false" />
 
 </table>
-CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_anexo (identificacao_arquivo);
+<index name="IX_arquivo_anexo_identificacao_arquivo" table="public.arquivo_anexo" columns="identificacao_arquivo" unique="true" />
 
 <table name="registro_revisao_auditoria" schema="auditoria">
 <column name="registro_revisao_auditoria_id" type="SERIAL8" pk="true" nullable="false" />
@@ -419,7 +419,7 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="resposta_secreta" type="VARCHAR" precision="15" nullable="false" />
 
 </table>
-CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
+<index name="IX_candidato_cpf" table="public.candidato" columns="cpf" unique="true" />
 <index name="IX_candidato_nome" table="public.candidato" columns="nome" />
 
 <table name="prova" schema="public">
@@ -527,7 +527,7 @@ CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
 <restriction type="unique" name="UQ_inscricao_numero_inscricao" columns="concurso_id, numero_inscricao" />
 </table>
 <index name="IX_inscricao_candidato_id" table="public.inscricao" columns="candidato_id" />
-CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_inscricao, concurso_id);
+<index name="IX_inscricao_numero_concurso_id" table="public.inscricao" columns="numero_inscricao, concurso_id" unique="true" />
 <index name="IX_inscricao_concurso_id" table="public.inscricao" columns="concurso_id" />
 <index name="IX_inscricao_vaga_id" table="public.inscricao" columns="vaga_id" />
 
@@ -556,7 +556,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <index name="IX_vinculo_fase_oferta_cargo_concurso_id" table="public.vinculo_fase" columns="oferta_cargo_concurso_id" />
 
 <table name="arquivo_pagamento" schema="public">
-       arquivo_pagamento_id BIGSERIAL nullable="false"
+<column name="arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="nome_arquivo" type="VARCHAR" precision="100" nullable="false" />
 <column name="data_processamento" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="quantidade_registros" type="INTEGER" nullable="false" />
@@ -747,6 +747,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="arquivo_anexo_id" type="INT8" />
 <column name="idioma_id" type="INT8" />
 <column name="sequencial_cartao_concurso" type="INT8" />
+<column name="sequencial_cartao_incluido" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -827,10 +828,10 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 </table>
 <index name="IX_lista_presenca_local_aplic" table="public.lista_presenca" columns="localidade_id, aplicacao_prova_id" />
 <index name="IX_lista_presenca_reserva_sala" table="public.lista_presenca" columns="reserva_sala_id" />
-CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lista_presenca (aplicacao_prova_id, localidade_id, reserva_sala_id);
+<index name="IX_lista_presenca_aplicacao_localidade_reserva" table="public.lista_presenca" columns="aplicacao_prova_id, localidade_id, reserva_sala_id" unique="true" />
 
 <table name="gabarito_prova" schema="public">
-       gabarito_prova_id BIGSERIAL nullable="false"
+<column name="gabarito_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="prova_id" type="INT8" nullable="false" />
 <column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
 <column name="versao_gabarito" type="VARCHAR" precision="15" nullable="false" />
@@ -1217,7 +1218,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <index name="IX_vinculo_fase_prova_prova_id" table="public.vinculo_fase_prova" columns="prova_id" />
 
 <table name="erro_arquivo_pagamento" schema="public">
-       erro_arquivo_pagamento_id BIGSERIAL nullable="false"
+<column name="erro_arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="numero_linha" type="INTEGER" nullable="false" />
 <column name="mensagem_erro" type="TEXT" nullable="false" />
 <column name="arquivo_pagamento_id" type="BIGINT" nullable="false" />
@@ -1247,7 +1248,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="version" type="INT4" nullable="false" />
 
 </table>
-CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_status_alocacao (localidade_prova_alocacao_id);
+<index name="IX_historico_status_alocacao_loc_prova_id" table="public.historico_status_alocacao" columns="localidade_prova_alocacao_id" />
 
 <table name="vistoria_local_prova_item" schema="public">
 <column name="vistoria_local_prova_item_id" type="SERIAL8" pk="true" nullable="false" />
@@ -1289,7 +1290,7 @@ CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_sta
 <restriction type="unique" name="UQ_gabarito_prova_inscricao_prova_id_inscricao_id" columns="inscricao_id, prova_id" />
 </table>
 <index name="IX_gabarito_prova_inscricao_inscricao_id" table="public.gabarito_prova_inscricao" columns="inscricao_id" />
-CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.gabarito_prova_inscricao (inscricao_id, prova_id);
+<index name="IX_gabarito_prova_inscricao_inscricao_id_prova_id" table="public.gabarito_prova_inscricao" columns="inscricao_id, prova_id" unique="true" />
 
 <table name="inscricoes_arquivo_pagamento" schema="public">
 <column name="inscricoes_arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
@@ -1350,7 +1351,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_divergencia_res_rep_res_pr_man" table="public.divergencia_resultado_repetido" columns="resultado_prova_manual_id" />
 
 <table name="questao_gabarito" schema="public">
-       questao_gabarito_id BIGSERIAL nullable="false"
+<column name="questao_gabarito_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="gabarito_prova_id" type="BIGINT" nullable="false" />
 <column name="idioma_id" type="INT8" />
 <column name="numero_questao" type="INT" nullable="false" />
@@ -1362,7 +1363,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_questao_gabarito_gab_prova_id" table="public.questao_gabarito" columns="gabarito_prova_id" />
 
 <table name="ordenacao_disciplina_gabarito" schema="public">
-       ordenacao_disciplina_gabarito_id BIGSERIAL nullable="false"
+<column name="ordenacao_disciplina_gabarito_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="gabarito_prova_id" type="BIGINT" nullable="false" />
 <column name="disciplina_id" type="INT8" nullable="false" />
 <column name="ordem_disciplina" type="INT" nullable="false" />
@@ -1398,7 +1399,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_idioma_concurso_concurso_id" table="public.idioma_concurso" columns="concurso_id" />
 
 <table name="permissao_usuario_concurso" schema="public">
-       perm_usuario_conc_id SERIAL8
+<column name="perm_usuario_conc_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="usuario_id" type="INT8" nullable="false" />
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="tipo_permissao" type="VARCHAR" precision="20" nullable="false" />
@@ -1641,7 +1642,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_alternativa_questao_correlata_idioma" table="public.alternativa_questao_correlata" columns="idioma_id" />
 
 <table name="diverg_fec_localidade_inscricao" schema="public">
-       diverg_fec_localidade_inscricao_id BIGSERIAL nullable="false"
+<column name="diverg_fec_localidade_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="diverg_fec_localidade_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 
@@ -1652,7 +1653,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_diverg_fec_localidade_inscricao_diver_id" table="public.diverg_fec_localidade_inscricao" columns="diverg_fec_localidade_id" />
 
 <table name="diverg_fec_concurso_inscricao" schema="public">
-       diverg_fec_concurso_ins_id BIGSERIAL nullable="false"
+<column name="diverg_fec_concurso_ins_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="diverg_fec_concurso_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 
@@ -2042,8 +2043,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 
 <association table="public.gabarito_prova_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
 
-ALTER TABLE public.gabarito_prova_inscricao  ADD CONSTRAINT FK_gabarito_prova_inscricao_alocacao_inscricao      FOREIGN KEY (alocacao_inscricao_id)      REFERENCES public.alocacao_inscricao (alocacao_inscricao_id)
-   ON DELETE CASCADE;
+<association table="public.gabarito_prova_inscricao" other_table="public.alocacao_inscricao" columns_here="alocacao_inscricao_id" columns_there="alocacao_inscricao_id" />
 
 <association table="public.inscricoes_arquivo_pagamento" other_table="public.arquivo_pagamento" columns_here="arquivo_pagamento_id" columns_there="arquivo_pagamento_id" />
 
@@ -2201,7 +2201,7 @@ ALTER TABLE public.gabarito_prova_inscricao  ADD CONSTRAINT FK_gabarito_prova_in
 
 ALTER TABLE presenca_inscricao ALTER imagem_lista_presenca TYPE oid;
 CREATE SEQUENCE impressao_lista_pres_remote_cmp_seq;
-
+CREATE SEQUENCE sequencial_cartao_incluido_seq;
 
 insert into uf (sigla, nome, version) values ('RS', 'RIO GRANDE DO SUL', 0);
 insert into uf (sigla, nome, version) values ('DF', 'DISTRITO FEDERAL', 0);

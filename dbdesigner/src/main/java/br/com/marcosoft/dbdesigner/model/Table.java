@@ -1,12 +1,26 @@
 package br.com.marcosoft.dbdesigner.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-public class Table {
+public class Table implements Serializable {
+	private static final long serialVersionUID = -2517005907822849355L;
+
+	public static final Comparator<Table> ORDER_COMPARATOR = new Comparator<Table>() {
+		public int compare(Table o1, Table o2) {
+		    return new CompareToBuilder()
+		    	.append(o1.getOrder(), o2.getOrder())
+		    	.toComparison();
+		}
+	};
+
 	private String name;
 	private String schema = "public";
 	private String tags;
@@ -18,6 +32,15 @@ public class Table {
 	private int order;
 	private int x;
 	private int y;
+	private int width;
+
+	public void setWidth(int width) {
+	    this.width = width;
+    }
+
+	public int getWidth() {
+	    return width;
+    }
 
 	public int getX() {
 		return x;
@@ -113,48 +136,53 @@ public class Table {
 
 	/**
 	 * Retornar a chave primaria da tabela.
+	 *
 	 * @return as colunas da chave primaria separadas por virgula
 	 */
 	public String getPrimaryKeys() {
 		String pks = null;
 		for (final Column column : columns) {
-	        if (column.isPk()) {
-	        	if (pks == null) {
-	        		pks = column.getName();
-	        	} else {
-	        		pks += "," + column.getName();
-	        	}
+			if (column.isPk()) {
+				if (pks == null) {
+					pks = column.getName();
+				} else {
+					pks += "," + column.getName();
+				}
+			}
+		}
+		return pks;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj instanceof Table) {
+			final Table that = (Table) obj;
+			return new EqualsBuilder().append(schema, that.schema).append(name, that.name)
+			        .isEquals();
+		}
+
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(1, 3).append(this.schema).append(this.name).toHashCode();
+	}
+
+	public boolean hasAnyOfThese(Collection<String> tags) {
+		if (this.tags == null) return false;
+
+		for (final String tag : tags) {
+	        if (this.tags.indexOf(tag) != -1) {
+	        	return true;
 	        }
         }
-	    return pks;
-    }
-
-
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean equals(Object obj) {
-	    if (this == obj) {
-		    return true;
-	    }
-	    if (obj instanceof Table) {
-		    final Table that = (Table) obj;
-		    return new EqualsBuilder()
-		    	.append(schema, that.schema)
-		    	.append(name, that.name)
-		    	.isEquals();
-	    }
-
 	    return false;
-    }
-
-    /**{@inheritDoc}*/
-    @Override
-    public int hashCode() {
-	    return new HashCodeBuilder(1, 3)
-	    	.append(this.schema)
-	    	.append(this.name)
-	    	.toHashCode();
     }
 
 }

@@ -1,5 +1,6 @@
 package br.com.marcosoft.dbdesigner.model;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,6 +15,30 @@ public class Database {
 	}
 
 	private final Map<String, Table> tables = new HashMap<String, Table>();
+
+	private final File file;
+
+	private String endScript;
+
+	public Database() {
+		file = null;
+	}
+
+	public Database(File file) {
+	    this.file = file;
+    }
+
+	public String getEndScript() {
+	    return endScript;
+    }
+
+	public void setEndScript(String endScript) {
+	    this.endScript = endScript;
+    }
+
+	public File getFile() {
+	    return file;
+    }
 
 	public Collection<Table> getTables() {
 		return Collections.unmodifiableCollection(tables.values());

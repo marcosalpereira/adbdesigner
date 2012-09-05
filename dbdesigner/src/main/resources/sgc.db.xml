@@ -2,8 +2,8 @@
 <database>
 <table name="concurso" schema="public">
 <column name="concurso_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="UQ_concurso_nome" />
-<column name="numero_projeto" type="VARCHAR" precision="15" nullable="false" unique_restriction="UQ_concurso_numero" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique-restriction="UQ_concurso_nome" />
+<column name="numero_projeto" type="VARCHAR" precision="15" nullable="false" unique-restriction="UQ_concurso_numero" />
 <column name="numero_edital" type="INT4" nullable="false" />
 <column name="ano_edital" type="INT4" nullable="false" />
 <column name="sigla_edital" type="VARCHAR" precision="15" nullable="false" />
@@ -46,7 +46,7 @@
 
 <table name="disciplina" schema="public">
 <column name="disciplina_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="UQ_disciplina_1" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique-restriction="UQ_disciplina_1" />
 <column name="idioma" type="BOOL" nullable="false" />
 <column name="desativada" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
@@ -73,7 +73,7 @@
 
 <table name="area_formacao" schema="public">
 <column name="area_formacao_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="descricao" type="VARCHAR" precision="30" nullable="false" unique_restriction="UQ_area_formacao" />
+<column name="descricao" type="VARCHAR" precision="30" nullable="false" unique-restriction="UQ_area_formacao" />
 <column name="desativado" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -81,7 +81,7 @@
 
 <table name="nivel_escolaridade" schema="public">
 <column name="nivel_escolaridade_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="descricao" type="VARCHAR" precision="70" nullable="false" unique_restriction="uq_nivel_escolaridade" />
+<column name="descricao" type="VARCHAR" precision="70" nullable="false" unique-restriction="uq_nivel_escolaridade" />
 <column name="desativado" type="BOOLEAN" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -101,7 +101,7 @@
 
 <table name="monitoramento_candidato" schema="public">
 <column name="monitoramento_candidato_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_monitoramento_candidato_1" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique-restriction="UQ_monitoramento_candidato_1" />
 <column name="nome" type="VARCHAR" precision="40" nullable="false" />
 <column name="texto_candidato" type="VARCHAR" precision="250" />
 <column name="motivo" type="VARCHAR" precision="15" nullable="false" />
@@ -113,15 +113,15 @@
 
 <table name="motivo_indeferimento" schema="public">
 <column name="motivo_indeferimento_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="codigo" type="INTEGER" nullable="false" unique_restriction="UQ_motivo_indeferimento_codigo" />
-<column name="descricao" type="VARCHAR" precision="50" nullable="false" unique_restriction="UQ_motivo_indeferimento_descricao" />
+<column name="codigo" type="INTEGER" nullable="false" unique-restriction="UQ_motivo_indeferimento_codigo" />
+<column name="descricao" type="VARCHAR" precision="50" nullable="false" unique-restriction="UQ_motivo_indeferimento_descricao" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
 
 <table name="idioma" schema="public">
 <column name="idioma_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" precision="20" nullable="false" unique_restriction="uq_idioma_nome" />
+<column name="nome" type="VARCHAR" precision="20" nullable="false" unique-restriction="uq_idioma_nome" />
 <column name="desativado" type="BOOL" default="false"  nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -129,7 +129,7 @@
 
 <table name="assunto" schema="public">
 <column name="assunto_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="UQ_assunto_nome" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique-restriction="UQ_assunto_nome" />
 <column name="desabilitado" type="BOOLEAN" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -139,13 +139,13 @@
 <column name="arquivo_anexo_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="nome_arquivo" type="VARCHAR" precision="100" nullable="false" />
 <column name="tipo_mime_arquivo" type="VARCHAR" precision="30" />
-<column name="identificacao_arquivo" type="VARCHAR" precision="36" nullable="false" unique_restriction="UQ_arquivo_anexo_identificacao_arquivo" />
+<column name="identificacao_arquivo" type="VARCHAR" precision="36" nullable="false" unique-restriction="UQ_arquivo_anexo_identificacao_arquivo" />
 <column name="data_gravacao" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="conteudo_arquivo_fake" type="BYTEA" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
-CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_anexo (identificacao_arquivo);
+<index name="IX_arquivo_anexo_identificacao_arquivo" table="public.arquivo_anexo" columns="identificacao_arquivo" unique="true" />
 
 <table name="registro_revisao_auditoria" schema="auditoria">
 <column name="registro_revisao_auditoria_id" type="SERIAL8" pk="true" nullable="false" />
@@ -159,7 +159,7 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="cargo" schema="public">
 <column name="cargo_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="nome" type="VARCHAR" precision="100" nullable="false" unique_restriction="uq_cargo_nome" />
+<column name="nome" type="VARCHAR" precision="100" nullable="false" unique-restriction="uq_cargo_nome" />
 <column name="desabilitado" type="BOOL" nullable="false" />
 <column name="version" type="INT4" nullable="false" />
 
@@ -246,7 +246,7 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="usuario" schema="public">
 <column name="usuario_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_usuario_cpf" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique-restriction="UQ_usuario_cpf" />
 <column name="nome" type="VARCHAR" precision="100" nullable="false" />
 <column name="perfil" type="VARCHAR" precision="30" nullable="false" />
 <column name="data_expiracao" type="TIMESTAMP WITH TIME ZONE" />
@@ -392,7 +392,7 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 
 <table name="candidato" schema="public">
 <column name="candidato_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_candidato_cpf" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique-restriction="UQ_candidato_cpf" />
 <column name="nome" type="VARCHAR" precision="100" nullable="false" />
 <column name="nome_mae" type="VARCHAR" precision="100" nullable="false" />
 <column name="data_nascimento" type="TIMESTAMP" nullable="false" />
@@ -419,7 +419,7 @@ CREATE UNIQUE INDEX IX_arquivo_anexo_identificacao_arquivo ON public.arquivo_ane
 <column name="resposta_secreta" type="VARCHAR" precision="15" nullable="false" />
 
 </table>
-CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
+<index name="IX_candidato_cpf" table="public.candidato" columns="cpf" unique="true" />
 <index name="IX_candidato_nome" table="public.candidato" columns="nome" />
 
 <table name="prova" schema="public">
@@ -527,7 +527,7 @@ CREATE UNIQUE INDEX IX_candidato_cpf ON public.candidato (cpf);
 <restriction type="unique" name="UQ_inscricao_numero_inscricao" columns="concurso_id, numero_inscricao" />
 </table>
 <index name="IX_inscricao_candidato_id" table="public.inscricao" columns="candidato_id" />
-CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_inscricao, concurso_id);
+<index name="IX_inscricao_numero_concurso_id" table="public.inscricao" columns="numero_inscricao, concurso_id" unique="true" />
 <index name="IX_inscricao_concurso_id" table="public.inscricao" columns="concurso_id" />
 <index name="IX_inscricao_vaga_id" table="public.inscricao" columns="vaga_id" />
 
@@ -556,7 +556,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <index name="IX_vinculo_fase_oferta_cargo_concurso_id" table="public.vinculo_fase" columns="oferta_cargo_concurso_id" />
 
 <table name="arquivo_pagamento" schema="public">
-       arquivo_pagamento_id BIGSERIAL nullable="false"
+<column name="arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="nome_arquivo" type="VARCHAR" precision="100" nullable="false" />
 <column name="data_processamento" type="TIMESTAMP WITH TIME ZONE" nullable="false" />
 <column name="quantidade_registros" type="INTEGER" nullable="false" />
@@ -747,6 +747,7 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 <column name="arquivo_anexo_id" type="INT8" />
 <column name="idioma_id" type="INT8" />
 <column name="sequencial_cartao_concurso" type="INT8" />
+<column name="sequencial_cartao_incluido" type="INT8" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -827,10 +828,10 @@ CREATE UNIQUE INDEX IX_inscricao_numero_concurso_id ON public.inscricao (numero_
 </table>
 <index name="IX_lista_presenca_local_aplic" table="public.lista_presenca" columns="localidade_id, aplicacao_prova_id" />
 <index name="IX_lista_presenca_reserva_sala" table="public.lista_presenca" columns="reserva_sala_id" />
-CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lista_presenca (aplicacao_prova_id, localidade_id, reserva_sala_id);
+<index name="IX_lista_presenca_aplicacao_localidade_reserva" table="public.lista_presenca" columns="aplicacao_prova_id, localidade_id, reserva_sala_id" unique="true" />
 
 <table name="gabarito_prova" schema="public">
-       gabarito_prova_id BIGSERIAL nullable="false"
+<column name="gabarito_prova_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="prova_id" type="INT8" nullable="false" />
 <column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
 <column name="versao_gabarito" type="VARCHAR" precision="15" nullable="false" />
@@ -912,7 +913,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <table name="gabarito_chave" schema="public">
 <column name="gabarito_chave_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="tipo_gabarito" type="VARCHAR" precision="2" nullable="false" />
-<column name="prova_id" type="INT8" nullable="false" unique_restriction="uq_prova_id" />
+<column name="prova_id" type="INT8" nullable="false" unique-restriction="uq_prova_id" />
 <column name="manter_correlacao_idiomas" type="BOOL" default="false"  />
 <column name="version" type="INT4" nullable="false" />
 
@@ -931,7 +932,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 
 <table name="banca_examinadora" schema="public">
 <column name="banca_examinadora_id" type="SERIAL8" pk="true" nullable="false" />
-<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique_restriction="UQ_banca_examinadora_cpf" />
+<column name="cpf" type="VARCHAR" precision="11" nullable="false" unique-restriction="UQ_banca_examinadora_cpf" />
 <column name="nome" type="VARCHAR" precision="100" nullable="false" />
 <column name="descricao_titulacao" type="VARCHAR" precision="240" nullable="false" />
 <column name="data_expiracao" type="TIMESTAMP WITH TIME ZONE" />
@@ -1217,7 +1218,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <index name="IX_vinculo_fase_prova_prova_id" table="public.vinculo_fase_prova" columns="prova_id" />
 
 <table name="erro_arquivo_pagamento" schema="public">
-       erro_arquivo_pagamento_id BIGSERIAL nullable="false"
+<column name="erro_arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="numero_linha" type="INTEGER" nullable="false" />
 <column name="mensagem_erro" type="TEXT" nullable="false" />
 <column name="arquivo_pagamento_id" type="BIGINT" nullable="false" />
@@ -1247,7 +1248,7 @@ CREATE UNIQUE INDEX IX_lista_presenca_aplicacao_localidade_reserva ON public.lis
 <column name="version" type="INT4" nullable="false" />
 
 </table>
-CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_status_alocacao (localidade_prova_alocacao_id);
+<index name="IX_historico_status_alocacao_loc_prova_id" table="public.historico_status_alocacao" columns="localidade_prova_alocacao_id" />
 
 <table name="vistoria_local_prova_item" schema="public">
 <column name="vistoria_local_prova_item_id" type="SERIAL8" pk="true" nullable="false" />
@@ -1289,7 +1290,7 @@ CREATE INDEX "IX_historico_status_alocacao_loc_prova)id" ON public.historico_sta
 <restriction type="unique" name="UQ_gabarito_prova_inscricao_prova_id_inscricao_id" columns="inscricao_id, prova_id" />
 </table>
 <index name="IX_gabarito_prova_inscricao_inscricao_id" table="public.gabarito_prova_inscricao" columns="inscricao_id" />
-CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.gabarito_prova_inscricao (inscricao_id, prova_id);
+<index name="IX_gabarito_prova_inscricao_inscricao_id_prova_id" table="public.gabarito_prova_inscricao" columns="inscricao_id, prova_id" unique="true" />
 
 <table name="inscricoes_arquivo_pagamento" schema="public">
 <column name="inscricoes_arquivo_pagamento_id" type="SERIAL8" pk="true" nullable="false" />
@@ -1328,7 +1329,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <column name="nota_habilitacao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="apto" type="BOOL" />
 <column name="motivacao" type="TEXT" />
-<column name="resultado_prova_manual_id" type="INT8" nullable="false" unique_restriction="UQ_RESULTADO_PROVA_HABILITACAO" />
+<column name="resultado_prova_manual_id" type="INT8" nullable="false" unique-restriction="UQ_RESULTADO_PROVA_HABILITACAO" />
 
 </table>
 <index name="IX_nota_habilitacao_res_pro_man" table="public.nota_habilitacao" columns="resultado_prova_manual_id" />
@@ -1350,7 +1351,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_divergencia_res_rep_res_pr_man" table="public.divergencia_resultado_repetido" columns="resultado_prova_manual_id" />
 
 <table name="questao_gabarito" schema="public">
-       questao_gabarito_id BIGSERIAL nullable="false"
+<column name="questao_gabarito_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="gabarito_prova_id" type="BIGINT" nullable="false" />
 <column name="idioma_id" type="INT8" />
 <column name="numero_questao" type="INT" nullable="false" />
@@ -1362,7 +1363,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_questao_gabarito_gab_prova_id" table="public.questao_gabarito" columns="gabarito_prova_id" />
 
 <table name="ordenacao_disciplina_gabarito" schema="public">
-       ordenacao_disciplina_gabarito_id BIGSERIAL nullable="false"
+<column name="ordenacao_disciplina_gabarito_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="gabarito_prova_id" type="BIGINT" nullable="false" />
 <column name="disciplina_id" type="INT8" nullable="false" />
 <column name="ordem_disciplina" type="INT" nullable="false" />
@@ -1398,7 +1399,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_idioma_concurso_concurso_id" table="public.idioma_concurso" columns="concurso_id" />
 
 <table name="permissao_usuario_concurso" schema="public">
-       perm_usuario_conc_id SERIAL8
+<column name="perm_usuario_conc_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="usuario_id" type="INT8" nullable="false" />
 <column name="concurso_id" type="INT8" nullable="false" />
 <column name="tipo_permissao" type="VARCHAR" precision="20" nullable="false" />
@@ -1544,7 +1545,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <table name="orientacao_recurso" schema="public">
 <column name="orientacao_recurso_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="texto_orientacao" type="VARCHAR" precision="2000" nullable="false" />
-<column name="fase_id" type="INT8" nullable="false" unique_restriction="UQ_orientacao_recurso_fase_id" />
+<column name="fase_id" type="INT8" nullable="false" unique-restriction="UQ_orientacao_recurso_fase_id" />
 <column name="version" type="INT4" nullable="false" />
 
 </table>
@@ -1641,7 +1642,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_alternativa_questao_correlata_idioma" table="public.alternativa_questao_correlata" columns="idioma_id" />
 
 <table name="diverg_fec_localidade_inscricao" schema="public">
-       diverg_fec_localidade_inscricao_id BIGSERIAL nullable="false"
+<column name="diverg_fec_localidade_inscricao_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="diverg_fec_localidade_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 
@@ -1652,7 +1653,7 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 <index name="IX_diverg_fec_localidade_inscricao_diver_id" table="public.diverg_fec_localidade_inscricao" columns="diverg_fec_localidade_id" />
 
 <table name="diverg_fec_concurso_inscricao" schema="public">
-       diverg_fec_concurso_ins_id BIGSERIAL nullable="false"
+<column name="diverg_fec_concurso_ins_id" type="SERIAL8" pk="true" nullable="false" />
 <column name="diverg_fec_concurso_id" type="INT8" nullable="false" />
 <column name="inscricao_id" type="INT8" nullable="false" />
 
@@ -1722,486 +1723,485 @@ CREATE UNIQUE INDEX IX_gabarito_prova_inscricao_inscricao_id_prova_id ON public.
 </table>
 <index name="IX_cidades_concurso_concurso_id" table="public.cidades_concurso" columns="concurso_id" />
 
-<association table="public.campo_atuacao" other_table="public.cargo" columns_here="cargo_id" columns_there="cargo_id" />
+<association table="public.campo_atuacao" other-table="public.cargo" columns-here="cargo_id" columns-there="cargo_id" />
 
-<association table="public.campo_orgao" other_table="public.orgao_contratante" columns_here="orgao_contratante_id" columns_there="orgao_contratante_id" />
+<association table="public.campo_orgao" other-table="public.orgao_contratante" columns-here="orgao_contratante_id" columns-there="orgao_contratante_id" />
 
-<association table="public.campo_orgao" other_table="public.campo_atuacao" columns_here="campo_atuacao_id" columns_there="campo_atuacao_id" />
+<association table="public.campo_orgao" other-table="public.campo_atuacao" columns-here="campo_atuacao_id" columns-there="campo_atuacao_id" />
 
-<association table="public.campo_orgao" other_table="public.cargo" columns_here="cargo_id" columns_there="cargo_id" />
+<association table="public.campo_orgao" other-table="public.cargo" columns-here="cargo_id" columns-there="cargo_id" />
 
-<association table="public.cidade" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+<association table="public.cidade" other-table="public.uf" columns-here="uf_id" columns-there="uf_id" />
 
-<association table="public.estrutura" other_table="public.orgao_contratante" columns_here="orgao_contratante_id" columns_there="orgao_contratante_id" />
+<association table="public.estrutura" other-table="public.orgao_contratante" columns-here="orgao_contratante_id" columns-there="orgao_contratante_id" />
 
-<association table="public.local_prova" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.local_prova" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.local_prova" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+<association table="public.local_prova" other-table="public.uf" columns-here="uf_id" columns-there="uf_id" />
 
-<association table="public.uf_estrutura" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+<association table="public.uf_estrutura" other-table="public.uf" columns-here="uf_id" columns-there="uf_id" />
 
-<association table="public.uf_estrutura" other_table="public.estrutura" columns_here="estrutura_id" columns_there="estrutura_id" />
+<association table="public.uf_estrutura" other-table="public.estrutura" columns-here="estrutura_id" columns-there="estrutura_id" />
 
-<association table="public.usuario" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+<association table="public.usuario" other-table="public.uf" columns-here="uf_id" columns-there="uf_id" />
 
-<association table="public.vaga" other_table="public.uf" columns_here="uf_id" columns_there="uf_id" />
+<association table="public.vaga" other-table="public.uf" columns-here="uf_id" columns-there="uf_id" />
 
-<association table="public.vaga" other_table="public.estrutura" columns_here="estrutura_id" columns_there="estrutura_id" />
+<association table="public.vaga" other-table="public.estrutura" columns-here="estrutura_id" columns-there="estrutura_id" />
 
-<association table="public.vaga" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.vaga" other-table="public.oferta_cargo_concurso" columns-here="oferta_cargo_concurso_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.vaga" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.vaga" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.etapa" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.etapa" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.oferta_cargo_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.oferta_cargo_concurso" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.oferta_cargo_concurso" other_table="public.campo_orgao" columns_here="campo_orgao_id" columns_there="campo_orgao_id" />
+<association table="public.oferta_cargo_concurso" other-table="public.campo_orgao" columns-here="campo_orgao_id" columns-there="campo_orgao_id" />
 
-<association table="public.vistoria_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+<association table="public.vistoria_local_prova" other-table="public.local_prova" columns-here="local_prova_id" columns-there="local_prova_id" />
 
-<association table="public.vistoria_local_prova" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.vistoria_local_prova" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.aplicacao_prova" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.aplicacao_prova" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.subprova" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.subprova" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.questao_prova_subjetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.questao_prova_subjetiva" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.titulo_prova_titulos" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.titulo_prova_titulos" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.prorrogacao_prazos_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.prorrogacao_prazos_concurso" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.candidato" other_table="public.uf" columns_here="uf_identidade_id" columns_there="uf_id" />
+<association table="public.candidato" other-table="public.uf" columns-here="uf_identidade_id" columns-there="uf_id" />
 
-<association table="public.candidato" other_table="public.uf" columns_here="uf_identidade_id" columns_there="uf_id" />
+<association table="public.candidato" other-table="public.uf" columns-here="uf_identidade_id" columns-there="uf_id" />
 
-<association table="public.candidato" other_table="public.uf" columns_here="uf_endereco_id" columns_there="uf_id" />
+<association table="public.candidato" other-table="public.uf" columns-here="uf_endereco_id" columns-there="uf_id" />
 
-<association table="public.prova" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+<association table="public.prova" other-table="public.aplicacao_prova" columns-here="aplicacao_prova_id" columns-there="aplicacao_prova_id" />
 
-<association table="public.prova" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.prova" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.prova" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.prova" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.formulario_inscricao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.formulario_inscricao" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.fase" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.fase" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.inscricao" other_table="public.candidato" columns_here="candidato_id" columns_there="candidato_id" />
+<association table="public.inscricao" other-table="public.candidato" columns-here="candidato_id" columns-there="candidato_id" />
 
-<association table="public.inscricao" other_table="public.area_formacao" columns_here="area_formacao_id" columns_there="area_formacao_id" />
+<association table="public.inscricao" other-table="public.area_formacao" columns-here="area_formacao_id" columns-there="area_formacao_id" />
 
-<association table="public.inscricao" other_table="public.nivel_escolaridade" columns_here="nivel_escolaridade_id" columns_there="nivel_escolaridade_id" />
+<association table="public.inscricao" other-table="public.nivel_escolaridade" columns-here="nivel_escolaridade_id" columns-there="nivel_escolaridade_id" />
 
-<association table="public.inscricao" other_table="public.cidade" columns_here="cidade_prova_id" columns_there="cidade_id" />
+<association table="public.inscricao" other-table="public.cidade" columns-here="cidade_prova_id" columns-there="cidade_id" />
 
-<association table="public.inscricao" other_table="public.vaga" columns_here="vaga_id" columns_there="vaga_id" />
+<association table="public.inscricao" other-table="public.vaga" columns-here="vaga_id" columns-there="vaga_id" />
 
-<association table="public.inscricao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.inscricao" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.inscricao" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.inscricao" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.inscricao" other_table="public.uf" columns_here="uf_identidade_nis_id" columns_there="uf_id" />
+<association table="public.inscricao" other-table="public.uf" columns-here="uf_identidade_nis_id" columns-there="uf_id" />
 
-<association table="public.inscricao" other_table="public.motivo_indeferimento" columns_here="motivo_indeferimento_id" columns_there="motivo_indeferimento_id" />
+<association table="public.inscricao" other-table="public.motivo_indeferimento" columns-here="motivo_indeferimento_id" columns-there="motivo_indeferimento_id" />
 
-<association table="public.vinculo_fase" other_table="public.fase" columns_here="fase_predecessora_id" columns_there="fase_id" />
+<association table="public.vinculo_fase" other-table="public.fase" columns-here="fase_predecessora_id" columns-there="fase_id" />
 
-<association table="public.vinculo_fase" other_table="public.fase" columns_here="fase_id" columns_there="fase_id" />
+<association table="public.vinculo_fase" other-table="public.fase" columns-here="fase_id" columns-there="fase_id" />
 
-<association table="public.vinculo_fase" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.vinculo_fase" other-table="public.oferta_cargo_concurso" columns-here="oferta_cargo_concurso_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.arquivo_pagamento" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.arquivo_pagamento" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.bloco_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+<association table="public.bloco_local_prova" other-table="public.local_prova" columns-here="local_prova_id" columns-there="local_prova_id" />
 
-<association table="public.criterio_desempate" other_table="public.vinculo_fase" columns_here="vinculo_fase_id" columns_there="vinculo_fase_id" />
+<association table="public.criterio_desempate" other-table="public.vinculo_fase" columns-here="vinculo_fase_id" columns-there="vinculo_fase_id" />
 
-<association table="public.andar_local_prova" other_table="public.bloco_local_prova" columns_here="bloco_local_prova_id" columns_there="bloco_local_prova_id" />
+<association table="public.andar_local_prova" other-table="public.bloco_local_prova" columns-here="bloco_local_prova_id" columns-there="bloco_local_prova_id" />
 
-<association table="public.sala_local_prova" other_table="public.andar_local_prova" columns_here="andar_local_prova_id" columns_there="andar_local_prova_id" />
+<association table="public.sala_local_prova" other-table="public.andar_local_prova" columns-here="andar_local_prova_id" columns-there="andar_local_prova_id" />
 
-<association table="public.reserva_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+<association table="public.reserva_local_prova" other-table="public.local_prova" columns-here="local_prova_id" columns-there="local_prova_id" />
 
-<association table="public.reserva_local_prova" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.reserva_local_prova" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.local_execucao" other_table="public.reserva_local_prova" columns_here="reserva_local_prova_id" columns_there="reserva_local_prova_id" />
+<association table="public.local_execucao" other-table="public.reserva_local_prova" columns-here="reserva_local_prova_id" columns-there="reserva_local_prova_id" />
 
-<association table="public.reserva_sala" other_table="public.reserva_local_prova" columns_here="reserva_local_prova_id" columns_there="reserva_local_prova_id" />
+<association table="public.reserva_sala" other-table="public.reserva_local_prova" columns-here="reserva_local_prova_id" columns-there="reserva_local_prova_id" />
 
-<association table="public.reserva_sala" other_table="public.sala_local_prova" columns_here="sala_local_prova_id" columns_there="sala_local_prova_id" />
+<association table="public.reserva_sala" other-table="public.sala_local_prova" columns-here="sala_local_prova_id" columns-there="sala_local_prova_id" />
 
-<association table="public.reserva_sala" other_table="public.local_execucao" columns_here="local_execucao_id" columns_there="local_execucao_id" />
+<association table="public.reserva_sala" other-table="public.local_execucao" columns-here="local_execucao_id" columns-there="local_execucao_id" />
 
-<association table="public.reserva_sala" other_table="public.oferta_cargo_concurso" columns_here="oferta_sala_extra_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.reserva_sala" other-table="public.oferta_cargo_concurso" columns-here="oferta_sala_extra_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.reserva_sala" other_table="public.oferta_cargo_concurso" columns_here="oferta_sala_extra_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.reserva_sala" other-table="public.oferta_cargo_concurso" columns-here="oferta_sala_extra_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.reserva_sala" other_table="public.idioma" columns_here="idioma_extra_id" columns_there="idioma_id" />
+<association table="public.reserva_sala" other-table="public.idioma" columns-here="idioma_extra_id" columns-there="idioma_id" />
 
-<association table="public.reserva_sala" other_table="public.idioma" columns_here="idioma_acesso_id" columns_there="idioma_id" />
+<association table="public.reserva_sala" other-table="public.idioma" columns-here="idioma_acesso_id" columns-there="idioma_id" />
 
-<association table="public.localidade_prova_alocacao" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.localidade_prova_alocacao" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.localidade_prova_alocacao" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.localidade_prova_alocacao" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.reserva_sala_aplicacao" other_table="public.reserva_sala" columns_here="reserva_sala_id" columns_there="reserva_sala_id" />
+<association table="public.reserva_sala_aplicacao" other-table="public.reserva_sala" columns-here="reserva_sala_id" columns-there="reserva_sala_id" />
 
-<association table="public.arquivo_mds" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.arquivo_mds" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.arquivo_mds" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.arquivo_mds" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.resultado_prova_manual" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.resultado_prova_manual" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.resultado_prova_manual" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.resultado_prova_manual" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.resultado_prova_manual" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.resultado_prova_manual" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.cartao_resposta" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.cartao_resposta" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.cartao_resposta" other_table="public.cidade" columns_here="localidade_id" columns_there="cidade_id" />
+<association table="public.cartao_resposta" other-table="public.cidade" columns-here="localidade_id" columns-there="cidade_id" />
 
-<association table="public.cartao_resposta" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.cartao_resposta" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.cartao_resposta" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.cartao_resposta" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.cartao_resposta" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.cartao_resposta" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.fechamento_aplicacao_concurso" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+<association table="public.fechamento_aplicacao_concurso" other-table="public.aplicacao_prova" columns-here="aplicacao_prova_id" columns-there="aplicacao_prova_id" />
 
-<association table="public.alocacao_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.alocacao_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.alocacao_inscricao" other_table="public.reserva_sala" columns_here="reserva_sala_id" columns_there="reserva_sala_id" />
+<association table="public.alocacao_inscricao" other-table="public.reserva_sala" columns-here="reserva_sala_id" columns-there="reserva_sala_id" />
 
-<association table="public.diverg_fec_concurso" other_table="public.fechamento_aplicacao_concurso" columns_here="fec_aplicacao_concurso_id" columns_there="fec_aplicacao_concurso_id" />
+<association table="public.diverg_fec_concurso" other-table="public.fechamento_aplicacao_concurso" columns-here="fec_aplicacao_concurso_id" columns-there="fec_aplicacao_concurso_id" />
 
-<association table="public.diverg_fec_concurso" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.diverg_fec_concurso" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.diverg_fec_concurso" other_table="public.idioma" columns_here="idioma_cartao_id" columns_there="idioma_id" />
+<association table="public.diverg_fec_concurso" other-table="public.idioma" columns-here="idioma_cartao_id" columns-there="idioma_id" />
 
-<association table="public.diverg_fec_concurso" other_table="public.idioma" columns_here="idioma_inscricao_id" columns_there="idioma_id" />
+<association table="public.diverg_fec_concurso" other-table="public.idioma" columns-here="idioma_inscricao_id" columns-there="idioma_id" />
 
-<association table="public.fechamento_aplicacao_localidade" other_table="public.cidade" columns_here="localidade_id" columns_there="cidade_id" />
+<association table="public.fechamento_aplicacao_localidade" other-table="public.cidade" columns-here="localidade_id" columns-there="cidade_id" />
 
-<association table="public.fechamento_aplicacao_localidade" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+<association table="public.fechamento_aplicacao_localidade" other-table="public.aplicacao_prova" columns-here="aplicacao_prova_id" columns-there="aplicacao_prova_id" />
 
-<association table="public.diverg_fec_localidade" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.diverg_fec_localidade" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.diverg_fec_localidade" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.diverg_fec_localidade" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.diverg_fec_localidade" other_table="public.fechamento_aplicacao_localidade" columns_here="fec_aplicacao_localidade_id" columns_there="fec_aplicacao_localidade_id" />
+<association table="public.diverg_fec_localidade" other-table="public.fechamento_aplicacao_localidade" columns-here="fec_aplicacao_localidade_id" columns-there="fec_aplicacao_localidade_id" />
 
-<association table="public.lista_presenca" other_table="public.aplicacao_prova" columns_here="aplicacao_prova_id" columns_there="aplicacao_prova_id" />
+<association table="public.lista_presenca" other-table="public.aplicacao_prova" columns-here="aplicacao_prova_id" columns-there="aplicacao_prova_id" />
 
-<association table="public.lista_presenca" other_table="public.cidade" columns_here="localidade_id" columns_there="cidade_id" />
+<association table="public.lista_presenca" other-table="public.cidade" columns-here="localidade_id" columns-there="cidade_id" />
 
-<association table="public.gabarito_prova" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.gabarito_prova" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.resultado_fase" other_table="public.fase" columns_here="fase_id" columns_there="fase_id" />
+<association table="public.resultado_fase" other-table="public.fase" columns-here="fase_id" columns-there="fase_id" />
 
-<association table="public.presenca_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.presenca_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.presenca_inscricao" other_table="public.lista_presenca" columns_here="lista_presenca_id" columns_there="lista_presenca_id" />
+<association table="public.presenca_inscricao" other-table="public.lista_presenca" columns-here="lista_presenca_id" columns-there="lista_presenca_id" />
 
-<association table="public.presenca_inscricao" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.presenca_inscricao" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.resultado_vaga" other_table="public.resultado_fase" columns_here="resultado_fase_id" columns_there="resultado_fase_id" />
+<association table="public.resultado_vaga" other-table="public.resultado_fase" columns-here="resultado_fase_id" columns-there="resultado_fase_id" />
 
-<association table="public.resultado_vaga" other_table="public.vaga" columns_here="vaga_id" columns_there="vaga_id" />
+<association table="public.resultado_vaga" other-table="public.vaga" columns-here="vaga_id" columns-there="vaga_id" />
 
-<association table="public.classificacao_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.classificacao_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.classificacao_inscricao" other_table="public.resultado_vaga" columns_here="resultado_vaga_id" columns_there="resultado_vaga_id" />
+<association table="public.classificacao_inscricao" other-table="public.resultado_vaga" columns-here="resultado_vaga_id" columns-there="resultado_vaga_id" />
 
-<association table="public.pontuacao_prova_objetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.pontuacao_prova_objetiva" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.pontuacao_prova_objetiva" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+<association table="public.pontuacao_prova_objetiva" other-table="public.classificacao_inscricao" columns-here="classificacao_inscricao_id" columns-there="classificacao_inscricao_id" />
 
-<association table="public.gabarito_chave" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.gabarito_chave" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.gabarito_correlato" other_table="public.gabarito_chave" columns_here="gabarito_chave_id" columns_there="gabarito_chave_id" />
+<association table="public.gabarito_correlato" other-table="public.gabarito_chave" columns-here="gabarito_chave_id" columns-there="gabarito_chave_id" />
 
-<association table="public.banca_examinadora" other_table="public.uf" columns_here="uf_endereco_id" columns_there="uf_id" />
+<association table="public.banca_examinadora" other-table="public.uf" columns-here="uf_endereco_id" columns-there="uf_id" />
 
-<association table="public.vinculo_banca_disciplina" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.vinculo_banca_disciplina" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.vinculo_banca_disciplina" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.vinculo_banca_disciplina" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.vinculo_banca_disciplina" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.vinculo_banca_disciplina" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.questao_correlata" other_table="public.gabarito_correlato" columns_here="gabarito_correlato_id" columns_there="gabarito_correlato_id" />
+<association table="public.questao_correlata" other-table="public.gabarito_correlato" columns-here="gabarito_correlato_id" columns-there="gabarito_correlato_id" />
 
-<association table="public.banca_questoes" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+<association table="public.banca_questoes" other-table="public.banca_examinadora" columns-here="banca_examinadora_id" columns-there="banca_examinadora_id" />
 
-<association table="public.banca_questoes" other_table="public.vinculo_banca_disciplina" columns_here="vinculo_banca_disciplina_id" columns_there="vinculo_banca_disciplina_id" />
+<association table="public.banca_questoes" other-table="public.vinculo_banca_disciplina" columns-here="vinculo_banca_disciplina_id" columns-there="vinculo_banca_disciplina_id" />
 
-<association table="public.questao_banca" other_table="public.banca_questoes" columns_here="banca_questoes_id" columns_there="banca_questoes_id" />
+<association table="public.questao_banca" other-table="public.banca_questoes" columns-here="banca_questoes_id" columns-there="banca_questoes_id" />
 
-<association table="public.area" other_table="public.assunto" columns_here="assunto_id" columns_there="assunto_id" />
+<association table="public.area" other-table="public.assunto" columns-here="assunto_id" columns-there="assunto_id" />
 
-<association table="public.registro_importacao_cartao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.registro_importacao_cartao" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.parecer" other_table="public.questao_banca" columns_here="questao_banca_id" columns_there="questao_banca_id" />
+<association table="public.parecer" other-table="public.questao_banca" columns-here="questao_banca_id" columns-there="questao_banca_id" />
 
-<association table="public.parecer" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.parecer" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.cartao_importacao_processado" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.cartao_importacao_processado" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.cartao_importacao_processado" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.cartao_importacao_processado" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.cartao_importacao_processado" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.cartao_importacao_processado" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.cartao_importacao_processado" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.cartao_importacao_processado" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.cartao_importacao_processado" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.cartao_importacao_processado" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.cartao_importacao_processado" other_table="public.registro_importacao_cartao" columns_here="reg_importacao_cartao_id" columns_there="reg_importacao_cartao_id" />
+<association table="public.cartao_importacao_processado" other-table="public.registro_importacao_cartao" columns-here="reg_importacao_cartao_id" columns-there="reg_importacao_cartao_id" />
 
-<association table="public.orgao_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.orgao_concurso" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.orgao_concurso" other_table="public.orgao_contratante" columns_here="orgao_contratante_id" columns_there="orgao_contratante_id" />
+<association table="public.orgao_concurso" other-table="public.orgao_contratante" columns-here="orgao_contratante_id" columns-there="orgao_contratante_id" />
 
-<association table="public.disciplina_prova_objetiva" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.disciplina_prova_objetiva" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.disciplina_prova_objetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.disciplina_prova_objetiva" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.idioma_oferta_cargo_concurso" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.idioma_oferta_cargo_concurso" other-table="public.oferta_cargo_concurso" columns-here="oferta_cargo_concurso_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.idioma_oferta_cargo_concurso" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.idioma_oferta_cargo_concurso" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.subprova_prova_objetiva" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+<association table="public.subprova_prova_objetiva" other-table="public.subprova" columns-here="subprova_id" columns-there="subprova_id" />
 
-<association table="public.subprova_prova_objetiva" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.subprova_prova_objetiva" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.disciplina_subprova" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+<association table="public.disciplina_subprova" other-table="public.subprova" columns-here="subprova_id" columns-there="subprova_id" />
 
-<association table="public.disciplina_subprova" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.disciplina_subprova" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.ofertas_cargos_prorrogacao_concurso" other_table="public.prorrogacao_prazos_concurso" columns_here="prorrogacao_prazos_concurso_id" columns_there="prorrogacao_prazos_concurso_id" />
+<association table="public.ofertas_cargos_prorrogacao_concurso" other-table="public.prorrogacao_prazos_concurso" columns-here="prorrogacao_prazos_concurso_id" columns-there="prorrogacao_prazos_concurso_id" />
 
-<association table="public.ofertas_cargos_prorrogacao_concurso" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.ofertas_cargos_prorrogacao_concurso" other-table="public.oferta_cargo_concurso" columns-here="oferta_cargo_concurso_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.uf_estrutura_cidade" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.uf_estrutura_cidade" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.uf_estrutura_cidade" other_table="public.uf_estrutura" columns_here="uf_estrutura_id" columns_there="uf_estrutura_id" />
+<association table="public.uf_estrutura_cidade" other-table="public.uf_estrutura" columns-here="uf_estrutura_id" columns-there="uf_estrutura_id" />
 
-<association table="public.campo_formulario_inscricao" other_table="public.formulario_inscricao" columns_here="formulario_inscricao_id" columns_there="formulario_inscricao_id" />
+<association table="public.campo_formulario_inscricao" other-table="public.formulario_inscricao" columns-here="formulario_inscricao_id" columns-there="formulario_inscricao_id" />
 
-<association table="public.isencao" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.isencao" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.inscricao_tratamento_diferenciado" other_table="public.tratamento_diferenciado" columns_here="tratamento_diferenciado_id" columns_there="tratamento_diferenciado_id" />
+<association table="public.inscricao_tratamento_diferenciado" other-table="public.tratamento_diferenciado" columns-here="tratamento_diferenciado_id" columns-there="tratamento_diferenciado_id" />
 
-<association table="public.inscricao_tratamento_diferenciado" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.inscricao_tratamento_diferenciado" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.inscricao_tratamento_diferenciado" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.inscricao_tratamento_diferenciado" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.inscricao_historico_localidade" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.inscricao_historico_localidade" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.inscricao_historico_localidade" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.inscricao_historico_localidade" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.anexo_local_prova" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.anexo_local_prova" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.anexo_local_prova" other_table="public.local_prova" columns_here="local_prova_id" columns_there="local_prova_id" />
+<association table="public.anexo_local_prova" other-table="public.local_prova" columns-here="local_prova_id" columns-there="local_prova_id" />
 
-<association table="public.criterio_desempate_maior_nota_disc" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.criterio_desempate_maior_nota_disc" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.criterio_desempate_maior_nota_disc" other_table="public.criterio_desempate" columns_here="criterio_desempate_id" columns_there="criterio_desempate_id" />
+<association table="public.criterio_desempate_maior_nota_disc" other-table="public.criterio_desempate" columns-here="criterio_desempate_id" columns-there="criterio_desempate_id" />
 
-<association table="public.criterio_desempate_maior_nota_provas" other_table="public.criterio_desempate" columns_here="criterio_desempate_id" columns_there="criterio_desempate_id" />
+<association table="public.criterio_desempate_maior_nota_provas" other-table="public.criterio_desempate" columns-here="criterio_desempate_id" columns-there="criterio_desempate_id" />
 
-<association table="public.criterio_desempate_maior_nota_provas" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.criterio_desempate_maior_nota_provas" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.vinculo_fase_prova" other_table="public.vinculo_fase" columns_here="vinculo_fase_id" columns_there="vinculo_fase_id" />
+<association table="public.vinculo_fase_prova" other-table="public.vinculo_fase" columns-here="vinculo_fase_id" columns-there="vinculo_fase_id" />
 
-<association table="public.vinculo_fase_prova" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.vinculo_fase_prova" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.erro_arquivo_pagamento" other_table="public.arquivo_pagamento" columns_here="arquivo_pagamento_id" columns_there="arquivo_pagamento_id" />
+<association table="public.erro_arquivo_pagamento" other-table="public.arquivo_pagamento" columns-here="arquivo_pagamento_id" columns-there="arquivo_pagamento_id" />
 
-<association table="public.reserva_lugares_sala" other_table="public.reserva_sala_aplicacao" columns_here="reserva_sala_aplic_id" columns_there="reserva_sala_aplic_id" />
+<association table="public.reserva_lugares_sala" other-table="public.reserva_sala_aplicacao" columns-here="reserva_sala_aplic_id" columns-there="reserva_sala_aplic_id" />
 
-<association table="public.reserva_lugares_sala" other_table="public.oferta_cargo_concurso" columns_here="oferta_cargo_concurso_id" columns_there="oferta_cargo_concurso_id" />
+<association table="public.reserva_lugares_sala" other-table="public.oferta_cargo_concurso" columns-here="oferta_cargo_concurso_id" columns-there="oferta_cargo_concurso_id" />
 
-<association table="public.reserva_lugares_sala" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.reserva_lugares_sala" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.historico_status_alocacao" other_table="public.localidade_prova_alocacao" columns_here="localidade_prova_alocacao_id" columns_there="localidade_prova_alocacao_id" />
+<association table="public.historico_status_alocacao" other-table="public.localidade_prova_alocacao" columns-here="localidade_prova_alocacao_id" columns-there="localidade_prova_alocacao_id" />
 
-<association table="public.historico_status_alocacao" other_table="public.usuario" columns_here="usuario_responsavel_id" columns_there="usuario_id" />
+<association table="public.historico_status_alocacao" other-table="public.usuario" columns-here="usuario_responsavel_id" columns-there="usuario_id" />
 
-<association table="public.vistoria_local_prova_item" other_table="public.vistoria_local_prova" columns_here="vistoria_local_prova_id" columns_there="vistoria_local_prova_id" />
+<association table="public.vistoria_local_prova_item" other-table="public.vistoria_local_prova" columns-here="vistoria_local_prova_id" columns-there="vistoria_local_prova_id" />
 
-<association table="public.criterio_desempate_maior_nota_subprovas" other_table="public.criterio_desempate" columns_here="criterio_desempate_id" columns_there="criterio_desempate_id" />
+<association table="public.criterio_desempate_maior_nota_subprovas" other-table="public.criterio_desempate" columns-here="criterio_desempate_id" columns-there="criterio_desempate_id" />
 
-<association table="public.criterio_desempate_maior_nota_subprovas" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+<association table="public.criterio_desempate_maior_nota_subprovas" other-table="public.subprova" columns-here="subprova_id" columns-there="subprova_id" />
 
-<association table="public.arquivo_mds_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.arquivo_mds_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.arquivo_mds_inscricao" other_table="public.arquivo_mds" columns_here="arquivo_mds_id" columns_there="arquivo_mds_id" />
+<association table="public.arquivo_mds_inscricao" other-table="public.arquivo_mds" columns-here="arquivo_mds_id" columns-there="arquivo_mds_id" />
 
-<association table="public.gabarito_prova_inscricao" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.gabarito_prova_inscricao" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.gabarito_prova_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.gabarito_prova_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-ALTER TABLE public.gabarito_prova_inscricao  ADD CONSTRAINT FK_gabarito_prova_inscricao_alocacao_inscricao      FOREIGN KEY (alocacao_inscricao_id)      REFERENCES public.alocacao_inscricao (alocacao_inscricao_id)
-   ON DELETE CASCADE;
+<association table="public.gabarito_prova_inscricao" other-table="public.alocacao_inscricao" columns-here="alocacao_inscricao_id" columns-there="alocacao_inscricao_id" />
 
-<association table="public.inscricoes_arquivo_pagamento" other_table="public.arquivo_pagamento" columns_here="arquivo_pagamento_id" columns_there="arquivo_pagamento_id" />
+<association table="public.inscricoes_arquivo_pagamento" other-table="public.arquivo_pagamento" columns-here="arquivo_pagamento_id" columns-there="arquivo_pagamento_id" />
 
-<association table="public.inscricoes_arquivo_pagamento" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.inscricoes_arquivo_pagamento" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.nota_titulo" other_table="public.titulo_prova_titulos" columns_here="titulo_prova_titulos_id" columns_there="titulo_prova_titulos_id" />
+<association table="public.nota_titulo" other-table="public.titulo_prova_titulos" columns-here="titulo_prova_titulos_id" columns-there="titulo_prova_titulos_id" />
 
-<association table="public.nota_titulo" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+<association table="public.nota_titulo" other-table="public.resultado_prova_manual" columns-here="resultado_prova_manual_id" columns-there="resultado_prova_manual_id" />
 
-<association table="public.nota_questao" other_table="public.questao_prova_subjetiva" columns_here="questao_prova_subjetiva_id" columns_there="questao_prova_subjetiva_id" />
+<association table="public.nota_questao" other-table="public.questao_prova_subjetiva" columns-here="questao_prova_subjetiva_id" columns-there="questao_prova_subjetiva_id" />
 
-<association table="public.nota_questao" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+<association table="public.nota_questao" other-table="public.resultado_prova_manual" columns-here="resultado_prova_manual_id" columns-there="resultado_prova_manual_id" />
 
-<association table="public.nota_habilitacao" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+<association table="public.nota_habilitacao" other-table="public.resultado_prova_manual" columns-here="resultado_prova_manual_id" columns-there="resultado_prova_manual_id" />
 
-<association table="public.divergencia_cartao_repetido" other_table="public.cartao_resposta" columns_here="cartao_resposta_id" columns_there="cartao_resposta_id" />
+<association table="public.divergencia_cartao_repetido" other-table="public.cartao_resposta" columns-here="cartao_resposta_id" columns-there="cartao_resposta_id" />
 
-<association table="public.divergencia_cartao_repetido" other_table="public.diverg_fec_concurso" columns_here="diverg_fec_concurso_id" columns_there="diverg_fec_concurso_id" />
+<association table="public.divergencia_cartao_repetido" other-table="public.diverg_fec_concurso" columns-here="diverg_fec_concurso_id" columns-there="diverg_fec_concurso_id" />
 
-<association table="public.divergencia_resultado_repetido" other_table="public.diverg_fec_concurso" columns_here="diverg_fec_concurso_id" columns_there="diverg_fec_concurso_id" />
+<association table="public.divergencia_resultado_repetido" other-table="public.diverg_fec_concurso" columns-here="diverg_fec_concurso_id" columns-there="diverg_fec_concurso_id" />
 
-<association table="public.divergencia_resultado_repetido" other_table="public.resultado_prova_manual" columns_here="resultado_prova_manual_id" columns_there="resultado_prova_manual_id" />
+<association table="public.divergencia_resultado_repetido" other-table="public.resultado_prova_manual" columns-here="resultado_prova_manual_id" columns-there="resultado_prova_manual_id" />
 
-<association table="public.questao_gabarito" other_table="public.gabarito_prova" columns_here="gabarito_prova_id" columns_there="gabarito_prova_id" />
+<association table="public.questao_gabarito" other-table="public.gabarito_prova" columns-here="gabarito_prova_id" columns-there="gabarito_prova_id" />
 
-<association table="public.questao_gabarito" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.questao_gabarito" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.ordenacao_disciplina_gabarito" other_table="public.gabarito_prova" columns_here="gabarito_prova_id" columns_there="gabarito_prova_id" />
+<association table="public.ordenacao_disciplina_gabarito" other-table="public.gabarito_prova" columns-here="gabarito_prova_id" columns-there="gabarito_prova_id" />
 
-<association table="public.ordenacao_disciplina_gabarito" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.ordenacao_disciplina_gabarito" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.ocorrencia" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.ocorrencia" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.historico_presenca_inscricao" other_table="public.presenca_inscricao" columns_here="presenca_inscricao_id" columns_there="presenca_inscricao_id" />
+<association table="public.historico_presenca_inscricao" other-table="public.presenca_inscricao" columns-here="presenca_inscricao_id" columns-there="presenca_inscricao_id" />
 
-<association table="public.idioma_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.idioma_concurso" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.idioma_concurso" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.idioma_concurso" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.permissao_usuario_concurso" other_table="public.usuario" columns_here="usuario_id" columns_there="usuario_id" />
+<association table="public.permissao_usuario_concurso" other-table="public.usuario" columns-here="usuario_id" columns-there="usuario_id" />
 
-<association table="public.permissao_usuario_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.permissao_usuario_concurso" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.pontuacao_subprova" other_table="public.subprova" columns_here="subprova_id" columns_there="subprova_id" />
+<association table="public.pontuacao_subprova" other-table="public.subprova" columns-here="subprova_id" columns-there="subprova_id" />
 
-<association table="public.pontuacao_subprova" other_table="public.pontuacao_prova_objetiva" columns_here="pontuacao_prova_objetiva_id" columns_there="pontuacao_prova_objetiva_id" />
+<association table="public.pontuacao_subprova" other-table="public.pontuacao_prova_objetiva" columns-here="pontuacao_prova_objetiva_id" columns-there="pontuacao_prova_objetiva_id" />
 
-<association table="public.pontuacao_disciplina" other_table="public.pontuacao_prova_objetiva" columns_here="pontuacao_prova_objetiva_id" columns_there="pontuacao_prova_objetiva_id" />
+<association table="public.pontuacao_disciplina" other-table="public.pontuacao_prova_objetiva" columns-here="pontuacao_prova_objetiva_id" columns-there="pontuacao_prova_objetiva_id" />
 
-<association table="public.pontuacao_disciplina" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.pontuacao_disciplina" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.pontuacao_prova_questoes" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.pontuacao_prova_questoes" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.pontuacao_prova_questoes" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+<association table="public.pontuacao_prova_questoes" other-table="public.classificacao_inscricao" columns-here="classificacao_inscricao_id" columns-there="classificacao_inscricao_id" />
 
-<association table="public.pontuacao_prova_titulos" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.pontuacao_prova_titulos" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.pontuacao_prova_titulos" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+<association table="public.pontuacao_prova_titulos" other-table="public.classificacao_inscricao" columns-here="classificacao_inscricao_id" columns-there="classificacao_inscricao_id" />
 
-<association table="public.pontuacao_prova_habilitacao" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.pontuacao_prova_habilitacao" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.pontuacao_prova_habilitacao" other_table="public.classificacao_inscricao" columns_here="classificacao_inscricao_id" columns_there="classificacao_inscricao_id" />
+<association table="public.pontuacao_prova_habilitacao" other-table="public.classificacao_inscricao" columns-here="classificacao_inscricao_id" columns-there="classificacao_inscricao_id" />
 
-<association table="public.idiomas_gabarito_prova" other_table="public.gabarito_prova" columns_here="gabarito_prova_id" columns_there="gabarito_prova_id" />
+<association table="public.idiomas_gabarito_prova" other-table="public.gabarito_prova" columns-here="gabarito_prova_id" columns-there="gabarito_prova_id" />
 
-<association table="public.idiomas_gabarito_prova" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.idiomas_gabarito_prova" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.questao_cartao_resposta" other_table="public.cartao_resposta" columns_here="cartao_resposta_id" columns_there="cartao_resposta_id" />
+<association table="public.questao_cartao_resposta" other-table="public.cartao_resposta" columns-here="cartao_resposta_id" columns-there="cartao_resposta_id" />
 
-<association table="public.historico_motivo_bloqueio" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+<association table="public.historico_motivo_bloqueio" other-table="public.banca_examinadora" columns-here="banca_examinadora_id" columns-there="banca_examinadora_id" />
 
-<association table="public.arquivo_banca" other_table="public.banca_questoes" columns_here="banca_questoes_id" columns_there="banca_questoes_id" />
+<association table="public.arquivo_banca" other-table="public.banca_questoes" columns-here="banca_questoes_id" columns-there="banca_questoes_id" />
 
-<association table="public.arquivo_banca" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.arquivo_banca" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.recurso" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.recurso" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.recurso" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.recurso" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.recurso" other_table="public.disciplina" columns_here="disciplina_id" columns_there="disciplina_id" />
+<association table="public.recurso" other-table="public.disciplina" columns-here="disciplina_id" columns-there="disciplina_id" />
 
-<association table="public.recurso" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.recurso" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.area_banca_examinadora" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+<association table="public.area_banca_examinadora" other-table="public.banca_examinadora" columns-here="banca_examinadora_id" columns-there="banca_examinadora_id" />
 
-<association table="public.area_banca_examinadora" other_table="public.area" columns_here="area_id" columns_there="area_id" />
+<association table="public.area_banca_examinadora" other-table="public.area" columns-here="area_id" columns-there="area_id" />
 
-<association table="public.orientacao_recurso" other_table="public.fase" columns_here="fase_id" columns_there="fase_id" />
+<association table="public.orientacao_recurso" other-table="public.fase" columns-here="fase_id" columns-there="fase_id" />
 
-<association table="public.visao_candidato" other_table="public.prova" columns_here="prova_id" columns_there="prova_id" />
+<association table="public.visao_candidato" other-table="public.prova" columns-here="prova_id" columns-there="prova_id" />
 
-<association table="public.visao_candidato" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.visao_candidato" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.visao_candidato" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.visao_candidato" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.localidade_prova_inscricao" other_table="public.etapa" columns_here="etapa_id" columns_there="etapa_id" />
+<association table="public.localidade_prova_inscricao" other-table="public.etapa" columns-here="etapa_id" columns-there="etapa_id" />
 
-<association table="public.localidade_prova_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.localidade_prova_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.localidade_prova_inscricao" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.localidade_prova_inscricao" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.historico_questao_banca" other_table="public.questao_banca" columns_here="questao_banca_id" columns_there="questao_banca_id" />
+<association table="public.historico_questao_banca" other-table="public.questao_banca" columns-here="questao_banca_id" columns-there="questao_banca_id" />
 
-<association table="public.historico_questao_banca" other_table="public.banca_examinadora" columns_here="banca_examinadora_id" columns_there="banca_examinadora_id" />
+<association table="public.historico_questao_banca" other-table="public.banca_examinadora" columns-here="banca_examinadora_id" columns-there="banca_examinadora_id" />
 
-<association table="public.qtd_min_provas_corrigidas" other_table="public.vinculo_fase" columns_here="vinculo_fase_id" columns_there="vinculo_fase_id" />
+<association table="public.qtd_min_provas_corrigidas" other-table="public.vinculo_fase" columns-here="vinculo_fase_id" columns-there="vinculo_fase_id" />
 
-<association table="public.qtd_min_provas_corrigidas" other_table="public.vaga" columns_here="vaga_id" columns_there="vaga_id" />
+<association table="public.qtd_min_provas_corrigidas" other-table="public.vaga" columns-here="vaga_id" columns-there="vaga_id" />
 
-<association table="public.inscricao_historico_status" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.inscricao_historico_status" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.anexo_vistoria" other_table="public.vistoria_local_prova" columns_here="vistoria_local_prova_id" columns_there="vistoria_local_prova_id" />
+<association table="public.anexo_vistoria" other-table="public.vistoria_local_prova" columns-here="vistoria_local_prova_id" columns-there="vistoria_local_prova_id" />
 
-<association table="public.anexo_vistoria" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.anexo_vistoria" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.parecer_historico_tramite" other_table="public.parecer" columns_here="parecer_id" columns_there="parecer_id" />
+<association table="public.parecer_historico_tramite" other-table="public.parecer" columns-here="parecer_id" columns-there="parecer_id" />
 
-<association table="public.alternativa_questao_correlata" other_table="public.questao_correlata" columns_here="questao_correlata_id" columns_there="questao_correlata_id" />
+<association table="public.alternativa_questao_correlata" other-table="public.questao_correlata" columns-here="questao_correlata_id" columns-there="questao_correlata_id" />
 
-<association table="public.alternativa_questao_correlata" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.alternativa_questao_correlata" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.diverg_fec_localidade_inscricao" other_table="public.diverg_fec_localidade" columns_here="diverg_fec_localidade_id" columns_there="diverg_fec_localidade_id" />
+<association table="public.diverg_fec_localidade_inscricao" other-table="public.diverg_fec_localidade" columns-here="diverg_fec_localidade_id" columns-there="diverg_fec_localidade_id" />
 
-<association table="public.diverg_fec_localidade_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.diverg_fec_localidade_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.diverg_fec_concurso_inscricao" other_table="public.diverg_fec_concurso" columns_here="diverg_fec_concurso_id" columns_there="diverg_fec_concurso_id" />
+<association table="public.diverg_fec_concurso_inscricao" other-table="public.diverg_fec_concurso" columns-here="diverg_fec_concurso_id" columns-there="diverg_fec_concurso_id" />
 
-<association table="public.diverg_fec_concurso_inscricao" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.diverg_fec_concurso_inscricao" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.imagem_parecer" other_table="public.parecer" columns_here="parecer_id" columns_there="parecer_id" />
+<association table="public.imagem_parecer" other-table="public.parecer" columns-here="parecer_id" columns-there="parecer_id" />
 
-<association table="public.imagem_parecer" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.imagem_parecer" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.imagem_folha" other_table="public.lista_presenca" columns_here="lista_presenca_id" columns_there="lista_presenca_id" />
+<association table="public.imagem_folha" other-table="public.lista_presenca" columns-here="lista_presenca_id" columns-there="lista_presenca_id" />
 
-<association table="public.imagem_folha" other_table="public.arquivo_anexo" columns_here="arquivo_anexo_id" columns_there="arquivo_anexo_id" />
+<association table="public.imagem_folha" other-table="public.arquivo_anexo" columns-here="arquivo_anexo_id" columns-there="arquivo_anexo_id" />
 
-<association table="public.cartao_incluido" other_table="public.inscricao" columns_here="inscricao_id" columns_there="inscricao_id" />
+<association table="public.cartao_incluido" other-table="public.inscricao" columns-here="inscricao_id" columns-there="inscricao_id" />
 
-<association table="public.cartao_incluido" other_table="public.idioma" columns_here="idioma_id" columns_there="idioma_id" />
+<association table="public.cartao_incluido" other-table="public.idioma" columns-here="idioma_id" columns-there="idioma_id" />
 
-<association table="public.cartao_incluido" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.cartao_incluido" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
-<association table="public.cartao_incluido" other_table="public.conteudo_prova" columns_here="conteudo_prova_id" columns_there="conteudo_prova_id" />
+<association table="public.cartao_incluido" other-table="public.conteudo_prova" columns-here="conteudo_prova_id" columns-there="conteudo_prova_id" />
 
-<association table="public.erro_arquivo_mds" other_table="public.arquivo_mds" columns_here="arquivo_mds_id" columns_there="arquivo_mds_id" />
+<association table="public.erro_arquivo_mds" other-table="public.arquivo_mds" columns-here="arquivo_mds_id" columns-there="arquivo_mds_id" />
 
-<association table="public.erro_importacao_cartao" other_table="public.cartao_importacao_processado" columns_here="cartao_imp_processado_id" columns_there="cartao_imp_processado_id" />
+<association table="public.erro_importacao_cartao" other-table="public.cartao_importacao_processado" columns-here="cartao_imp_processado_id" columns-there="cartao_imp_processado_id" />
 
-<association table="public.questao_cartao_processado" other_table="public.cartao_importacao_processado" columns_here="cartao_imp_processado_id" columns_there="cartao_imp_processado_id" />
+<association table="public.questao_cartao_processado" other-table="public.cartao_importacao_processado" columns-here="cartao_imp_processado_id" columns-there="cartao_imp_processado_id" />
 
-<association table="public.cidades_concurso" other_table="public.concurso" columns_here="concurso_id" columns_there="concurso_id" />
+<association table="public.cidades_concurso" other-table="public.concurso" columns-here="concurso_id" columns-there="concurso_id" />
 
-<association table="public.cidades_concurso" other_table="public.cidade" columns_here="cidade_id" columns_there="cidade_id" />
+<association table="public.cidades_concurso" other-table="public.cidade" columns-here="cidade_id" columns-there="cidade_id" />
 
 ALTER TABLE presenca_inscricao ALTER imagem_lista_presenca TYPE oid;
 CREATE SEQUENCE impressao_lista_pres_remote_cmp_seq;
-
+CREATE SEQUENCE sequencial_cartao_incluido_seq;
 
 insert into uf (sigla, nome, version) values ('RS', 'RIO GRANDE DO SUL', 0);
 insert into uf (sigla, nome, version) values ('DF', 'DISTRITO FEDERAL', 0);

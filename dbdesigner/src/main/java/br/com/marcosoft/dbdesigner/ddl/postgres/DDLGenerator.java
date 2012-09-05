@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.marcosoft.dbdesigner.model.Association;
 import br.com.marcosoft.dbdesigner.model.Column;
+import br.com.marcosoft.dbdesigner.model.Database;
 import br.com.marcosoft.dbdesigner.model.Index;
 import br.com.marcosoft.dbdesigner.model.Restriction;
 import br.com.marcosoft.dbdesigner.model.Table;
@@ -18,7 +19,9 @@ public class DDLGenerator {
 		this.out = out;
 	}
 
-	public void generate(Collection<Table> tables) {
+	public void generate(Database database) {
+		final Collection<Table> tables = database.getTables();
+
 		for (final Table table : tables) {
 			generateTable(table);
 			out.append("\n");
@@ -27,7 +30,16 @@ public class DDLGenerator {
 			generateAssociations(table);
 			out.append("\n");
 		}
+
+		generateEndScript(database);
 	}
+
+	private void generateEndScript(Database database) {
+	    if (database.getEndScript() != null) {
+			out.append("\n");
+			out.append(database.getEndScript());
+		}
+    }
 
 	private void generateAssociations(Table table) {
 		final List<Association> associations = table.getAssociations();

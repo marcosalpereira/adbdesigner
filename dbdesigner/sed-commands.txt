@@ -4,6 +4,7 @@ s/     , PRIMARY KEY .\+//g
 s/^     , CONSTRAINT \(\w\+\) UNIQUE (\([^).]\+\))/\n<restriction type="unique" name="\1" columns="\2" \/>/g
 s/ DEFAULT \([^ .]\+\)/ default="\1" /g
 s/^       \(\w\+\) SERIAL8 NOT NULL/<column name="\1" type="SERIAL8" pk="true" nullable="false" \/>/g
+s/^       \(\w\+\) BIGSERIAL NOT NULL/<column name="\1" type="SERIAL8" pk="true" nullable="false" \/>/g
 s/NOT NULL/nullable="false"/g
 s/NULL//g
 s/^     , \(\w\+\) CHARACTER VARYING(\([0-9]\+\))\(.*\)$/<column name="\1" type="VARCHAR" precision="\2"\3 \/>/g
@@ -13,8 +14,9 @@ s/^     , \(\w\+\) TIMESTAMP WITH TIME ZONE\(.*\)/<column name="\1" type="TIMEST
 s/^     , \(\w\+\) \(\w\+\)\(.*\)/<column name="\1" type="\2"\3 \/>/g
 
 #constraints
-s/CONSTRAINT \(\w\+\) UNIQUE/unique_restriction="\1"/g
-s/ALTER TABLE \(\w\+.\w\+\) \+ADD CONSTRAINT \w\+ \+FOREIGN KEY (\(\w\+\)) \+REFERENCES \(\w\+.\w\+\) (\(\w\+\));/<association table="\1" other_table="\3" columns_here="\2" columns_there="\4" \/>/g
+s/CONSTRAINT \(\w\+\) UNIQUE/unique-restriction="\1"/g
+s/ALTER TABLE \(\w\+.\w\+\) \+ADD CONSTRAINT \w\+ \+FOREIGN KEY (\(\w\+\)) \+REFERENCES \(\w\+.\w\+\) (\(\w\+\));/<association table="\1" other-table="\3" columns-here="\2" columns-there="\4" \/>/g
 
 #indexes
 s/CREATE INDEX \(\w\+\) ON \(\w\+\).\(\w\+\) (\([^).]\+\));/<index name="\1" table="\2.\3" columns="\4" \/>/g
+s/CREATE UNIQUE INDEX \(\w\+\) ON \(\w\+\).\(\w\+\) (\([^).]\+\));/<index name="\1" table="\2.\3" columns="\4" unique="true" \/>/g

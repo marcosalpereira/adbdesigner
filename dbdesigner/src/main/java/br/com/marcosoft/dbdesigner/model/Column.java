@@ -1,10 +1,13 @@
 package br.com.marcosoft.dbdesigner.model;
 
+import java.io.Serializable;
 
 
-public class Column {
+
+public class Column implements Serializable {
+    private static final long serialVersionUID = 8545514361781937944L;
+
 	private String name;
-	private int order;
 	private String defaultValue;
 	private boolean nullable = true;
 	private boolean pk = false;
@@ -16,7 +19,7 @@ public class Column {
 	public Restriction getUniqueRestriction() {
 		return uniqueRestriction;
 	}
-	
+
 	public void setUniqueRestriction(Restriction restriction) {
 		this.uniqueRestriction = restriction;
 	}
@@ -34,14 +37,6 @@ public class Column {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getOrder() {
-		return order;
-	}
-
-	public void setOrder(int order) {
-		this.order = order;
 	}
 
 	public String getDefaultValue() {
