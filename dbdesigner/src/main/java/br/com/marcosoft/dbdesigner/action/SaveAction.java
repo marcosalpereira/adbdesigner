@@ -23,8 +23,8 @@ import br.com.marcosoft.dbdesigner.view.DBDesignerGraph;
 public class SaveAction extends AbstractAction {
 
 	public void actionPerformed(ActionEvent event) {
-		final DBDesignerGraph dBDesignerGraph = (DBDesignerGraph) event.getSource();
-		final Database database = dBDesignerGraph.getDatabase();
+		final DBDesignerGraph dbDesignerGraph = (DBDesignerGraph) event.getSource();
+		final Database database = dbDesignerGraph.getDatabase();
 
 		try {
 	        gravarXml(database);
@@ -156,7 +156,14 @@ public class SaveAction extends AbstractAction {
 
 	private void beginTagDatabase(FileWriter fileWriter, Database database) throws IOException {
 		fileWriter.append("<database");
-		writeAttribute(fileWriter, "end-script", database.getEndScript().replaceAll("\r", "").replaceAll("\n", "&#10;"));
+		final String endScript = database.getEndScript();
+		if (endScript != null) {
+			writeAttribute(fileWriter, "end-script",
+					endScript
+						.replaceAll("\r", "")
+						.replaceAll("\n", "&#10;")
+			);
+		}
 		fileWriter.append(">\n");
     }
 

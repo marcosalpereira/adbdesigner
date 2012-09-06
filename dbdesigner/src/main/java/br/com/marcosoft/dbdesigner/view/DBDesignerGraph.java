@@ -7,6 +7,8 @@ import java.awt.event.MouseWheelListener;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import br.com.marcosoft.dbdesigner.model.Association;
 import br.com.marcosoft.dbdesigner.model.Database;
@@ -80,15 +82,21 @@ public class DBDesignerGraph extends mxGraphComponent {
 
 	}
 
-	private void showOnlyCellsWithTheseTags(Collection<String> tags) {
-		final Object[] vertices = graph.getChildVertices(graph.getDefaultParent());
-		for (final Object object : vertices) {
-	        final Table table = getTableFromVertex(object);
-	        setVisible((mxCell) object, table.hasAnyOfThese(tags));
+	public void showOnlyCellsWithTheseTags(String tags) {
+		final Set<Entry<Table, Object>> entrySet = map.entrySet();
+		for (final Entry<Table, Object> entry : entrySet) {
+			setVisible((mxCell) entry.getValue(), entry.getKey().hasAnyOfThese(tags));
         }
 	}
 
-	private Table getTableFromVertex(Object object) {
+	public void showAllCells() {
+		final Set<Entry<Table, Object>> entrySet = map.entrySet();
+		for (final Entry<Table, Object> entry : entrySet) {
+			setVisible((mxCell) entry.getValue(), true);
+		}
+	}
+
+	public Table getTableFromVertex(Object object) {
 	    return (Table) ((mxCell) object).getValue();
     }
 
@@ -97,7 +105,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 		for (int i=0; i<cell.getEdgeCount(); i++) {
 			graph.getModel().setVisible(cell.getEdgeAt(i), visible);
 		}
-        graph.getModel().setVisible(cell, false);
+        graph.getModel().setVisible(cell, visible);
     }
 
 	private void installMoveListener() {

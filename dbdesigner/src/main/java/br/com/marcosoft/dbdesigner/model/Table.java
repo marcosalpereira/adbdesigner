@@ -2,7 +2,6 @@ package br.com.marcosoft.dbdesigner.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class Table implements Serializable {
 		}
 	};
 
+	private Database database;
 	private String name;
 	private String schema = "public";
 	private String tags;
@@ -33,6 +33,10 @@ public class Table implements Serializable {
 	private int x;
 	private int y;
 	private int width;
+
+	public void setDatabase(Database database) {
+	    this.database = database;
+    }
 
 	public void setWidth(int width) {
 	    this.width = width;
@@ -88,6 +92,7 @@ public class Table implements Serializable {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+		this.database.addTableTags(tags);
 	}
 
 	public int getOrder() {
@@ -174,10 +179,10 @@ public class Table implements Serializable {
 		return new HashCodeBuilder(1, 3).append(this.schema).append(this.name).toHashCode();
 	}
 
-	public boolean hasAnyOfThese(Collection<String> tags) {
+	public boolean hasAnyOfThese(String tags) {
 		if (this.tags == null) return false;
 
-		for (final String tag : tags) {
+		for (final String tag : tags.split(",")) {
 	        if (this.tags.indexOf(tag) != -1) {
 	        	return true;
 	        }
