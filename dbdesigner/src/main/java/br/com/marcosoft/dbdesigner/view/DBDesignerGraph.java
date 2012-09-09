@@ -17,11 +17,14 @@ import br.com.marcosoft.dbdesigner.model.Table;
 import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxGraphModel.mxGeometryChange;
+import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.handler.mxKeyboardHandler;
 import com.mxgraph.swing.handler.mxRubberband;
+import com.mxgraph.swing.util.mxMorphing;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
@@ -34,6 +37,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 	private final Map<Table, Object> map = new HashMap<Table, Object>();
 	private final mxGraphLayout layout;
 	private Database database;
+	private boolean filtering;
 
 	public DBDesignerGraph() {
 		super(new mxGraph());
@@ -83,17 +87,31 @@ public class DBDesignerGraph extends mxGraphComponent {
 	}
 
 	public void showOnlyCellsWithTheseTags(String tags) {
+		this.filtering = true;
 		final Set<Entry<Table, Object>> entrySet = map.entrySet();
 		for (final Entry<Table, Object> entry : entrySet) {
 			setVisible((mxCell) entry.getValue(), entry.getKey().hasAnyOfThese(tags));
         }
+		layoutGraph();
 	}
 
 	public void showAllCells() {
+		this.filtering = false;
 		final Set<Entry<Table, Object>> entrySet = map.entrySet();
 		for (final Entry<Table, Object> entry : entrySet) {
-			setVisible((mxCell) entry.getValue(), true);
+			mxCell cell = (mxCell) entry.getValue();
+			restoreOriginalPosition(cell, entry.getKey());
+			setVisible(cell, true);
 		}
+	}
+
+	private void restoreOriginalPosition(mxCell cell, Table table) {
+		mxGeometry geometry = new mxGeometry(table.getX(), table.getY(), NODE_WIDTH, NODE_HEIGHT); 
+		mxIGraphModel model = graph.getModel();
+
+		model.beginUpdate();
+		model.setGeometry(cell, geometry);
+		model.endUpdate();
 	}
 
 	public Table getTableFromVertex(Object object) {
@@ -102,10 +120,11 @@ public class DBDesignerGraph extends mxGraphComponent {
 
 	private void setVisible(final mxCell cell, boolean visible) {
 		if (cell.getValue() == null) return;
+		mxIGraphModel model = graph.getModel();
 		for (int i=0; i<cell.getEdgeCount(); i++) {
-			graph.getModel().setVisible(cell.getEdgeAt(i), visible);
+			model.setVisible(cell.getEdgeAt(i), visible);
 		}
-        graph.getModel().setVisible(cell, visible);
+        model.setVisible(cell, visible);
     }
 
 	private void installMoveListener() {
@@ -114,6 +133,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 			@SuppressWarnings("unchecked")
             public void invoke(Object sender, mxEventObject evt)
 			{
+				if (filtering) return;
 				final Collection<Object> changes = (Collection<Object>) evt.getProperty("changes");
 				for (final Object change : changes) {
 					if (change instanceof mxGeometryChange) {
@@ -121,8 +141,9 @@ public class DBDesignerGraph extends mxGraphComponent {
 						final mxCell cell = (mxCell) geometryChange.getCell();
 						final Table table = (Table) cell.getValue();
 						if (table != null) {
-							table.setX((int)geometryChange.getGeometry().getX());
-							table.setY((int)geometryChange.getGeometry().getY());
+							mxGeometry geometry = geometryChange.getGeometry();
+							table.setX((int)geometry.getX());
+							table.setY((int)geometry.getY());
 						}
 					}
 				}
@@ -150,9 +171,19 @@ public class DBDesignerGraph extends mxGraphComponent {
 	}
 
 	private void layoutGraph(final Object cell) {
-	    graph.getModel().beginUpdate();
-		layout.execute(cell);
-		graph.getModel().endUpdate();
+		graph.getModel().beginUpdate();
+		try {
+			layout.execute(cell);
+		} finally {
+			mxMorphing morph = new mxMorphing(this, 20, 1.2, 20);
+			morph.addListener(mxEvent.DONE, new mxIEventListener() {
+				public void invoke(Object sender, mxEventObject evt) {
+					graph.getModel().endUpdate();
+				}
+			});
+			morph.startAnimation();
+		}
+		
     }
 
 	public void populateGraph(Database database) {
