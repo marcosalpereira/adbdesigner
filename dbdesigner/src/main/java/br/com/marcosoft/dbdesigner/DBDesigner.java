@@ -1,41 +1,24 @@
-/*
- * @(#)HelloWorld.java 3.3 23-APR-04
- *
- * Copyright (c) 2001-2004, Gaudenz Alder All rights reserved.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- */
 package br.com.marcosoft.dbdesigner;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
 
 import br.com.marcosoft.dbdesigner.model.Database;
-import br.com.marcosoft.dbdesigner.view.DBDesignerToolBar;
 import br.com.marcosoft.dbdesigner.view.DBDesignerGraph;
+import br.com.marcosoft.dbdesigner.view.DBDesignerToolBar;
 
 @SuppressWarnings("serial")
 public class DBDesigner extends JFrame {
@@ -90,9 +73,30 @@ public class DBDesigner extends JFrame {
 		getContentPane().setLayout(layout);
 		guiCriarToolbar();
 		guiCriarGraph();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		installWindowCloseHandler();
+
 		pack();
 		setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+	}
+
+	private void installWindowCloseHandler() {
+	    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+            public void windowClosing(WindowEvent evt) {
+				if (dBDesignerGraph.isDirty() && !sairSemSalvar()) {
+					return;
+				}
+				dispose();
+			}
+
+		});
+    }
+
+	private boolean sairSemSalvar() {
+		final int confirmDialog = JOptionPane.showConfirmDialog(this, "Sair sem salvar?",
+		        "Confirmação", JOptionPane.YES_NO_OPTION);
+		return confirmDialog == JOptionPane.YES_OPTION;
 	}
 
 	private void guiCriarGraph() {

@@ -1,6 +1,7 @@
 package br.com.marcosoft.dbdesigner.model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +11,9 @@ import java.util.TreeSet;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class Database {
+public class Database implements Serializable {
+    private static final long serialVersionUID = -3432072544320664139L;
+
 	static {
 		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
 	}

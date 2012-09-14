@@ -38,6 +38,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 	private final mxGraphLayout layout;
 	private Database database;
 	private boolean filtering;
+	private boolean dirty;
 
 	public DBDesignerGraph() {
 		super(new mxGraph());
@@ -73,41 +74,59 @@ public class DBDesignerGraph extends mxGraphComponent {
 				if (e.getClickCount() != 2) return;
 
 				final mxCell cell = (mxCell) getCellAt(e.getX(), e.getY());
-				if (cell != null) {
+				if (cell != null && cell.isVertex()) {
 					editTable(cell);
 				}
 			}
-
 
 		});
 	}
 
 	private void editTable(mxCell cell) {
-
 	}
 
 	public void showOnlyCellsWithTheseTags(String tags) {
 		this.filtering = true;
 		final Set<Entry<Table, Object>> entrySet = map.entrySet();
 		for (final Entry<Table, Object> entry : entrySet) {
-			setVisible((mxCell) entry.getValue(), entry.getKey().hasAnyOfThese(tags));
+			final Table table = entry.getKey();
+			setVisible((mxCell) entry.getValue(), table.hasAnyOfThese(tags));
         }
 		layoutGraph();
 	}
 
 	public void showAllCells() {
 		this.filtering = false;
-		final Set<Entry<Table, Object>> entrySet = map.entrySet();
+		restoreOriginalPositions();
+		resetAllEdgesPoints();
+
+	}
+
+	private void restoreOriginalPositions() {
+	    final Set<Entry<Table, Object>> entrySet = map.entrySet();
 		for (final Entry<Table, Object> entry : entrySet) {
-			mxCell cell = (mxCell) entry.getValue();
+			final mxCell cell = (mxCell) entry.getValue();
 			restoreOriginalPosition(cell, entry.getKey());
 			setVisible(cell, true);
 		}
-	}
+    }
+
+	private void resetAllEdgesPoints() {
+	    final mxIGraphModel model = graph.getModel();
+		model.beginUpdate();
+		final Object[] vertices = graph.getChildEdges(graph.getDefaultParent());
+		for (final Object object : vertices) {
+	        final mxCell cell = (mxCell) object;
+	        final mxGeometry geo = (mxGeometry) cell.getGeometry().clone();
+	        geo.setPoints(null);
+	        model.setGeometry(cell, geo);
+        }
+		model.endUpdate();
+    }
 
 	private void restoreOriginalPosition(mxCell cell, Table table) {
-		mxGeometry geometry = new mxGeometry(table.getX(), table.getY(), NODE_WIDTH, NODE_HEIGHT); 
-		mxIGraphModel model = graph.getModel();
+		final mxGeometry geometry = new mxGeometry(table.getX(), table.getY(), NODE_WIDTH, NODE_HEIGHT);
+		final mxIGraphModel model = graph.getModel();
 
 		model.beginUpdate();
 		model.setGeometry(cell, geometry);
@@ -120,7 +139,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 
 	private void setVisible(final mxCell cell, boolean visible) {
 		if (cell.getValue() == null) return;
-		mxIGraphModel model = graph.getModel();
+		final mxIGraphModel model = graph.getModel();
 		for (int i=0; i<cell.getEdgeCount(); i++) {
 			model.setVisible(cell.getEdgeAt(i), visible);
 		}
@@ -139,11 +158,12 @@ public class DBDesignerGraph extends mxGraphComponent {
 					if (change instanceof mxGeometryChange) {
 						final mxGeometryChange geometryChange = (mxGeometryChange) change;
 						final mxCell cell = (mxCell) geometryChange.getCell();
-						final Table table = (Table) cell.getValue();
-						if (table != null) {
-							mxGeometry geometry = geometryChange.getGeometry();
+						if (cell.isVertex()) {
+							final Table table = (Table) cell.getValue();
+							final mxGeometry geometry = geometryChange.getGeometry();
 							table.setX((int)geometry.getX());
 							table.setY((int)geometry.getY());
+							dirty = true;
 						}
 					}
 				}
@@ -175,7 +195,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 		try {
 			layout.execute(cell);
 		} finally {
-			mxMorphing morph = new mxMorphing(this, 20, 1.2, 20);
+			final mxMorphing morph = new mxMorphing(this, 20, 1.2, 20);
 			morph.addListener(mxEvent.DONE, new mxIEventListener() {
 				public void invoke(Object sender, mxEventObject evt) {
 					graph.getModel().endUpdate();
@@ -183,7 +203,7 @@ public class DBDesignerGraph extends mxGraphComponent {
 			});
 			morph.startAnimation();
 		}
-		
+
     }
 
 	public void populateGraph(Database database) {
@@ -230,10 +250,13 @@ public class DBDesignerGraph extends mxGraphComponent {
 	public void setDatabase(Database database) {
 		this.database = database;
 	    populateGraph(database);
-	    //layoutGraph();
     }
 
 	public Collection<Object> getVertexes() {
 		return map.values();
 	}
+
+	public boolean isDirty() {
+	    return dirty;
+    }
 }

@@ -7,7 +7,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jgraphx.jar">
+	<classpathentry kind="lib" path="lib/jgraphx.jar" sourcepath="/home/54706424372/dev/jgraphx/src">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/home/54706424372/dev/jgraphx/docs/api/"/>
 		</attributes>
