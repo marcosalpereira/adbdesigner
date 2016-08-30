@@ -37,7 +37,9 @@ public class SaveAction extends AbstractAction {
 
 	private void gravarXml(Database database) throws JAXBException, IOException {
 
-		final FileWriter fileWriter = new FileWriter(database.getFile().getAbsolutePath() + ".xml");
+		final String fileName = database.getFile().getAbsolutePath() + ".xml";
+		System.out.println(fileName);
+		final FileWriter fileWriter = new FileWriter(fileName);
 		fileWriter.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		beginTagDatabase(fileWriter, database);
 		final List<Table> tables = new ArrayList<Table>(database.getTables());

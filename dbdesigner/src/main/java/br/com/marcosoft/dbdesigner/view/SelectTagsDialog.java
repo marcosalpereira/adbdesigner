@@ -6,31 +6,43 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 
-public class SelectTagsDialog {
-	private String tags;
-	private JDialog frame;
+import org.apache.commons.lang.StringUtils;
 
-	public String getTags() {
+public class SelectTagsDialog {
+	private SelectTagsDialogFrame frame;
+
+	public static void main(String[] args) {
+		System.out.println(new SelectTagsDialog().getTags(Arrays.asList("a")));
+	}
+
+	public List<String> getTags(Collection<String> tags) {
 		frame = new SelectTagsDialogFrame();
-		return null;
+		for (final String tag : tags) {
+			frame.lstTagsModel.addElement(tag);
+		}
+		frame.setVisible(true);
+		return frame.selectedTags;
     }
 
 	@SuppressWarnings("serial")
     class SelectTagsDialogFrame extends JDialog {
+		private final List<String> selectedTags = new ArrayList<String>();
 		private JPanel jPanel1;
 		private JScrollPane jScrollPane1;
 		private JTextField txtNewTag;
@@ -40,6 +52,7 @@ public class SelectTagsDialog {
 		private JButton btnCancel;
 		private JButton btnOk;
 		private JPanel jPanel2;
+		private DefaultComboBoxModel lstTagsModel;
 
 		public SelectTagsDialogFrame() {
 			super();
@@ -88,7 +101,7 @@ public class SelectTagsDialog {
 					jScrollPane1 = new JScrollPane();
 					getContentPane().add(jScrollPane1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(3, 3, 3, 3), 0, 0));
 					{
-						final ListModel lstTagsModel = new DefaultComboBoxModel(new String[] {});
+						lstTagsModel = new DefaultComboBoxModel(new String[] {});
 						lstTags = new JList();
 						jScrollPane1.setViewportView(lstTags);
 						lstTags.setModel(lstTagsModel);
@@ -122,40 +135,49 @@ public class SelectTagsDialog {
 						});
 					}
 				}
-				this.addWindowListener(new WindowAdapter() {
-					@Override
-	                public void windowClosing(WindowEvent evt) {
-						thisWindowClosing(evt);
-					}
-				});
+
 				pack();
 				setSize(400, 300);
+				setTitle("Select tags");
 				setModal(true);
 
 			} catch (final Exception e) {
-			    //add your error handling code here
 				e.printStackTrace();
 			}
 		}
 
-		private void thisWindowClosing(WindowEvent evt) {
-			System.out.println("this.windowClosing, event="+evt);
-			dispose();
-		}
-
 		private void btnAddNewTagActionPerformed(ActionEvent evt) {
-			System.out.println("btnAddNewTag.actionPerformed, event="+evt);
-			//TODO add your code for btnAddNewTag.actionPerformed
+			final String text = StringUtils.trim(txtNewTag.getText());
+			if (StringUtils.isBlank(text)) {
+				if (selectedTags.isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Type a tag name");
+					return;
+				}
+			}
+			for (int i = 0; i<lstTagsModel.getSize(); i++) {
+				if (text.equalsIgnoreCase((String) lstTagsModel.getElementAt(i))) {
+					lstTags.setSelectedIndex(i);
+					return;
+				}
+			}
+			lstTagsModel.addElement(text);
+			txtNewTag.setText("");
+			txtNewTag.requestFocus();
 		}
 
 		private void btnOkActionPerformed(ActionEvent evt) {
-			System.out.println("btnOk.actionPerformed, event="+evt);
-			//TODO add your code for btnOk.actionPerformed
+			for (final int indice : lstTags.getSelectedIndices()) {
+				selectedTags.add((String) lstTagsModel.getElementAt(indice));
+			}
+			if (selectedTags.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Select at least one tag");
+				return;
+			}
+			dispose();
 		}
 
 		private void btnCancelActionPerformed(ActionEvent evt) {
-			System.out.println("btnCancel.actionPerformed, event="+evt);
-			//TODO add your code for btnCancel.actionPerformed
+			dispose();
 		}
 
 	}
